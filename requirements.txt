@@ -22,3 +22,7 @@ six==1.11.0
 traitlets==4.3.2
 twilio==6.10.5
 urllib3==1.22
+django-geojson==2.10.0
+django-leaflet==0.22.0
+jsonfield==2.0.2
+Pillow==4.2.1

@@ -22,6 +22,7 @@ urlpatterns = [
         'text': 'Hello, world!'
     }),
     url(r'^', include("apidata.urls")),
+    url(r'^',include("mushrooms.urls")),
 ]
 
 
