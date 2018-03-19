@@ -47,6 +47,12 @@ def account_activation_sent(request):
     return render(request, 'account_activation_sent.html')
 
 
+@login_required
+def home(request):
+    return render(request, 'home.html')
+
+
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))

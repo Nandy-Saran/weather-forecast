@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
-from accounts.views import signup, activate, account_activation_sent
+from accounts.views import signup, activate, account_activation_sent, home
 from django.conf.urls import url,include
 from django.contrib import admin # THIS LINE
 admin.autodiscover()
@@ -24,6 +24,7 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^signup/$', signup, name='signup'),
+    url(r'^home/$', home, name='home'),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
     url(r'^account_activation_sent/$', account_activation_sent, name='account_activation_sent'),
