@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 
 
 def forecast(city='Coimbatore'):
+    # city = 'ooty'
     URL = 'http://api.openweathermap.org/data/2.5/forecast'
     param = dict(
         q=str(city+',in'),
@@ -85,4 +86,4 @@ class Graph(TemplateView):
 
 
 def simple(request):
-    return render(request,'search.html')
+    return render(request, 'search.html')

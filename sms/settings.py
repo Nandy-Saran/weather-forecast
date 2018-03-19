@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'apidata',
+    'accounts',
+    'crops',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,3 +129,18 @@ STATIC_URL = '/static/'
 TWILIO_ACCOUNT_SID='AC5b2974923534e7c0a1425e68cb0fface'
 
 TWILIO_AUTH_TOKEN='e7d7eb3b1beafa02c3ca2aefa2fd8a8f'
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'mailtohari.ai@gmail.com'  # your gmail id for testing purpose
+EMAIL_HOST_PASSWORD = 'admin'  # gmail id password
+DEFAULT_FROM_EMAIL = 'admin@gmail.com'  # your gmail id for testing purpose
+SERVER_EMAIL = 'admin@gmail.com'  # your gmail id for testing purpose
+
