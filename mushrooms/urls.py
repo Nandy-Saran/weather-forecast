@@ -29,7 +29,7 @@ from .models import MushroomSpot
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
+    #url(r'^sdf$', TemplateView.as_view(template_name='index.html'), name='home'),
     url(r'^data.geojson$', GeoJSONLayerView.as_view(model=MushroomSpot), name='data'),
     
 ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),

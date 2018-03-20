@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_twilio',
-    'mushrooms',
     'dataset',
     'leaflet',
+    'datamodel'
 ]
 
 MIDDLEWARE = [
