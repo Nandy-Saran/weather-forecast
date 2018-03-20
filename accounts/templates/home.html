@@ -1,5 +1,229 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
   <h2>Hello, {{ user.get_full_name }} <small>{{ user.username }}</small>!</h2>
+  
+<div id="page-top" data-spy="scroll" data-target=".navbar-custom">
+  <!-- Preloader -->
+  <div id="preloader">
+    <div id="load"></div>
+  </div>
+ <div id="google_translate_element"></div>
+  <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+        <a class="navbar-brand" href="index.html">
+          <h1 class="font2" style="text-shadow: 2px 2px grey;">Weather Prediction and Crop Advisory</h1>
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="font1 collapse navbar-collapse navbar-right navbar-main-collapse">
+        <ul class="nav navbar-nav">
+
+          <li class="active"><a href="#intro">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#chatbots">Chatbots</a></li>
+            <li><a href="#map">Map</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Agromet Advisory<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Crop Growth and Diseases</a></li>
+              <li><a href="#">Rainfall Prediction</a></li>
+              <li><a href="#">Weather Forecast</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+  </nav>
+
+  <!-- Section: intro -->
+  <section id="intro" class="intro">
+
+    <div class="slogan text_color">
+
+            <h2> Weather Prediction and Agromet Advisory </h2>
+
+
+    </div>
+    <p class="font11" style="color:white; text-align: center;font-size:35px;">Rainfall Prediction and Crop Growth Advice for Farmers.</p>
+    <div class="page-scroll">
+      <a href="#about" class="btn btn-circle">
+				<i class="fa fa-angle-double-down animated"></i>
+			</a>
+    </div>
+  </section>
+  <!-- /Section: intro -->
+
+  <!-- Section: about -->
+  <section id="about" class="home-section text-center">
+    <div class="heading-about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="wow bounceInDown" data-wow-delay="0.4s">
+              <div class="section-heading">
+                <h2>The Core Idea and Objectives</h2>
+                <i class="fa fa-2x fa-angle-down"></i>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+       <div class="container">
+            <div class="slogan text_color">
+                <h3 class="font1">
+                    Issues in the Current System
+                </h3>
+
+            </div>
+
+            <p class="font11" style="{text-align: center;}">
+                The management of weather and climate risks in agriculture has become an important issue due to climate change. The Intergovernmental Panel on Climate Change (IPCC) has highlighted multiple climate risks for agriculture and food security as well as the potential of improved weather and climate early warning systems to assist farmers. Wise use of weather and climate information can help to make better-informed policy, institutional and community decisions that reduce related risks and enhance opportunities, improve the efficient use of limited resources and increase crop, livestock and fisheries production. National Meteorological and Hydrological Services (NMHSs) have an important role to play in providing this weather and climate information to farmers, big and small.
+            </p>
+            <br>
+
+            <div class="slogan text_color ">
+                <h3 class="font1">
+                    Solution
+                </h3>
+
+            </div>
+
+            <p class="font11" style="{text-align: center;}">
+                These Services meet the real-time needs of farmers and contribute to weather-based crop/livestock management strategies and operations dedicated to enhancing crop production and food security.
+                They can make a tremendous difference in agricultural production by assisting farmers in taking the advantage of benevolent weather and in minimizing the adverse impact of malevolent weather.
+            </p>
+        </div>
+
+  </section>
+  <!-- /Section: about -->
+
+
+  <!-- Section: Chatbot-->
+  <section id="chatbots" class="home-section text-center bg-gray">
+
+    <div class="heading-about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="wow bounceInDown" data-wow-delay="0.4s">
+              <div class="section-heading">
+                <h2>Chatbots for Easy Communication</h2>
+                <i class="fa fa-2x fa-angle-down"></i>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="container">
+          <div class="slogan text_color">
+              <p class="font2" style="font-size: 30px;">
+                  If you’re like most companies, you think of live chat primarily as a customer service tool. From a support standpoint, live chat can be invaluable. But it can also be so much more. An increasing number of companies are turning to live chat for unconventional uses, finding creative ways to meet the needs of their customers whilst also boosting sales and loyalty in the process.
+              </p>
+
+          </div>
+      </div>
+
+  </section>
+  <!-- /Section: services -->
+
+  <!--Map Section -->
+
+  <section id="map" class="home-section text-center">
+      <div class="heading-about">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-8 col-lg-offset-2">
+                      <div class="wow bounceInDown" data-wow-delay="0.4s">
+                          <div class="section-heading">
+                              <h2>Map view</h2>
+                              <i class="fa fa-2x fa-angle-down"></i>
+
+                          </div>
+                      </div>
+
+                  </div>
+                  <div id="map2"></div>
+              </div>
+          </div>
+      </div>
+
+
+  </section>
+
+
+
+
+
+
+  <!-- Section: contact -->
+  <section id="contact" class="home-section text-center">
+    <div class="heading-contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="wow bounceInDown" data-wow-delay="0.4s">
+              <div class="section-heading">
+                <h2>Get in touch</h2>
+                <i class="fa fa-2x fa-angle-down"></i>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-12">
+          <div class="wow shake" data-wow-delay="0.4s">
+            <div class="page-scroll marginbot-30">
+              <a href="#intro" id="totop" class="btn btn-circle">
+							<i class="fa fa-angle-double-up animated"></i>
+						</a>
+            </div>
+          </div>
+          <p>&copy;GCT Technocrats. All rights reserved.</p>
+          <div class="credits">
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core JavaScript Files -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/jquery.scrollTo.js"></script>
+  <script src="js/wow.min.js"></script>
+  <!-- Custom Theme JavaScript -->
+  <script src="js/custom.js"></script>
+  <script src="contactform/contactform.js"></script>
+
+</div>
+
+
+
+  
+  
+  
 {% endblock %}
