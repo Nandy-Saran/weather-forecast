@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Crop',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('name', models.CharField(max_length=30)),
                 ('seas_no', models.CharField(max_length=30)),
                 ('MintempC', models.CharField(max_length=30, blank=True)),
@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Place',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('name', models.CharField(max_length=30)),
                 ('Lat', models.CharField(max_length=30, blank=True)),
                 ('Long', models.CharField(max_length=30, blank=True)),
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Weather',
             fields=[
-                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('date', models.CharField(max_length=30)),
                 ('datenum', models.CharField(max_length=30)),
                 ('moonrise', models.CharField(max_length=30)),
@@ -54,6 +54,9 @@ class Migration(migrations.Migration):
                 ('humidity', models.CharField(max_length=30)),
                 ('WindSpeedMil', models.CharField(max_length=30)),
                 ('WindGustMil', models.CharField(max_length=30)),
+                ('Winddir16Point', models.CharField(max_length=30)),
+                ('WindDesc', models.CharField(max_length=100, default='')),
+                ('WindDirdeg', models.CharField(max_length=30, default='')),
                 ('place', models.ForeignKey(to='datamodel.Place')),
             ],
         ),

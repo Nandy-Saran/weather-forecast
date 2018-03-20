@@ -8,9 +8,17 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=30, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
+    name = models.CharField(max_length=100, blank=True)
+    Mobile_no = models.CharField(max_length=15)
+    land_ha = models.FloatField(max_length=15, blank=True)
+    soil_type = models.CharField(max_length=15, blank=True)
+    soil_ph = models.FloatField(max_length=10, blank=True)
+    district = models.CharField(max_length=10, blank=True)
+    sub_district = models.CharField(max_length=10, blank=True)
+    category = models.CharField(max_length=10, blank=True)
+    yield_tons = models.FloatField()
+    crop1 = models.CharField(max_length=30, blank=True)
+    crop2 = models.CharField(max_length=30, blank=True)
     email_confirmed = models.BooleanField(default=False)
 
 
