@@ -40,25 +40,28 @@ def index(request):
             daily['date']=i.date
             daily['datenum']=i.datenum
             daily['WindDirdeg']=i.WindDirdeg
-            daily['WindditPt']=i.Winddir16Point
-            daily['num']=i.datenum
+            daily['WinddirPt']=i.Winddir16Point
             Forecast.append(daily)
             for k in CropObj:
                 if i.mintempC<k.MintempC:
-                    message+='Your Crop'+k.name+'may get affected due to cold temperature('+i.mintempC+' deg C) in'+i.datenum+'day(s)\n'
+                    message+='Your Crop '+k.name+' may get affected due to cold temperature('+ i.mintempC+ ' deg C) in'+i.datenum+'day(s)\n'
                 elif i.maxtempC>k.MaxtempC:
-                    message+='Your Crop'+k.name+'may get affected due to high temperature('+i.maxtempC+' deg C) in'+i.datenum+'day(s)\n'
+                    message+='Your Crop '+k.name+' may get affected due to high temperature( ' + i.maxtempC+ ' deg C) in'+i.datenum+'day(s)\n'
         dic['datas']=Forecast
         template = loader.get_template('index1.html')
-        context={'forecast':Forecast,'message':message}
+        context={'forecast':dic,'message':message}
+        print(context)
+
         return HttpResponse(template.render(context, request))
  
     placObj=Place.objects.all()
     lis=[]
     for i in placObj:
+        print(i.name)
         lis.append(i.name)
     template = loader.get_template('index1.html')
     context={'Placelist':lis}
+    print(context)
     return HttpResponse(template.render(context,request))
 
 	    

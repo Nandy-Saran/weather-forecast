@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'sms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
@@ -118,7 +118,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

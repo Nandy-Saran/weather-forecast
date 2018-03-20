@@ -465,20 +465,99 @@
                                         required>
                                     <option disabled selected>-----------</option>
                                     {% for place in Placelist %}
-                                        <option value="{{place.name}}"
-                                                data-subtext="{{ place.name }}">{{place.name}}</option>
+                                        <option value="{{ place }}"
+                                                data-subtext="{{ place }}">{{ place }}</option>
 
                                     {% endfor %}
                                 </select>
 				<div class="col-md-6 col-sm-6 col-xs-12">
-                                <button id="add" type="submit" class="btn1 btn-dark-green">Request OD</button>
+                                <button id="add" type="submit" class="btn1 btn-dark-green">Get Forecast</button>
                             </div>
 			</form>
-				{ % if forecast % }
-				{ % for i in forecast.datas %}
-				<p>i.desc</p>
-				{ % endfor % }
-				{ % endif % }
+                        <div class="col-md-12">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6">
+                                    <table class="table table-bordered" style="table-layout: fixed">
+                                    <tr>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>Date</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>Description</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>MaxTemp</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>MinTemp</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>Humidity</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>RainMM</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>Pressure</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>WindSp(Miles)</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>WindGst(Miles)</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>WindDir(deg)</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong>WindDirPt</strong></td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                <strong></strong></td>
+                                        </tr>
+				{% if forecast %}
+				{% for i in forecast.datas %}
+                                <tr>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.date }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.desc }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.max_temp }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.min_temp }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.humid }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.rainMM }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.pressure }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.windspMil }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.windGstMil }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.WindDirdeg }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.WinddirPt }}</td>
+                                            <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                                align="center">
+                                                {{ i.desc }}</td>
+                                        </tr>
+				{% endfor %}
+				{% endif %}
 
  
                         </div>
@@ -501,7 +580,7 @@
 			        
 	    </div>
           </div>
-          <p>&copy;GCT Technocrats. All rights reserved.</p>
+
           <div class="credits">
 
             </div>
