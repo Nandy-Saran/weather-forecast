@@ -120,19 +120,16 @@
 
 <div class="navbar-header nav nav-tabs presentation active">
 
-      <a class="navbar-brand active" href="graph">graph </a>
+    <a class="navbar-brand active" href={% url 'Graph' %}>graph </a>
     </div>
 </nav>
 </header>
 <h1></h1>
 </main>
 <div class="container-fluid">
-
 {% block content %}
     {% endblock %}
 </div>
-
-
 </main>
 </body>
 </html>

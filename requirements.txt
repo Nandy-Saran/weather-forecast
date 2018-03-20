@@ -3,7 +3,7 @@ certifi==2018.1.18
 chardet==3.0.4
 codegen==1.0
 decorator==4.2.1
-Django==1.10.5
+Django==1.8
 django-geojson==2.10.0
 django-leaflet==0.22.0
 django-phonenumber-field==2.0.0
