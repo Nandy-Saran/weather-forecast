@@ -8,7 +8,7 @@ csv_file = 'mycsv.csv'
 
 def dms2dec(value):
     """
-    Degres Minutes Seconds to Decimal degres
+    Degres Minutes Seconds to Decimal degrees
     """
     degres, minutes, seconds = value.split()
     #seconds, direction = seconds[:-1], seconds[-1]

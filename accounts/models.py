@@ -10,7 +10,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=True)
     Mobile_no = models.CharField(max_length=15)
-    land_ha = models.FloatField(max_length=15, blank=True)
+    land_ha = models.FloatField(max_length=15, blank=True, null=True)
     soil_type = models.CharField(max_length=15, blank=True)
     soil_ph = models.FloatField(max_length=10, blank=True)
     district = models.CharField(max_length=10, blank=True)

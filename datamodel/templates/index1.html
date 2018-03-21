@@ -10,14 +10,14 @@
   <title>Weather Prediction and Crop Advisory</title>
 
   <!-- Bootstrap Core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/staticfiles/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
   <!-- Fonts -->
-  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="css/animate.css" rel="stylesheet" />
+    <link href="/staticfiles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/staticfiles/css/animate.css" rel="stylesheet"/>
   <!-- Squad theme CSS -->
-  <link href="css/style.css" rel="stylesheet">
-  <link href="color/default.css" rel="stylesheet">
+    <link href="/staticfiles/css/style.css" rel="stylesheet">
+    <link href="/staticfiles/color/default.css" rel="stylesheet">
 
 
   <!--Start of Zendesk Chat Script-->
@@ -502,7 +502,10 @@
                                                 <strong>Pressure</strong></td>
                                             <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
                                                 align="center">
-                                                <strong>WindSp(Miles)</strong></td>
+                                                <strong>Crop Advice</strong></td>
+                                        <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                            align="center">
+                                            <strong>WindSp(Miles)</strong></td>
                                             <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
                                                 align="center">
                                                 <strong>WindGst(Miles)</strong></td>
@@ -515,6 +518,7 @@
                                             <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
                                                 align="center">
                                                 <strong></strong></td>
+
                                         </tr>
 				{% if forecast %}
 				{% for i in forecast.datas %}
@@ -540,6 +544,9 @@
                                             <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
                                                 align="center">
                                                 {{ i.pressure }}</td>
+                                    <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
+                                        align="center">
+                                        {{ i.message }}</td>
                                             <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
                                                 align="center">
                                                 {{ i.windspMil }}</td>
@@ -590,19 +597,19 @@
   </footer>
 
   <!-- Core JavaScript Files -->
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.min.js"></script>
-  <script src="js/jquery.scrollTo.js"></script>
-  <script src="js/wow.min.js"></script>
+  <script src="/staticfiles/js/jquery.min.js"></script>
+  <script src="/staticfiles/js/bootstrap.min.js"></script>
+  <script src="/staticfiles/js/jquery.easing.min.js"></script>
+  <script src="/staticfiles/js/jquery.scrollTo.js"></script>
+  <script src="/staticfiles/js/wow.min.js"></script>
   <!-- Custom Theme JavaScript -->
-  <script src="js/custom.js"></script>
-  <script src="contactform/contactform.js"></script>
+  <script src="/staticfiles/js/custom.js"></script>
+  <script src="/staticfiles/contactform/contactform.js"></script>
   <script>
   $(document).on("submit", '#demo-form2', function (e) {
 	var place=$('#dept').val();
 	$('#demo-form2').submit();
-});
+  });</script>
 </body>
 
 </html>
