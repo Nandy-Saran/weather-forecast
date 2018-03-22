@@ -3,9 +3,14 @@ pip install -r requirements.txt
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py shell
+```
+```djangotemplate
 
-You have to run the contents of file setup3.py in shell and then setup4.py then setup5.py
+execfile('setup3.py')
+execfile('setup4.py')
+execfile('setup5.py')
+```
 
-
+```bash
 python3 manage.py runserver
 ```

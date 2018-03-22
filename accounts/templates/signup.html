@@ -8,7 +8,7 @@
 
          {% else %}
   <h2>Sign up</h2>
-  <form  method="post">
+         <form class="form-control" method="post">
     {% csrf_token %}
     {% for field in form %}
       <p class="d-md-table-row">
@@ -22,7 +22,7 @@
         {% endfor %}<br><br>
       </p>
     {% endfor %}
-    <button type="submit">Sign up</button>
+             <button class="btn btn-primary" type="submit">Sign up</button>
   </form>
     {% endif%}
 {% endblock %}
