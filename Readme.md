@@ -10,6 +10,10 @@ execfile('setup3.py')
 execfile('setup4.py')
 execfile('setup5.py')
 ```
+```djangotemplate
+loaddata disease.json
+
+```
 
 ```bash
 python3 manage.py runserver
