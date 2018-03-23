@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    Sign Up
+{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <meta http-equiv="refresh" content="0; url=http://127.0.0.1:8000/"/>
+
+    {% else %}
+        <h2>Sign up</h2>
+        <form class="form-control" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" type="submit">Sign up</button>
+        </form>
+    {% endif %}
+{% endblock %}
