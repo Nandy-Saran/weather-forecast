@@ -477,6 +477,7 @@
                         <div class="col-md-12">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
+                                    {% if forecast %}
                                     <table class="table table-bordered" style="table-layout: fixed">
                                     <tr>
                                             <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"
@@ -520,7 +521,6 @@
                                                 <strong></strong></td>
 
                                         </tr>
-				{% if forecast %}
 				{% for i in forecast.datas %}
                                 <tr>
                                             <td class="warning" colspan="2" style="width: 10%; font-weight: bolder"

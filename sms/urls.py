@@ -21,9 +21,12 @@ urlpatterns = [
     # url(r'^hello_world/$', 'django_twilio.views.say', {
     #     'text': 'Hello, world!'
     # }),
+    url(r'^', include("accounts.urls")),
     url(r'^',include('datamodel.urls')),
     url(r'^', include("apidata.urls")),
-    url(r'^', include("accounts.urls")),
+
+
+
 ]
 
 
