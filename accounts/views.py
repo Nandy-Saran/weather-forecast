@@ -61,7 +61,7 @@ def signup(request):
                       from_email='admin@gmail.com',
                       recipient_list=[user.email],
                       )
-            return redirect(request, 'account_activation_sent')
+            return redirect('account_activation_sent')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
@@ -72,7 +72,7 @@ def account_activation_sent(request):
 
 
 @login_required
-def home(request):
+def home1(request):
     instanc = Profile.objects.get(user=request.user)
     print(instanc.location.name)
     WeathObj = Weather.objects.filter(place__name=instanc.location.name).filter(datenum__gte=0)
@@ -114,7 +114,6 @@ def home(request):
 
     dic1 = {}
     totinst = []
-    # totinst=Profile.objects.filter(location.name__in=instanc.location.name)
     req = {}
     for i in totinst:
         flag = 0
@@ -146,9 +145,13 @@ def home(request):
                 count += 1
                 break
     dic['required'] = req
-    template = loader.get_template('home.html')
+    template = loader.get_template('home1.html')
     context = {'forecast': dic}
-    return render(request, 'home.html', context)
+    return render(request, 'home1.html', context)
+
+
+def home(request):
+    return render(request, 'home.html')
 
 
 def activate(request, uidb64, token):
