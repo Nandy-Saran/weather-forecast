@@ -11,10 +11,8 @@ python3 manage.py shell
 ```
 
 In the django shell type the following
-```
->>> execfile('setup3.py')
->>> execfile('setup4.py')
->>> execfile('setup5.py')
+```djangotemplate
+execfile('setup.py')
 ```
 Open in new terminal and cd into project folder
 ```djangotemplate

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_twilio',
     'dataset',
     'leaflet',
+    'crops',
     'datamodel'
 ]
 
