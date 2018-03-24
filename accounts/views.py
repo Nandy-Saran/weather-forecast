@@ -21,7 +21,7 @@ from django.template import loader
 @login_required
 def subscriberView(request, **kwargs):
     if request.method == 'POST':
-        form = SubscriberForm(request.POST, user=request.user)
+        form = SubscriberForm(request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
             print(obj)
