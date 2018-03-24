@@ -8,3 +8,4 @@ __pycache__/
 .pydevproject
 000*.py
 db.sqlite3
+*.csv
