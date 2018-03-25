@@ -55,3 +55,14 @@ class Crop(models.Model):
 
     def __str__(self):
         return self.name
+
+class Pest(models.Model):
+    name=models.CharField(max_length=50)
+    crop=models.ForeignKey(Crop)
+    
+    def __str__(self):
+        return self.name
+
+class Pesticide(models.Model):   
+    pest=models.ForeignKey(Pest)
+    pesticide=models.CharField(max_length=300)
