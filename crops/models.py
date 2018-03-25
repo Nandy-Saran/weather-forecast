@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+
+
 # Create your models here.
 
 class crop(models.Model):
     Name = models.CharField(max_length=100)
     season = models.CharField(max_length=200)
     season_num = models.CharField(max_length=50)
-    comments  = models.CharField(max_length=200)
+    comments = models.CharField(max_length=200)
     min_temp = models.FloatField()
     max_temp = models.FloatField()
     fertilizer = models.CharField(max_length=50)

@@ -31,9 +31,6 @@ class Subscriber(models.Model):
     crop2 = models.ForeignKey(Crop, related_name='crop_1_Name', blank=True, null=True)
 
 
-
-
-
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:

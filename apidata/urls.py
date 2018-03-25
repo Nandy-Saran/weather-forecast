@@ -13,16 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url,include
+from django.conf.urls import url, include
 from django.contrib import admin
 
 from apidata.views import *
 
 urlpatterns = [
 
-url(r'^forecast/$', forecastview, name="apiforecast"),
-url(r'^simple/$', simple, name="apiforecast"),
-url(r'^graph/$', Graph.as_view(), name="Graph"),
-# url(r'^your_url/?$', 'apidata.views.your_view', name='your_url_name'),
+    url(r'^forecast/$', forecastview, name="apiforecast"),
+    url(r'^simple/$', simple, name="apiforecast"),
+    url(r'^graph/$', Graph.as_view(), name="Graph"),
+    # url(r'^your_url/?$', 'apidata.views.your_view', name='your_url_name'),
 
 ]

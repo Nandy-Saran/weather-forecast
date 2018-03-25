@@ -17,7 +17,7 @@ class SubscriberForm(forms.ModelForm):
         model = Subscriber
         fields = (
             'name', 'Mobile_no', 'land_ha', 'soil_ph', 'soil_type', 'district', 'location', 'category', 'crop1',
-            'crop2','user',
+            'crop2', 'user',
             'yield_tons'
         )
         widgets = {'user': forms.HiddenInput()}

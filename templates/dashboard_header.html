@@ -134,8 +134,9 @@
     {% if user.is_authenticated %}
         <link rel="manifest" href="/manifest.json">
         <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
-            <script>
+        <script>
             var current_active_batch;
+
             //For getting CSRF token
             function getCookie(name) {
                 var cookieValue = null;
@@ -155,33 +156,33 @@
 
             var OneSignal = window.OneSignal || [];
             OneSignal.push(["init", {
-              appId: "5f004f57-c64f-48b1-b9ae-8e6cb2646953",
-              autoRegister: true, /* Set to true to automatically prompt visitors */
-              notifyButton: {
-                  enable: true /* Set to false to hide */
-              }
-            }]);
-            OneSignal.push(function() {
-                  OneSignal.on('subscriptionChange', function(isSubscribed) {
-                    if (isSubscribed) {
-                      // The user is subscribed
-                      //   Either the user subscribed for the first time
-                      //   Or the user was subscribed -> unsubscribed -> subscribed
-                      OneSignal.getUserId( function(userId) {
-                        $.ajax({
-                            type: "POST",
-                            data: {
-                                onesignal_id: userId,
-                                csrfmiddlewaretoken: getCookie('csrftoken'),
-                            },
-                            url: '{% url 'add_onesignal_id' %}',
-                            success: function (data) {
-                                console.log(data['message']);
-                            }
-                        });
-                  });
+                appId: "5f004f57-c64f-48b1-b9ae-8e6cb2646953",
+                autoRegister: true, /* Set to true to automatically prompt visitors */
+                notifyButton: {
+                    enable: true /* Set to false to hide */
                 }
-              });
+            }]);
+            OneSignal.push(function () {
+                OneSignal.on('subscriptionChange', function (isSubscribed) {
+                    if (isSubscribed) {
+                        // The user is subscribed
+                        //   Either the user subscribed for the first time
+                        //   Or the user was subscribed -> unsubscribed -> subscribed
+                        OneSignal.getUserId(function (userId) {
+                            $.ajax({
+                                type: "POST",
+                                data: {
+                                    onesignal_id: userId,
+                                    csrfmiddlewaretoken: getCookie('csrftoken'),
+                                },
+                                url: '{% url 'add_onesignal_id' %}',
+                                success: function (data) {
+                                    console.log(data['message']);
+                                }
+                            });
+                        });
+                    }
+                });
             });
         </script>
     {% endif %}
@@ -213,7 +214,6 @@
 <script src={% static "dashboard/vendors/moment/moment.js" %}></script>
 <script src={% static "dashboard/vendors/bootstrap-daterangepicker/daterangepicker.js" %}></script>
 <script src={% static "dashboard/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js" %}></script>
-
 
 
 <!-- datatable -->

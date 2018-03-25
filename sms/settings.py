@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'bxo_y*$)5&j^&3&#ujnalwgrvb+_6d_-4t)*8#$-k)n(t5+sa6'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -77,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sms.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -87,7 +84,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -126,11 +122,9 @@ USE_TZ = True
 
 STATIC_URL = '/staticfiles/'
 
+TWILIO_ACCOUNT_SID = 'AC5b2974923534e7c0a1425e68cb0fface'
 
-
-TWILIO_ACCOUNT_SID='AC5b2974923534e7c0a1425e68cb0fface'
-
-TWILIO_AUTH_TOKEN='e7d7eb3b1beafa02c3ca2aefa2fd8a8f'
+TWILIO_AUTH_TOKEN = 'e7d7eb3b1beafa02c3ca2aefa2fd8a8f'
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
@@ -145,4 +139,3 @@ EMAIL_HOST_USER = 'mailtohari.ai@gmail.com'  # your gmail id for testing purpose
 EMAIL_HOST_PASSWORD = 'admin'  # gmail id password
 DEFAULT_FROM_EMAIL = 'admin@gmail.com'  # your gmail id for testing purpose
 SERVER_EMAIL = 'admin@gmail.com'  # your gmail id for testing purpose
-
