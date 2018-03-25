@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
-from accounts.views import signup, activate, account_activation_sent, home
+from accounts.views import signup, activate, account_activation_sent, home, subscriberView,home1
 from django.conf.urls import url,include
 from django.contrib import admin # THIS LINE
 admin.autodiscover()
@@ -25,11 +25,13 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^signup/$', signup, name='signup'),
     url(r'^home/$', home, name='home'),
-    url(r'^', auth_views.login, {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
+    url(r'^home1/$',home1,name='home1'),
     url(r'^account_activation_sent/$', account_activation_sent, name='account_activation_sent'),
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        activate, name='activate'),
+    url(r'^subscriberView/$', subscriberView, name='subscriberView'),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',activate, name='activate'),
+    url(r'^', auth_views.login, {'template_name': 'login.html'}, name='login'),
+
 ]
 
 

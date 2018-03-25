@@ -1,0 +1,122 @@
+[
+  {
+    "model": "datamodel.place",
+    "pk": 1,
+    "fields": {
+      "name": "Coimbatore",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 2,
+    "fields": {
+      "name": "Chennai",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 3,
+    "fields": {
+      "name": "pondicherry",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 4,
+    "fields": {
+      "name": "madurai",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 5,
+    "fields": {
+      "name": "mannargudi",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 6,
+    "fields": {
+      "name": "cuddalore",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 7,
+    "fields": {
+      "name": "villupuram",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 8,
+    "fields": {
+      "name": "shillong",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 9,
+    "fields": {
+      "name": "mathura",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 10,
+    "fields": {
+      "name": "delhi",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 11,
+    "fields": {
+      "name": "cherrapunji",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  },
+  {
+    "model": "datamodel.place",
+    "pk": 12,
+    "fields": {
+      "name": "thiruvananthapuram",
+      "Lat": "",
+      "Long": "",
+      "Pincode": ""
+    }
+  }
+]

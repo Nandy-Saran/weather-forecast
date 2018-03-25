@@ -7,6 +7,8 @@ class Place(models.Model):
     Long=models.CharField(max_length=30,blank=True)
     Pincode=models.CharField(max_length=30,blank=True)
 
+    def __str__(self):
+        return self.name
 
 class Weather(models.Model):
     place=models.ForeignKey(Place)
@@ -26,6 +28,9 @@ class Weather(models.Model):
     Winddir16Point=models.CharField(max_length=30)
     WindDesc=models.CharField(max_length=100)
     WindDirdeg=models.IntegerField()
+
+    def __str__(self):
+        return self.place.name
 
 
 
@@ -48,4 +53,5 @@ class Crop(models.Model):
     max_RainMM=models.FloatField(blank=True,null=True)
     pests=models.CharField(max_length=150,blank=True,null=True)
 
-
+    def __str__(self):
+        return self.name

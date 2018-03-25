@@ -17,7 +17,8 @@ def index(request):
 #            if i.date!=str(Date.now()):
 #                return
         for placOb in placObj:
-            WeathObj=Weather.objects.filter(place__name=placOb.name).filter(datenum__gte=0)
+            print(placOb)
+            WeathObj = Weather.objects.filter(place__name=placOb.name)  # .filter(datenum__gte=0)
         CropObj=Crop.objects.all()
         dic={}
         dic['avail']=True
@@ -25,6 +26,8 @@ def index(request):
         message=''
         for i in WeathObj:
             daily={}
+            message = ''
+            print(i.WindDesc)
             daily['desc']=i.WindDesc
             daily['max_temp']=i.mintempC
             daily['min_temp']=i.maxtempC
@@ -41,15 +44,17 @@ def index(request):
             daily['datenum']=i.datenum
             daily['WindDirdeg']=i.WindDirdeg
             daily['WinddirPt']=i.Winddir16Point
-            Forecast.append(daily)
+
             for k in CropObj:
-                if i.mintempC<k.MintempC:
-                    message+='Your Crop '+k.name+' may get affected due to cold temperature('+ i.mintempC+ ' deg C) in'+i.datenum+'day(s)\n'
-                elif i.maxtempC>k.MaxtempC:
-                    message+='Your Crop '+k.name+' may get affected due to high temperature( ' + i.maxtempC+ ' deg C) in'+i.datenum+'day(s)\n'
+                if k.MintempC and i.mintempC<k.MintempC:
+                    message+='Your Crop '+k.name+' may get affected due to cold temperature('+ str(i.mintempC)+ ' deg C) in'+str(i.datenum)+'day(s)\n'
+                elif k.MaxtempC and i.maxtempC>k.MaxtempC:
+                    message+='Your Crop '+k.name+' may get affected due to high temperature( ' + str(i.maxtempC)+ ' deg C) in'+str(i.datenum)+'day(s)\n'
+            daily['message'] = message
+            Forecast.append(daily)
         dic['datas']=Forecast
         template = loader.get_template('index1.html')
-        context={'forecast':dic,'message':message}
+        context = {'forecast': dic}
         print(context)
 
         return HttpResponse(template.render(context, request))

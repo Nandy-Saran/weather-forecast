@@ -1,0 +1,11 @@
+.idea/
+htmlcov/
+.coverage
+
+__pycache__/
+*.py[cod]
+.project
+.pydevproject
+000*.py
+db.sqlite3
+*.csv

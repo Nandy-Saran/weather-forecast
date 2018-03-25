@@ -7,7 +7,7 @@
         {% if user.is_authenticated %}
          <meta http-equiv="refresh" content="0; url=http://127.0.0.1:8000/home/" />
         {% endif %}
-  <h2 class="card-header col">Airline reservation login</h2>
+        <h2 class="card-header col">Farmer login</h2>
     </div>
   {% if form.errors %}
     <p style="color: red">Your username and password didn't match. Please try again.</p>
@@ -40,10 +40,10 @@
   </form>
     </div>
     </div>
-   <div align="center"> OR
-     <div  align="center">
+    {#   <div align="center">#}
+    {#     <div  align="center">#}
 {#         <img class="w-25 h-25" src="https://www.noviams.com/wp-content/uploads/2016/09/fb-google-login.png" >#}
-     </div>
-
-  </div>
+    {#     </div>#}
+    {##}
+    {#  </div>#}
 {% endblock %}
