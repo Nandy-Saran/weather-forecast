@@ -13,13 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
-from django.contrib import admin
+from django.conf.urls import url
 
-from Mlmodels.views import Graph
+from Mlmodels.views import Graph, Graph2
 
 urlpatterns = [
 
     url(r'^prediction/$', Graph.as_view(), name="Graph"),
+    url(r'^prophet/$', Graph2.as_view(), name="Graph"),
 
 ]
