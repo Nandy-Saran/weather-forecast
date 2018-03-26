@@ -137,7 +137,6 @@ def prediction_mape(city='Coimbatore'):
     return context
 
 
-
 def prophet_prediction(city='Coimbatore'):
     from fbprophet import Prophet
     import numpy as np
