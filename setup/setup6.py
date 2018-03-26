@@ -1,13 +1,13 @@
 from datamodel.models import Pest,Crop,Pesticide
 import pandas as pd
 df1=pd.read_csv('Pests-Sheet1.csv',sep=',')
-#df2=pd.read_csv('Pesticides-Sheet1.csv',sep=',')
-#for inst in df2.itertuples():
-#    try:
-#        s=Pesticide.objects.create(pestname=inst.PESTS.strip(),pesticide=inst.PESTICIDES.strip())
-#        print(s.pestname)
-#    except:
-#        print('NO')
+df2=pd.read_csv('Pesticides-Sheet1.csv',sep=',')
+for inst in df2.itertuples():
+    try:
+        s=Pesticide.objects.create(pestname=inst.PESTS.strip(),pesticide=inst.PESTICIDES.strip())
+        print(s.pestname)
+    except:
+        print('NO')
 for inst in df1.itertuples():
     ins=Crop.objects.get(name=inst.CROPS)
     print(inst.CROPS)
@@ -22,7 +22,7 @@ for inst in df1.itertuples():
         print(a.pest.all())
     print('ok')
     a.save()
-        #Pest.objects.create(crop=ins.pk,pest=tot)
+
 
 
     
