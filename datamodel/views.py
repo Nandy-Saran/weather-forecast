@@ -69,5 +69,10 @@ def index(request):
     print(context)
     return HttpResponse(template.render(context,request))
 
+#@login_required
+#def DoAPICall(request):
+#    PlacIns=Place.objects.all()
+    
+
 	    
         
