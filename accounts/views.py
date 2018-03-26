@@ -1,5 +1,6 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -40,30 +41,29 @@ def subscriberView(request, **kwargs):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
+        aadhar_number = request.POST['aadhar']
+        farmer_name = request.POST['fname']
+        password = request.POST['pin']
 
-            current_site = get_current_site(request)
-            subject = 'Activate Your MySite Account'
-            message = render_to_string('account_activation_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            send_mail(subject=subject,
-                      message=message,
-                      from_email='admin@gmail.com',
-                      recipient_list=[user.email],
-                      )
-            return redirect('account_activation_sent')
-    else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+        user_instance = User.objects.create_user(username=aadhar_number, password=password)
+        user_instance.first_name = farmer_name
+        user_instance.save()
 
+        return HttpResponseRedirect('/login/')
+
+    return render(request, 'signup.html')
+
+
+def user_login(request):
+    if request.method == "POST":
+        aadhar_number = request.POST['aadhar']
+        password = request.POST['pin']
+
+        user = authenticate(username=aadhar_number, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect('/')
+    return render(request, 'login.html')
 
 def account_activation_sent(request):
     return render(request, 'account_activation_sent.html')
@@ -159,7 +159,7 @@ def home1(request):
     context = {'forecast': dic}
     return render(request, 'home1.html', context)
 
-
+@login_required()
 def home(request):
     return render(request, 'home.html')
 

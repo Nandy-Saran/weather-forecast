@@ -1,51 +1,111 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Login</title>
+
+  <!-- Bootstrap Core CSS -->
+    {% load static %}
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+
+  <!-- Fonts -->
+  <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/animate.css' %}" rel="stylesheet" />
+  <!-- Squad theme CSS -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'color/default.css' %}" rel="stylesheet">
+
+<style>
+.form-textbox {
+
+height: 25px !important;
+
+width: 220px !important;
+
+font-size: 14px !important;
+
+}
+</style>
+
+</head>
+
+<body >
+
+  <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="col">
-            <div class="row">
-                {% if user.is_authenticated %}
-                    <meta http-equiv="refresh" content="0; url=http://127.0.0.1:8000/home/"/>
-                {% endif %}
-                <h2 class="card-header col">Farmer login</h2>
-            </div>
-            {% if form.errors %}
-                <p style="color: red">Your username and password didn't match. Please try again.</p>
-            {% endif %}
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+        <a class="navbar-brand" href="index.html">
+          <h1 class="font2" style="text-shadow: 2px 2px grey;">Farmer Login</h1>
+        </a>
+      </div>
 
-            <form class="form-control" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ next }}"/>
-                {% for field in form %}
-                    <p class="row">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="font1 collapse navbar-collapse navbar-right navbar-main-collapse">
+        <ul class="nav navbar-nav">
 
-                        {{ field.label_tag }}<br>
-                        {{ field }}<br>
-                        {% for error in field.errors %}
-                            <p style="color: red">{{ error }}</p>
-                        {% endfor %}
-                    {% if field.help_text %}
-                        <p>
-                            <small style="color: grey">{{ field.help_text }}</small>
-                        </p>
-                    {% endif %}
-                    </p>
-                {% endfor %}
-                <div class="row">
-                    <button type="submit" class="btn-outline-primary btn flex-lg-row col-3">Log in</button>
-                    <div class="col-3">
-                        {#    <a class="btn btn-light  flex-lg-row card-link" href="{% url 'signup' %}">Sign up</a>#}
-
-                    </div>
-                </div>
-
-            </form>
-        </div>
+          <li><a href="signup.html">Register</a></li>
+          <li class="active"><a href="login.html">Login</a></li>
+          </ul>
+      </div>
+      <!-- /.navbar-collapse -->
     </div>
-    {#   <div align="center">#}
-    {#     <div  align="center">#}
-    {#         <img class="w-25 h-25" src="https://www.noviams.com/wp-content/uploads/2016/09/fb-google-login.png" >#}
-    {#     </div>#}
-    {##}
-    {#  </div>#}
-{% endblock %}
+    <!-- /.container -->
+  </nav>
+
+ <section id="signup" class="home-section text-center">
+    <div class="heading-about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="wow bounceInDown" data-wow-delay="0.4s">
+              <div class="section-heading">
+                <h2>Farmer Login</h2>
+                <i class="fa fa-2x fa-angle-down"></i>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="container">
+            <div class="slogan text_color">
+                <h3 class="font1">
+                    Fill in the required details.
+                </h3>
+
+
+
+     </div>
+
+<div align="center">
+  <form class="form-textbox" method="post">
+      {% csrf_token %}
+    <div class="form-group">
+      <label for="aadhar">Aadhar ID:</label>
+      <input type="aadhar" class="form-control " id="aadhar" placeholder="Enter Aadhar Number" name="aadhar" maxlength="16">
+    </div>
+
+    <div class="form-group">
+      <label for="pin">Enter 4-digit PIN:</label>
+      <input type="password" class="form-control" id="pin" maxlength="4" width="30" height="30"  placeholder="Enter PIN" name="pin">
+    </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+</div>
+
+
+</section>
+</body>
+</html>
