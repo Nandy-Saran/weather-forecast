@@ -56,13 +56,17 @@ class Crop(models.Model):
     def __str__(self):
         return self.name
 
+class Pesticide(models.Model):   
+    pestname=models.CharField(max_length=50)
+    pesticide=models.CharField(max_length=300)
+    def __str__(self):
+        return self.pestname
+
+
 class Pest(models.Model):
-    name=models.CharField(max_length=50)
-    crop=models.ForeignKey(Crop)
+    pest=models.ManyToManyField(Pesticide)
+    crop=models.OneToOneField(Crop)
     
     def __str__(self):
-        return self.name
+        return self.crop.name+' '+self.pest.pestname
 
-class Pesticide(models.Model):   
-    pest=models.ForeignKey(Pest)
-    pesticide=models.CharField(max_length=300)

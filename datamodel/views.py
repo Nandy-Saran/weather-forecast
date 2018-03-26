@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from datamodel.models import Crop,Weather,Place
+from datamodel.models import Crop,Weather,Place,Pest
 from django.template import loader
 # Create your views here.
 from django.http import HttpResponse
