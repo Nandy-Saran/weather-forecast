@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 class Place(models.Model):
     name = models.CharField(max_length=30)
@@ -10,7 +9,6 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Weather(models.Model):
     place = models.ForeignKey(Place)
@@ -35,6 +33,7 @@ class Weather(models.Model):
         return self.place.name
 
 
+
 class Crop(models.Model):
     name = models.CharField(max_length=30)
     seas_no = models.CharField(max_length=50, blank=True, null=True)
@@ -57,18 +56,19 @@ class Crop(models.Model):
     def __str__(self):
         return self.name
 
-
-class Pest(models.Model):
-    name = models.CharField(max_length=50)
-    crop = models.ForeignKey(Crop)
-
-    def __str__(self):
-        return self.name
-
-
 class Pesticide(models.Model):
-    pest = models.ForeignKey(Pest)
+    pestname = models.CharField(max_length=50)
     pesticide = models.CharField(max_length=300)
 
+
     def __str__(self):
-        return self.pesticide
+        return self.pestname
+
+
+class Pest(models.Model):
+    pest = models.ManyToManyField(Pesticide)
+    crop = models.OneToOneField(Crop)
+    
+    def __str__(self):
+        return self.crop.name+' '+self.pest.pestname
+

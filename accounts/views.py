@@ -10,6 +10,8 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives, send_mail
 from accounts.forms import SignUpForm, SubscriberForm
 from accounts.tokens import account_activation_token
+from accounts.models import Profile,Subscriber
+from datamodel.models import Place, Crop, Weather,Pest,Pesticide
 from accounts.models import Profile, Subscriber
 from datamodel.models import Place, Crop, Weather
 from django.template import loader
@@ -26,7 +28,7 @@ def subscriberView(request, **kwargs):
             obj = form.save(commit=False)
             print(obj)
             print(request.user)
-
+            
             print(obj)
             obj.save()
             return redirect('home1')
@@ -77,12 +79,19 @@ def home1(request):
     Forecast = []
     message = ''
     comm = ''
+    lis2=[]
+    dic2={}
     if instanc.crop1.pH_min and instanc.crop1.pH_min > instanc.soil_ph:
-        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
-            instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
+        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
     if instanc.crop1.pH_min and instanc.crop1.pH_max < instanc.soil_ph:
-        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
-            instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
+        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
+    PesInst=Pest.objects.get(crop=instanc.crop1)
+
+    for Pstc in PesInst.pest.all():
+        dic2['Pest']=Pstc.pestname
+        dic2['Pesticide']=Pstc.pesticide
+        lis2.append(dic2)
+
     for i in WeathObj:
         daily = {}
         daily['desc'] = i.WindDesc
@@ -102,12 +111,10 @@ def home1(request):
         daily['WindDirdeg'] = i.WindDirdeg
         daily['WinddirPt'] = i.Winddir16Point
         if instanc.crop1.MintempC and instanc.crop1.MintempC < i.mintempC:
-            message += 'Your Crop ' + i.name + ' may get affected due to cold temperature(' + str(
-                i.mintempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
+            message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to cold temperature(' + str(i.mintempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
         if instanc.crop1.MaxtempC and instanc.crop1.MaxtempC > i.maxtempC:
-            message += 'Your Crop ' + i.name + ' may get affected due to high temperature( ' + str(
-                i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-        # daily['message'] = message
+            message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to high temperature( ' + str(i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
+        #daily['message'] = message
         Forecast.append(daily)
     dic['data'] = Forecast
     dic['advice'] = comm
@@ -145,6 +152,8 @@ def home1(request):
                 count += 1
                 break
     dic['required'] = req
+    dic['pestdet']=lis2
+    print(lis2)
     print(req)
     template = loader.get_template('home1.html')
     context = {'forecast': dic}
@@ -181,3 +190,17 @@ def fill_profile(request):
     else:
         form = ''
         pass
+
+
+def crop(request):
+    obj=Subscriber.objects.get(user=request.user)
+    cropIns=Crop.objects.get(name=obj.crop1.name)
+    dic=[]
+    Pesobj=Pest.objects.fiter(crop=cropIns)
+    for i in Pesobj:
+        dic1={}
+        PestcObj=Pesticide.objects.get(pest=i)
+        dic1['Pest']=i.name
+        dic1['Pesticide']=PestcObj.pesticide
+        dic.append(dic1)
+    return render(request,'cropPests.html',context={'dic':dic})
