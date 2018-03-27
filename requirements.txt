@@ -3,12 +3,14 @@ certifi==2018.1.18
 chardet==3.0.4
 codegen==1.0
 cycler==0.10.0
+Cython==0.28.1
 decorator==4.2.1
 Django==1.10.5
 django-geojson==2.10.0
 django-leaflet==0.22.0
 django-phonenumber-field==2.0.0
 django-twilio==0.9.0
+fbprophet==0.2.1
 idna==2.6
 ipython-genutils==0.2.0
 jsonfield==2.0.2
@@ -27,10 +29,12 @@ plotly==2.5.0
 PyJWT==1.6.0
 pyparsing==2.2.0
 PySocks==1.6.8
+pystan==2.17.1.0
 python-dateutil==2.7.0
 pytz==2018.3
 requests==2.18.4
 scikit-learn==0.19.1
+scipy==1.0.0
 six==1.11.0
 sklearn==0.0
 traitlets==4.3.2
