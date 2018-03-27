@@ -1,15 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <body id="graphbg">
+
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="{% url 'prediction' %}">
+                    <h1 style="color: dodgerblue" class="font2">Weather Prediction using Graph</h1>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="font1 collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <br>
+    <div class="container">
+        <div align="center">
+
+            {% if graph %}
+                <div style="width:600px;height:500px">
+                    {{ graph|safe }}
+                </div>
+            {% endif %}
 
 
-{% if graph %}
-    <div style="width:600px;height:500px">
-        {{ graph|safe }}
+
+            {% if graph2 %}
+                <div style="width:600px;height:500px">
+                    {{ graph2|safe }}
+                </div>
+            {% endif %}
+        </div>
     </div>
-{% endif %}
-
-
-
-{% if graph2 %}
-    <div style="width:600px;height:500px">
-        {{ graph2|safe }}
-    </div>
-{% endif %}
+    </body>
+{% endblock %}

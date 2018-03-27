@@ -9,21 +9,22 @@ def start(request):
     return render(request, "index.html")
 
 
-def index(request):
+def crop_advices(request):
     if request.method == 'POST':
         placObj = Place.objects.all()
+        # placOb1=placOb['dept']
+        # print(request.POST)
         #        WeatObj=Weather.objects.filter(name=placObj.name).filter(datenum=0)
         #        for i in WeatObj:
         #            if i.date!=str(Date.now()):
         #                return
         for placOb in placObj:
             print(placOb)
-            WeathObj = Weather.objects.filter(place__name=placOb.name)  # .filter(datenum__gte=0)
+        WeathObj = Weather.objects.filter(place__name=placOb.name)  # .filter(datenum__gte=0)
         CropObj = Crop.objects.all()
         dic = {}
         dic['avail'] = True
         Forecast = []
-        message = ''
         for i in WeathObj:
             daily = {}
             message = ''
@@ -55,7 +56,7 @@ def index(request):
             daily['message'] = message
             Forecast.append(daily)
         dic['datas'] = Forecast
-        template = loader.get_template('index1.html')
+        template = loader.get_template('crop_advices.html')
         context = {'forecast': dic}
         print(context)
 
@@ -65,8 +66,8 @@ def index(request):
     lis = []
     for i in placObj:
         print(i.name)
-        lis.append(i.name)
-    template = loader.get_template('index1.html')
+        lis.append(i)
+    template = loader.get_template('crop_advices.html')
     context = {'Placelist': lis}
     print(context)
     return HttpResponse(template.render(context, request))

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>AAWeather Prediction and Crop Advisory</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/staticfiles/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Fonts -->
+    <link href="/staticfiles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/staticfiles/css/animate.css" rel="stylesheet"/>
+    <!-- Squad theme CSS -->
+    <link href="/staticfiles/css/style.css" rel="stylesheet">
+    <link href="/staticfiles/color/default.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+<!-- Preloader -->
+<div id="preloader">
+    <div id="load"></div>
+</div>
+<!-- Section: intro -->
+{#<section id="intro" class="intro">#}
+{##}
+{#    <div class="slogan text_color">#}
+{##}
+{#        <h2> Weather Prediction and Agromet Advisory </h2>#}
+{##}
+{##}
+{#    </div>#}
+{#    <p class="font11" style="color:white; text-align: center;font-size:35px;">Rainfall Prediction and Crop Growth Advice#}
+{#        for Farmers.</p>#}
+{#    <div class="page-scroll">#}
+{#        <a href="#about" class="btn btn-circle">#}
+{#            <i class="fa fa-angle-double-down animated"></i>#}
+{#        </a>#}
+{#    </div>#}
+{#</section>#}
+<!-- /Section: contact -->
+<!--WeatheR Prediction section-->
+<section id="weather" class="home-section text-center">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>Weather Prediction</h2>
+                            <i class="fa fa-2x fa-angle-down"></i>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <form id="demo-form2" class="form-horizontal form-label-left" method="POST">
+                                    {% csrf_token %}
+                                    <select class="form-control" name="dept" id="dept" data-width="auto" required>
+                                        <option disabled selected>-----------</option>
+                                        {% for place in Placelist %}
+                                            <option value="{{ place }}" data-subtext="{{ place }}">{{ place }}</option>
+
+                                        {% endfor %}
+                                    </select>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <button id="add" type="submit" class="btn1 btn-dark-green">Get Forecast</button>
+                                    </div>
+                                </form>
+                                <div class="">
+                                    <div class=""></div>
+                                    <div class="">
+                                        {% if forecast %}
+                                            <table class="table table-bordered" style="table-layout: fixed">
+                                                <tr>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>Date</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>Description</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>MaxTemp</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>MinTemp</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>Humidity</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>RainMM</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>Pressure</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>Crop Advice</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>WindSp(Miles)</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>WindGst(Miles)</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>WindDir(deg)</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong>WindDirPt</strong></td>
+                                                    <td class="warning" colspan="2"
+                                                        style=" ; font-weight: bolder"
+                                                        align="center">
+                                                        <strong></strong></td>
+
+                                                </tr>
+                                                {% for i in forecast.datas %}
+                                                    <tr>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.date }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.desc }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.max_temp }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.min_temp }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.humid }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.rainMM }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.pressure }}</td>
+                                                        {#                                                        <td class="warning" colspan="2"#}
+                                                        {#                                                            style=" ; font-weight: bolder"#}
+                                                        {#                                                            align="center">#}
+                                                        {#                                                            {{ i.message }}</td>#}
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.windspMil }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.windGstMil }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.WindDirdeg }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.WinddirPt }}</td>
+                                                        <td class="warning" colspan="2"
+                                                            style=" ; font-weight: bolder"
+                                                            align="center">
+                                                            {{ i.desc }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>t
+                                        {% endif %}
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Core JavaScript Files -->
+<script src="/staticfiles/js/jquery.min.js"></script>
+<script src="/staticfiles/js/bootstrap.min.js"></script>
+<script src="/staticfiles/js/jquery.easing.min.js"></script>
+<script src="/staticfiles/js/jquery.scrollTo.js"></script>
+<script src="/staticfiles/js/wow.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="/staticfiles/js/custom.js"></script>
+<script src="/staticfiles/contactform/contactform.js"></script>
+<script>
+    $(document).on("submit", '#demo-form2', function (e) {
+        var place = $('#dept').val();
+        $('#demo-form2').submit();
+    });</script>
+</body>
+
+</html>

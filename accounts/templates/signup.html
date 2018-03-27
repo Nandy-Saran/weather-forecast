@@ -1,108 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Signup/Register</title>
-
-    <!-- Bootstrap Core CSS -->
-    {% load static %}
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
-
-    <!-- Fonts -->
-    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/animate.css' %}" rel="stylesheet"/>
-    <!-- Squad theme CSS -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'color/default.css' %}" rel="stylesheet">
-
-
-</head>
-
-<body>
-
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                <i class="fa fa-bars"></i>
-            </button>
-            <a class="navbar-brand" href="index.html">
-                <h1 class="font2" style="text-shadow: 2px 2px grey;">Farmer Signup/Register</h1>
-            </a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="font1 collapse navbar-collapse navbar-right navbar-main-collapse">
-            <ul class="nav navbar-nav">
-
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="{% url 'signup' %}">Signup</a></li>
-                <li><a href="{% url 'subscriberView' %}">Register</a></li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-
-<section id="signup" class="home-section text-center">
-    <div class="heading-about">
+    <body class="intro3">
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="wow bounceInDown" data-wow-delay="0.4s">
-                        <div class="section-heading">
-                            <h2>Farmer Signup</h2>
-                            <i class="fa fa-2x fa-angle-down"></i>
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="">
+                    <h1 class="font2" style="text-shadow: 2px 2px grey;">Farmer Signup/Register</h1>
+                </a>
+            </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="font1 collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="">Home</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Signup</a></li>
+                    <li><a href="{% url 'subscriberView' %}">Register</a></li>
+
+                </ul>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <section id="signup" class="home-section text-center">
+        <div class="heading-about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="wow bounceInDown" data-wow-delay="0.4s">
+                            <div class="section-heading">
+                                <h2 style="color: honeydew">Farmer Signup</h2>
+                                <i class="fa fa-2x fa-angle-down"></i>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="slogan text_color">
-            <h3 class="font1">
-                Fill in the required details.
-            </h3>
+        <div class="container">
+            <div class="slogan text_color">
+                <h3 class="font1" style="color: whitesmoke">
+                    Fill in the required details.
+                </h3>
 
 
+            </div>
+
+            <div align="center">
+                <form method="post" class="form-textbox" style="color:floralwhite;">
+                    {% csrf_token %}
+                    <div class="form-group" style="font-size: larger">
+                        <label for="aadhar">Aadhar ID:</label>
+                        <input type="aadhar" class="form-control" id="aadhar" placeholder="Enter Aadhar Number"
+                               name="aadhar" maxlength="12">
+                    </div>
+                    <div class="form-group" style="font-size: larger">
+                        <label for="fname">Farmer Name:</label>
+                        <input type="fname" class="form-control" id="fname" placeholder="Enter Farmer's name"
+                               name="fname">
+                    </div>
+
+                    <div class="form-group" style="font-size: larger">
+                        <label for="pin">Enter 4-digit PIN:</label>
+                        <input type="password" class="form-control" id="pin" placeholder="Enter PIN" name="pin"
+                               maxlength="4">
+                    </div>
+                    <div class="form-group" style="font-size: larger">
+                        <label for="pin2">Re-enter 4-digit PIN:</label>
+                        <input type="password" class="form-control" id="pin2" placeholder="Re-Enter PIN" name="pin2"
+                               maxlength="4">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
         </div>
 
-        <div align="left">
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="aadhar">Aadhar ID:</label>
-                    <input type="aadhar" class="form-control" id="aadhar" placeholder="Enter Aadhar Number"
-                           name="aadhar" maxlength="12">
-                </div>
-                <div class="form-group">
-                    <label for="fname">Farmer Name:</label>
-                    <input type="fname" class="form-control" id="fname" placeholder="Enter Farmer's name" name="fname">
-                </div>
 
-                <div class="form-group">
-                    <label for="pin">Enter 4-digit PIN:</label>
-                    <input type="password" class="form-control" id="pin" placeholder="Enter PIN" name="pin"
-                           maxlength="4">
-                </div>
-                <div class="form-group">
-                    <label for="pin2">Re-enter 4-digit PIN:</label>
-                    <input type="password" class="form-control" id="pin2" placeholder="Re-Enter PIN" name="pin2"
-                           maxlength="4">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-        </div>
-    </div>
+    </section>
 
-
-</section>
+{% endblock %}
 </body>
-</html>

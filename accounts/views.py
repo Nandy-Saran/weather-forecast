@@ -1,3 +1,5 @@
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -115,10 +117,12 @@ def home1(request):
         if instanc.crop1.MaxtempC and instanc.crop1.MaxtempC > i.maxtempC:
             message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to high temperature( ' + str(
                 i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-        # daily['message'] = message
+        daily['message'] = message
+        message = ''
         Forecast.append(daily)
     dic['data'] = Forecast
     dic['advice'] = comm
+    print(dic['data'])
 
     dic1 = {}
     totinst = Subscriber.objects.filter(location=instanc.location)
