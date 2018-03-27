@@ -1,7 +1,7 @@
 
 /* ==== Google font ==== */
 @import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Montserrat:700|Merriweather:400italic');
-@import url('https://fonts.googleapis.com/css?family=Alegreya+SC:400,500|Coustard|Great+Vibes|Homemade+Apple|Itim|Kaushan+Script|Love+Ya+Like+A+Sister|Merienda|Mina|Pacifico|Sacramento|Tangerine');
+@import url('https://fonts.googleapis.com/css?family=Alegreya SC:400,500|Coustard|Great+Vibes|Homemade+Apple|Itim|Kaushan+Script|Love+Ya+Like+A+Sister|Merienda|Mina|Pacifico|Sacramento|Tangerine');
 
 .font1{font-family: 'Mina', sans-serif;}
 .font2{font-family: 'Itim', cursive;}
@@ -221,10 +221,10 @@ a:focus {
 
 @keyframes shadowSpin{
   0%{
-    box-shadow: 10px -10px #39CCCC, -10px 10px #FFDC00;
+    box-shadow: 10px -10px #39CCCC, 10px 10px #FFDC00;
   }
   25%{
-    box-shadow: 10px 10px #39CCCC, -10px -10px #FFDC00;
+    box-shadow: 10px 10px #39CCCC, 10px -10px #FFDC00;
   }
   50%{
     box-shadow: -10px 10px #39CCCC, 10px -10px #FFDC00;
@@ -233,7 +233,7 @@ a:focus {
     box-shadow: -10px -10px #39CCCC, 10px 10px #FFDC00;
   }
   100%{
-    box-shadow: 10px -10px #39CCCC, -10px 10px #FFDC00;
+    box-shadow: 10px -10px #39CCCC, 10px 10px #FFDC00;
   }
 }
 
@@ -345,14 +345,13 @@ hr {
 
 .intro .slogan h2 {
 	color: #FFF;
-	text-shadow: none;
 	font-size: 60px;
 	line-height: 60px;
 	font-weight: 700;
 	font-family:'Alegreya SC', serif;
 	background-color: rgba(0, 0, 0, 0);
 	text-decoration: none;
-	border-width: 0px;
+	border-width:0px;
 	border-color: #000;
 	border-style: none;
 	text-shadow: -1px 0 1px #000;
@@ -593,7 +592,7 @@ Parallax
 ============================= */
 
 #parallax1{
-	background-image: url(../img/parallax/1.jpg);
+	background-image: url(../img/team/1.jpg);
 }
 
 #parallax1:after {
@@ -610,7 +609,7 @@ Parallax
 
 
 #parallax2{
-	background-image: url(../img/parallax/2.jpg);
+	background-image: url(../img/team/2.jpg);
 
 }
 
@@ -701,7 +700,7 @@ Parallax
 }
 
 @-webkit-keyframes pulse {
-    0 {
+    0% {
         -webkit-transform: scale(1);
         transform: scale(1);
     }
@@ -718,7 +717,7 @@ Parallax
 }
 
 @-moz-keyframes pulse {
-    0 {
+    0% {
         -moz-transform: scale(1);
         transform: scale(1);
     }

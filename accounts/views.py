@@ -30,7 +30,7 @@ def subscriberView(request, **kwargs):
 
             print(obj)
             obj.save()
-            return redirect('home1')
+            return redirect('/home1')
     else:
         form = SubscriberForm()
     form.fields['user'].initial = request.user
@@ -58,9 +58,12 @@ def user_login(request):
         password = request.POST['pin']
 
         user = authenticate(username=aadhar_number, password=password)
+        print(aadhar_number)
+        print (password)
         if user is not None:
+            print("User Success.")
             login(request, user)
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/home/')
     return render(request, 'login.html')
 
 def account_activation_sent(request):
@@ -70,20 +73,23 @@ def account_activation_sent(request):
 @login_required
 def home1(request):
     instanc = Subscriber.objects.get(user=request.user)
-    print(instanc.location)
-    WeathObj = Weather.objects.filter(place=instanc.location).filter(datenum__gte=0)
+    print(instanc.location, "This is location")
+    WeathObj = Weather.objects.filter(place=instanc.location)  #.filter(datenum__gte=0)
     dic = {}
     dic['avail'] = True
     Forecast = []
     message = ''
     comm = ''
-    if instanc.crop1.pH_min and instanc.crop1.pH_min > instanc.soil_ph:
-        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
-            instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
-    if instanc.crop1.pH_min and instanc.crop1.pH_max < instanc.soil_ph:
-        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
-            instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
+    if instanc.crop1.pH_min:
+        if instanc.crop1.pH_min > instanc.soil_ph:
+            comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
+                instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
+    if instanc.crop1.pH_max:
+        if instanc.crop1.pH_max < instanc.soil_ph:
+            comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
+                instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
     for i in WeathObj:
+        print(i)
         daily = {}
         daily['desc'] = i.WindDesc
         daily['max_temp'] = i.mintempC
@@ -102,15 +108,17 @@ def home1(request):
         daily['WindDirdeg'] = i.WindDirdeg
         daily['WinddirPt'] = i.Winddir16Point
         if instanc.crop1.MintempC and instanc.crop1.MintempC < i.mintempC:
-            message += 'Your Crop ' + i.name + ' may get affected due to cold temperature(' + str(
+            message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to cold temperature(' + str(
                 i.mintempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
         if instanc.crop1.MaxtempC and instanc.crop1.MaxtempC > i.maxtempC:
-            message += 'Your Crop ' + i.name + ' may get affected due to high temperature( ' + str(
+            message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to high temperature( ' + str(
                 i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-        # daily['message'] = message
+        daily['message'] = message
+        message=''
         Forecast.append(daily)
     dic['data'] = Forecast
     dic['advice'] = comm
+    print(dic['data'])
 
     dic1 = {}
     totinst = Subscriber.objects.filter(location=instanc.location)

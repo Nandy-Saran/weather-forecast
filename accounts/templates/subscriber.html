@@ -3,15 +3,58 @@
     Sign Up
 {% endblock %}
 {% block content %}
+    <body class="intro2">
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="font1 collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul class="nav navbar-nav">
+
+          <li><a href="/">Home</a></li>
+                <li class="active"><a href="/subscribeView/">Subscribe</a></li>
+            <li ><a href="/logout">Logout</a></li>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
     {% if user.is_authenticated %}
-        <h2>Sign up</h2>
-        <form class="form-control" method="post">
+        <div class="heading-about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="wow bounceInDown" data-wow-delay="0.4s">
+              <div class="section-heading">
+                <h2 >Subscribe Crops</h2>
+                <i class="fa fa-2x fa-angle-down"></i>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <form class="form-control form-textbox" method="post">
+        <br>
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
                 {{ hidden }}
             {% endfor %}
             {{ form.as_p }}
-            <button class="btn btn-primary" type="submit">Sign up</button>
+            <button class="btn btn-primary" type="submit"  >Sign up</button>
         </form>
     {% endif %}
+
 {% endblock %}
+</body>

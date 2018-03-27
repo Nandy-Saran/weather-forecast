@@ -12,18 +12,19 @@ def start(request):
 def index(request):
     if request.method == 'POST':
         placObj = Place.objects.all()
+        #placOb1=placOb['dept']
+       # print(request.POST)
         #        WeatObj=Weather.objects.filter(name=placObj.name).filter(datenum=0)
         #        for i in WeatObj:
         #            if i.date!=str(Date.now()):
         #                return
         for placOb in placObj:
             print(placOb)
-            WeathObj = Weather.objects.filter(place__name=placOb.name)  # .filter(datenum__gte=0)
+        WeathObj = Weather.objects.filter(place__name=placOb.name)  # .filter(datenum__gte=0)
         CropObj = Crop.objects.all()
         dic = {}
         dic['avail'] = True
         Forecast = []
-        message = ''
         for i in WeathObj:
             daily = {}
             message = ''
@@ -65,7 +66,7 @@ def index(request):
     lis = []
     for i in placObj:
         print(i.name)
-        lis.append(i.name)
+        lis.append(i)
     template = loader.get_template('index1.html')
     context = {'Placelist': lis}
     print(context)
