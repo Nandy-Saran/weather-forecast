@@ -39,12 +39,15 @@ def subscriberView(request, **kwargs):
 
 def signup(request):
     if request.method == 'POST':
-        aadhar_number = request.POST['aadhar']
+        #aadhar_number = request.POST['aadhar']
         farmer_name = request.POST['fname']
+        username = request.POST['uname']
+        email_id = request.POST['fmail']
         password = request.POST['pin']
 
-        user_instance = User.objects.create_user(username=aadhar_number, password=password)
+        user_instance = User.objects.create_user(username=username, password=password)
         user_instance.first_name = farmer_name
+        user_instance.email = email_id
         user_instance.save()
 
         return HttpResponseRedirect('/login/')
@@ -54,13 +57,13 @@ def signup(request):
 
 def user_login(request):
     if request.method == "POST":
-        aadhar_number = request.POST['aadhar']
+        username = request.POST['uname']
         password = request.POST['pin']
 
-        user = authenticate(username=aadhar_number, password=password)
+        user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/home')
     return render(request, 'login.html')
 
 
