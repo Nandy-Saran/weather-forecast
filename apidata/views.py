@@ -3,7 +3,7 @@ import requests
 import plotly.offline as opy
 import plotly.graph_objs as go
 from django.views.generic import TemplateView
-
+from twilio.rest import Client
 
 # Create your views here.
 
@@ -31,20 +31,25 @@ def your_view(request):
     # Your code
 
 
-def forecastview(request, **kwargs):
-    print('calling view forecast')
-    context = dict()
-    context['obj'] = forecast('Coimbatore')
-    print(context['obj'])
-
-    return render(request, 'forecast.html', context)
-
-
 class Graph(TemplateView):
     template_name = 'graph.html'
 
     def get_context_data(self, **kwargs):
         x = forecast()
+
+        TWILIO_ACCOUNT_SID = 'AC5b2974923534e7c0a1425e68cb0fface'
+
+        TWILIO_AUTH_TOKEN = 'e7d7eb3b1beafa02c3ca2aefa2fd8a8f'
+
+        client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+
+        msg = client.api.account.messages.create(
+            to="+919488608282",
+            from_="+18312222084",
+            body="hello"
+        )
+        print(msg.sid)
+
         context = super(Graph, self).get_context_data(**kwargs)
         c_name = x['city']['name']
         z = []

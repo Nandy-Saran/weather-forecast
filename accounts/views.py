@@ -42,6 +42,7 @@ def signup(request):
         aadhar_number = request.POST['aadhar']
         farmer_name = request.POST['fname']
         password = request.POST['pin']
+        print(request.POST)
 
         user_instance = User.objects.create_user(username=aadhar_number, password=password)
         user_instance.first_name = farmer_name
@@ -56,11 +57,14 @@ def user_login(request):
     if request.method == "POST":
         aadhar_number = request.POST['aadhar']
         password = request.POST['pin']
+        print(aadhar_number, password)
 
         user = authenticate(username=aadhar_number, password=password)
+        print(user)
         if user is not None:
+            print('if')
             login(request, user)
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/home/')
     return render(request, 'login.html')
 
 
