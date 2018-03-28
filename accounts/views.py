@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
-
+import datetime
 from accounts.forms import SubscriberForm
 from accounts.models import Subscriber
 from accounts.tokens import account_activation_token
@@ -27,8 +27,6 @@ def subscriberView(request, **kwargs):
             obj = form.save(commit=False)
             print(obj)
             print(request.user)
-
-            print(obj)
             obj.save()
             return redirect('home1')
     else:
@@ -42,7 +40,6 @@ def signup(request):
         aadhar_number = request.POST['aadhar']
         farmer_name = request.POST['fname']
         password = request.POST['pin']
-        print(request.POST)
 
         user_instance = User.objects.create_user(username=aadhar_number, password=password)
         user_instance.first_name = farmer_name
@@ -52,19 +49,15 @@ def signup(request):
 
     return render(request, 'signup.html')
 
-
 def user_login(request):
     if request.method == "POST":
         aadhar_number = request.POST['aadhar']
         password = request.POST['pin']
-        print(aadhar_number, password)
 
         user = authenticate(username=aadhar_number, password=password)
-        print(user)
         if user is not None:
-            print('if')
             login(request, user)
-            return HttpResponseRedirect('/home/')
+            return HttpResponseRedirect('/')
     return render(request, 'login.html')
 
 
@@ -78,22 +71,61 @@ def home1(request):
     print(instanc.location)
     WeathObj = Weather.objects.filter(place=instanc.location).filter(datenum__gte=0)
     dic = {}
+    dic['Recom']=False
+    dic['Picmes']=False
     dic['avail'] = True
     Forecast = []
     message = ''
     comm = ''
     lis2 = []
-    dic2 = {}
     if instanc.crop1.pH_min and instanc.crop1.pH_min > instanc.soil_ph:
         comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
             instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
     if instanc.crop1.pH_min and instanc.crop1.pH_max < instanc.soil_ph:
         comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
             instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
+    FerAd=instanc.crop1.ferAdv
+    IrrAd=instanc.crop1.irrAdv
+    dic['ferAdv']=FerAd
+    dic['IrrAdv']=IrrAd
+
+
+    if instanc.crop1.pick_start and instanc.datOfSow:
+        print(str(instanc.datOfSow)+'this is date of sow')
+        Picmsg=''
+        dic3={1:'Yesterday',0:'Today',2:'Day before yesterday'}
+        datdiff=datetime.date.today()-instanc.datOfSow
+        det=datdiff.days-instanc.crop1.pick_start
+        print(datdiff,det)
+        if instanc.crop1.interv:
+            if det>0:
+                if (det//instanc.crop1.interv)<instanc.crop1.count:
+                    count=det//instanc.crop1.interv
+                    Picmsg='You should have completed '+str(count-1)+'th pick and have to do '+str(count)+'th pick'
+                else:
+                    Picmsg='Please enter the total yield if processes are completed'
+            elif det>-3:
+                Picmsg='You have to start first pick in'+dic3[det]
+            else:
+                Picmsg='You have to start first pick in '+str(det*-1)+' days'
+        else:
+            if det>0 and det<4:
+                Picmsg='You should have started the picking before '+str(det)+' days'
+            elif det>-3:
+                Picmsg='You have to start first pick in'+dic3[det]
+            else:
+                Picmsg='You have to start first pick in '+str(det*-1)+' days'
+        dic['Picmes']=True
+        dic['Picmsg']=Picmsg
+        print(Picmsg)
+
     PesInst = Pest.objects.get(crop=instanc.crop1)
 
     for Pstc in PesInst.pest.all():
+        dic2={}
+        print(Pstc.pestname)
         dic2['Pest'] = Pstc.pestname
+        print(Pstc.pesticide)
         dic2['Pesticide'] = Pstc.pesticide
         lis2.append(dic2)
 
@@ -127,7 +159,6 @@ def home1(request):
     dic['data'] = Forecast
     dic['advice'] = comm
     print(dic['data'])
-
     dic1 = {}
     totinst = Subscriber.objects.filter(location=instanc.location)
     req = {}
@@ -159,10 +190,12 @@ def home1(request):
                         seas += dicsp[x] + ','
                     req['season'] = seas
                 count += 1
+                dic['Recom']=True
+                dic['required'] = req
                 break
-    dic['required'] = req
+    
     dic['pestdet'] = lis2
-    print(lis2)
+    #print(lis2)
     print(req)
     template = loader.get_template('home1.html')
     context = {'forecast': dic}

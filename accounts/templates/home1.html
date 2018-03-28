@@ -119,6 +119,21 @@
 
                     {% endfor %}
                 </table>
+                    <table class="table table-bordered" style="table-layout: fixed">
+                    <tr>
+                    <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
+                            <strong>Pest</strong></td>
+                        <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
+                            <strong>Pesticide</strong></td>
+                    </tr>
+                {% for i in forecast.pestdet %}
+                    <tr>
+                            <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
+                                {{ i.Pest }}</td>
+                            <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
+                                {{ i.Pesticide }}</td>
+                {% endfor %}
+                </table>
 
                 {% for i in forecast.data %}
                     <p style="color: darkred; font-size:medium"> {{ i.message }}</p>
@@ -127,13 +142,21 @@
                 <br>
                 <p style="color:blue">{{ forecast.advice }}</p>
                 <br>
-                {% if forecast.required.crop != '' %}
-                    <p class="tagline" style="color: white; font-size: larger">The crop {{ forecast.required.crop }} can
+                {% if forecast.Recom %}
+                    <p class="tagline" style="color: black; font-size: larger">The crop {{ forecast.required.crop }} can
                         be suitable for you </p>
                     <br>
-                    <p class="tagline" style="color: white; font-size: larger">
+                    <p class="tagline" style="color: black; font-size: larger">
                         During {{ forecast.required.season }}</p>
                 {% endif %}
+                {% if forecast.Picmes %}
+                    <p class="tagline" style="color: black; font-size: larger"> {{ forecast.Picmsg }} </p>
+                    <br>
+                {% endif %}
+                <p class="tagline" style="color: black; font-size: larger"> {{ forecast.ferAdv }} </p>
+                    <br>
+                <p class="tagline" style="color: black; font-size: larger"> {{ forecast.IrrAdv }} </p>
+                    <br>
             {% endif %}
 
 

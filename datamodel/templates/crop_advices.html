@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AAWeather Prediction and Crop Advisory</title>
+    <title>Weather Prediction and Crop Advisory</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/staticfiles/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -57,12 +57,21 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <form id="demo-form2" class="form-horizontal form-label-left" method="POST">
                                     {% csrf_token %}
-                                    <select class="form-control" name="dept" id="dept" data-width="auto" required>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    State
+                                </label>
+                                    <select class="form-control" name="stat" id="stat" data-width="auto" required>
                                         <option disabled selected>-----------</option>
-                                        {% for place in Placelist %}
-                                            <option value="{{ place }}" data-subtext="{{ place }}">{{ place }}</option>
+                                        {% for state in Statelist %}
+                                            <option value="{{ state }}" data-subtext="{{ state }}">{{ state }}</option>
 
                                         {% endfor %}
+                                    </select>
+                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    Location
+                                </label>
+                                    <select class="form-control" name="dist" id="dist" data-width="auto" required>
+                                        <option disabled selected>-----------</option>
                                     </select>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <button id="add" type="submit" class="btn1 btn-dark-green">Get Forecast</button>
@@ -199,7 +208,9 @@
     </div>
 </section>
 
-
+<form id="dummyForm" method="POST">
+        {% csrf_token %}
+    </form>
 <!-- Core JavaScript Files -->
 <script src="/staticfiles/js/jquery.min.js"></script>
 <script src="/staticfiles/js/bootstrap.min.js"></script>
@@ -209,11 +220,101 @@
 <!-- Custom Theme JavaScript -->
 <script src="/staticfiles/js/custom.js"></script>
 <script src="/staticfiles/contactform/contactform.js"></script>
-<script>
+<script type="text/javascript">
+
+function funn()
+{
+alert('Hiiii');
+
+}
+
+
+
+     function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+    $(document).on("change", '#stat', function (e) {
+            var State = $('#stat').val();
+          
+            $.ajax({
+                type: "POST",
+                data: {
+                    state: State,
+                    action: 'getDistricts',
+                    csrfmiddlewaretoken: getCookie('csrftoken')
+                },
+                url: '{% url 'crop_advices' %}',
+                success: function (data) {
+                    if (data.districtList.length == 0) {
+                        alert('No Districts');
+                    }
+
+                    $('#dist').empty();
+                    $('#dist').append('<option disabled selected>' + '-----------' + '</option>');
+                    var i;
+                    var temp;
+                    for (i = 0; (temp = data.districtList[i]); i++) {
+                        $('#dist').append('<option value="' + temp + '"'</option>');
+                    }
+                }
+            });
+        });
+
+
+
+
     $(document).on("submit", '#demo-form2', function (e) {
-        var place = $('#dept').val();
+        var state = $('#stat').val();
+        var place = $('#dist').val();
+        if(state==null){
+            alert('Select State');
+            return;
+        }
+        if(place==null){
+            alert('Select District');
+            return;
+        }
+        
         $('#demo-form2').submit();
-    });</script>
+    });
+</script>
+<script type="text/javascript">
+        $('document').ready(function () {
+            $('#print').click(function () {
+                {#                $('#selectionTabs').hide();#}
+                {#                $('#printShowable').show();#}
+                var printContent = document.getElementById('printArea');
+                var headContent = document.getElementById('headcontent');
+                var WinPrint = window.open('', '', '_self');
+                WinPrint.document.write(headContent.innerHTML);
+                WinPrint.document.write(printContent.innerHTML);
+                WinPrint.document.close();
+                WinPrint.focus();
+                WinPrint.print();
+                WinPrint.close();
+                {#                $('#printShowable').hide();#}
+                {#                $('#selectionTabs').show();#}
+            });
+        });
+    </script>
+
+
+
+
+
 </body>
 
 </html>
