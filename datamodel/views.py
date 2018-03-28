@@ -2,7 +2,7 @@ from django.shortcuts import render
 from datamodel.models import Crop, Weather, Place,State
 from django.template import loader
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 
 def start(request):

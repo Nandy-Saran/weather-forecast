@@ -27,7 +27,7 @@ class Subscriber(models.Model):
     location = models.ForeignKey(Place)
     category = models.CharField(max_length=10, blank=True, null=True)
     yield_tons = models.FloatField(null=True)
-    datOfSow=models.DateField()
+    datOfSow = models.DateField()
     crop1 = models.ForeignKey(Crop, related_name='crop_2_name', blank=True, null=True)
     crop2 = models.ForeignKey(Crop, related_name='crop_1_Name', blank=True, null=True)
 

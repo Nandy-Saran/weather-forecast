@@ -83,14 +83,3 @@ class Pest(models.Model):
 
     def __str__(self):
         return self.crop.name + ' ' + self.pest.pestname
-
-#class crop1(models.Model):
-#    name=models.CharField(max_length=30)
-#    disease=models.ManyToManyField(Disease)
-
-
-#class Disease(models.Model):
-#    Disease=models.CharField(max_length=264)
-#    Symptoms=models.CharField(max_length=528)
-
-

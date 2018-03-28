@@ -16,6 +16,7 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
+
 class SubscriberForm(forms.ModelForm):
     class Meta:
         model = Subscriber
@@ -24,5 +25,4 @@ class SubscriberForm(forms.ModelForm):
             'crop2', 'user','datOfSow',
             'yield_tons'
         )
-        widgets = {'datOfSow':DateInput(),
-'user': forms.HiddenInput()}
+        widgets = {'datOfSow': DateInput(), 'user': forms.HiddenInput()}
