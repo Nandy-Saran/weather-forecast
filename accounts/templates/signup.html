@@ -59,35 +59,103 @@
             <div align="center">
                 <form method="post" class="form-textbox" style="color:floralwhite;">
                     {% csrf_token %}
-                    <div class="form-group" style="font-size: larger">
-                        <label for="aadhar">Aadhar ID:</label>
+
+                    <div class="form-group" style="font-size: larger;color: black">
+                        <label class="control-label requiredField" for="aadhar">Aadhar ID: <span class="asteriskField">
+                                *
+                                </span></label>
+                        <div class="input-group">
+                                 <div class="input-group-addon">
+                                   <i class="fa fa-street-view">
+                                    </i>
+                                  </div>
+
                         <input type="text" class="form-control" id="aadhar" placeholder="Enter Aadhar Number"
                                name="aadhar" maxlength="12">
-                    </div>
-                    <div class="form-group" style="font-size: larger">
-                        <label for="fname">Farmer Name:</label>
-                        <input type="fname" class="form-control" id="fname" placeholder="Enter Farmer's name"
-                               name="fname">
-                    </div>
-                    <div class="form-group" style="font-size: larger">
-                        <label for="uname">User Name:</label>
-                        <input type="text" class="form-control" id="uname" placeholder="Enter User name" name="uname">
+                             </div>
+
                     </div>
 
-                        <div class="form-group" style="font-size: larger">
-                        <label for="fmail">Email Id:</label>
+                    <div class="form-group" style="color:black;font-size: larger">
+                        <label class="control-label requiredField" for="fname">Farmer Name:
+                         <span class="asteriskField">
+                            *
+                            </span></label>
+                        <div class="input-group">
+                        <div class="input-group-addon">
+                        <i class="fa fa-male">
+                            </i>
+                        </div>
+                        <input type="text" class="form-control" id="fname" placeholder="Enter Farmer's name"
+                               name="fname">
+                    </div>
+                        </div>
+
+
+                    <div class="form-group" style="color:black;font-size: larger">
+                        <label class="control-label requiredField" for="uname">User Name: <span class="asteriskField">
+                            *
+                            </span></label>
+                        <div class="input-group">
+                        <div class="input-group-addon">
+                        <i class="fa fa-user">
+                            </i>
+                        </div>
+                        <input type="text" class="form-control" id="uname" placeholder="Enter User name" name="uname">
+                    </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group" style="color:black;font-size: larger">
+                        <label class="control-label requiredField"  for="fmail">Email Id:
+                        <span class="asteriskField">
+                            *
+                        </span></label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                            <i class="fa fa-envelope">
+                            </i>
+                            </div>
                         <input type="email" class="form-control" id="fmail" placeholder="Enter Farmer's Email Id"
                                name="fmail">
                     </div>
-                    <div class="form-group" style="font-size: larger">
-                        <label for="pin">Enter 4-digit PIN:</label>
+                        </div>
+
+
+                    <div class="form-group" style="color:black;font-size: larger">
+                        <label class="control-label requiredField"  for="pin">Enter 4-digit PIN:
+                        <span class="asteriskField">
+                            *
+                        </span></label>
+                        <div class="input-group">
+                        <div class="input-group-addon">
+                    <i class="fa fa-key">
+                    </i>
+                    </div>
+
+
                         <input type="password" class="form-control" id="pin" placeholder="Enter PIN" name="pin"
                                maxlength="4">
                     </div>
-                    <div class="form-group" style="font-size: larger">
-                        <label for="pin2">Re-enter 4-digit PIN:</label>
+                    </div>
+
+
+                    <div class="form-group" style="color:black ;font-size: larger">
+                        <label class="control-label requiredField"   for="pin2">Re-enter 4-digit PIN:
+                        <span class="asteriskField">
+                            *
+                        </span></label>
+                        <div class="input-group">
+                        <div class="input-group-addon">
+                    <i class="fa fa-key">
+                    </i>
+                    </div>
                         <input type="password" class="form-control" id="pin2" placeholder="Re-Enter PIN" name="pin2"
                                maxlength="4">
+                    </div>
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
