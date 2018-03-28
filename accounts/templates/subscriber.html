@@ -49,9 +49,9 @@
             <br>
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
-                {{ hidden }}
+                <p style="color: darkgreen">   {{ hidden }}</p>
             {% endfor %}
-            {{ form.as_p }}
+            <p style="color:blue"> {{ form.as_p }}</p>
             <button class="btn btn-primary" type="submit">Sign up</button>
         </form>
     {% endif %}
