@@ -5,6 +5,7 @@ import plotly.graph_objs as go
 from django.views.generic import TemplateView
 from twilio.rest import Client
 
+
 # Create your views here.
 
 

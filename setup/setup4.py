@@ -1,24 +1,25 @@
-from datamodel.models import Place, Weather,State
+from datamodel.models import Place, Weather, State
 import requests
 import json
 
-obj=State.objects.get(name='Tamil Nadu')
+obj = State.objects.filter(name='Tamil Nadu')
+
 objec = Place.objects.filter(state=obj)
 URL1 = 'http://api.worldweatheronline.com/premium/v1/weather.ashx?key=8d1e6be726e24779bc3203822181303&q='
 URL2 = ',in&num_of_days=15&tp=24&format=json'
 for j in objec:
-    if j.name.find(' ')!=-1:
-        DistrNam=j.name
-        DistrNam.replace(' ','+')
+    if j.name.find(' ') != -1:
+        DistrNam = j.name
+        DistrNam.replace(' ', '+')
     else:
-        DistrNam=j.name
+        DistrNam = j.name
     URL = URL1 + DistrNam + URL2
     try:
         a = requests.get(URL).json()
         print(a['data']['request'][0]['query'])
-        strr=a['data']['request'][0]['query']
-        ind=a['data']['request'][0]['query'].find(',')
-        if strr[:ind]!=j.name:
+        strr = a['data']['request'][0]['query']
+        ind = a['data']['request'][0]['query'].find(',')
+        if strr[:ind] != j.name:
             print('***************This is not correct forecast**************************')
 
         for i in range(14):
@@ -41,21 +42,21 @@ for j in objec:
     except Exception as e:
         print(e)
         pass
-obj=State.objects.get(name='Andhra Pradesh')
+obj = State.objects.get(name='Andhra Pradesh')
 objec = Place.objects.filter(state=obj)
 URL1 = 'http://api.worldweatheronline.com/premium/v1/weather.ashx?key=8d1e6be726e24779bc3203822181303&q='
 URL2 = ',in&num_of_days=15&tp=24&format=json'
 for j in objec:
-    if j.name.find(' ')!=-1:
-        DistrNam=j.name
-        DistrNam.replace(' ','+')
+    if j.name.find(' ') != -1:
+        DistrNam = j.name
+        DistrNam.replace(' ', '+')
     else:
-        DistrNam=j.name
+        DistrNam = j.name
     URL = URL1 + DistrNam + URL2
     try:
         a = requests.get(URL).json()
         print(a['data']['request'][0]['query'])
-        if a['data']['request'][0]['query']!=j.name:
+        if a['data']['request'][0]['query'] != j.name:
             print('***************This is not correct forecast**************************')
 
         for i in range(14):

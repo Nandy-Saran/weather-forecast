@@ -39,7 +39,7 @@ def subscriberView(request, **kwargs):
 
 def signup(request):
     if request.method == 'POST':
-        #aadhar_number = request.POST['aadhar']
+        # aadhar_number = request.POST['aadhar']
         farmer_name = request.POST['fname']
         username = request.POST['uname']
         email_id = request.POST['fmail']

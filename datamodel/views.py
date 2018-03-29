@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from datamodel.models import Crop, Weather, Place,State
+from datamodel.models import Crop, Weather, Place, State
 from django.template import loader
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
@@ -10,13 +10,13 @@ def start(request):
 
 
 # placOb1=placOb['dept']
-        # print(request.POST)
-        #        WeatObj=Weather.objects.filter(name=placObj.name).filter(datenum=0)
-        #        for i in WeatObj:
-        #            if i.date!=str(Date.now()):
-        #                return
-        #for placOb in placObj:
-        #    print(placOb)
+# print(request.POST)
+#        WeatObj=Weather.objects.filter(name=placObj.name).filter(datenum=0)
+#        for i in WeatObj:
+#            if i.date!=str(Date.now()):
+#                return
+# for placOb in placObj:
+#    print(placOb)
 def crop_advices(request):
     if request.method == 'POST':
         if request.is_ajax():
@@ -32,11 +32,11 @@ def crop_advices(request):
                 dictionary['districtList'] = DistrictList
 
                 return JsonResponse(dictionary)
-       
+
         if 'place' in request.POST:
-  
-            plac=request.POST.get('place')
-        
+
+            plac = request.POST.get('place')
+
             WeathObj = Weather.objects.filter(place__name=plac)  # .filter(datenum__gte=0)
             CropObj = Crop.objects.all()
             dic = {}

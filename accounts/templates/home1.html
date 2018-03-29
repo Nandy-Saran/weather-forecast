@@ -119,20 +119,20 @@
 
                     {% endfor %}
                 </table>
-                    <table class="table table-bordered" style="table-layout: fixed">
+                <table class="table table-bordered" style="table-layout: fixed">
                     <tr>
-                    <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
+                        <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
                             <strong>Pest</strong></td>
                         <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
                             <strong>Pesticide</strong></td>
                     </tr>
-                {% for i in forecast.pestdet %}
-                    <tr>
-                            <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
-                                {{ i.Pest }}</td>
-                            <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
-                                {{ i.Pesticide }}</td>
-                {% endfor %}
+                    {% for i in forecast.pestdet %}
+                        <tr>
+                        <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
+                            {{ i.Pest }}</td>
+                        <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
+                            {{ i.Pesticide }}</td>
+                    {% endfor %}
                 </table>
 
                 {% for i in forecast.data %}
@@ -154,9 +154,9 @@
                     <br>
                 {% endif %}
                 <p class="tagline" style="color: black; font-size: larger"> {{ forecast.ferAdv }} </p>
-                    <br>
+                <br>
                 <p class="tagline" style="color: black; font-size: larger"> {{ forecast.IrrAdv }} </p>
-                    <br>
+                <br>
             {% endif %}
 
 

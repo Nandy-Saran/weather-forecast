@@ -8,5 +8,5 @@ for row in df.itertuples():
                             fertilizer=row.FertilizerKgpha, growthRegul=row.Growth_regulator,
                             pick_start=row.Picking_start, max_RainMM=row.max_Rain, min_RainMM=row.min_Rain,
                             min_yieldT=row.min_Yield, max_yieldT=row.max_Yield, pH_min=row.min_pH, pH_max=row.max_pH,
-                            ferAdv=row.FertilizerAdv,irrAdv=row.IRRIGATIONMETHODS)
+                            ferAdv=row.FertilizerAdv, irrAdv=row.IRRIGATIONMETHODS)
     print(a)

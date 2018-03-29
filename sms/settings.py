@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_twilio',
     'dataset',
-    'leaflet',
     'crops',
-    'datamodel'
+    'datamodel',
+    'Mlmodels'
 ]
 
 MIDDLEWARE = [

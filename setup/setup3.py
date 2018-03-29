@@ -1,19 +1,23 @@
-from datamodel.models import Place,State
+from datamodel.models import Place, State
 import pandas as pd
+import numpy as np
 
-df=pd.read_csv('csv/Indian-States-and-Districts-List.csv',sep=',',encoding='utf-8')
+for i in State.objects.all():
+    i.delete()
+df = pd.read_csv('csv/Indian-States-and-Districts-List.csv')
+df.columns = np.array(['state', 'district', 'statetype', 'as', 'asd', 'asdd', 'cd'])
 
-lis1=df['State'].unique()
+lis1 = df['state'].unique()
 for i in lis1:
-    StatCreat=State.objects.create(name=i)
+    obj = State.objects.create(name=i)
+    print(obj)
 
 for i in df.itertuples():
-    print(i.State,i.District)
-    StatInst=State.objects.get(name=i.State)
-    PlacCreat=Place.objects.create(name=i.District,state=StatInst)
+    print(i.state, i.district)
+    StatInst = State.objects.get(name=i.state)
+    place_obj = Place.objects.create(name=i.district, state=StatInst)
 
-
-#a = ['Coimbatore', 'Chennai', 'pondicherry', 'madurai', 'mannargudi', 'cuddalore', 'villupuram', 'shillong', 'mathura',
+# a = ['Coimbatore', 'Chennai', 'pondicherry', 'madurai', 'mannargudi', 'cuddalore', 'villupuram', 'shillong', 'mathura',
 #     'delhi', 'cherrapunji', 'thiruvananthapuram']
-#for i in a:
+# for i in a:
 #    s = Place.objects.create(name=i)

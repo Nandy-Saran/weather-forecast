@@ -16,13 +16,12 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-
 class SubscriberForm(forms.ModelForm):
     class Meta:
         model = Subscriber
         fields = (
             'name', 'Mobile_no', 'land_ha', 'soil_ph', 'soil_type', 'district', 'location', 'category', 'crop1',
-            'crop2', 'user','datOfSow',
+            'crop2', 'user', 'datOfSow',
             'yield_tons'
         )
         widgets = {'datOfSow': DateInput(), 'user': forms.HiddenInput()}

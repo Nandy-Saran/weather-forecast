@@ -4,8 +4,8 @@ from django.db import models
 # Create your models here.
 
 class State(models.Model):
-    name=models.CharField(max_length=30)
-    
+    name = models.CharField(max_length=30)
+
     def __str__(self):
         return self.name
 
@@ -15,7 +15,7 @@ class Place(models.Model):
     Lat = models.CharField(max_length=30, blank=True)
     Long = models.CharField(max_length=30, blank=True)
     Pincode = models.CharField(max_length=30, blank=True)
-    state=models.ForeignKey(State)
+    state = models.ForeignKey(State)
 
     def __str__(self):
         return self.name
@@ -61,9 +61,9 @@ class Crop(models.Model):
     FlowIniti = models.FloatField(blank=True, null=True)
     min_RainMM = models.FloatField(blank=True, null=True)
     max_RainMM = models.FloatField(blank=True, null=True)
-    #pests = models.CharField(max_length=150, blank=True, null=True)
-    ferAdv=models.CharField(max_length=300,null=True,blank=True)
-    irrAdv=models.CharField(max_length=300,null=True,blank=True)
+    # pests = models.CharField(max_length=150, blank=True, null=True)
+    ferAdv = models.CharField(max_length=300, null=True, blank=True)
+    irrAdv = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):
         return self.name
