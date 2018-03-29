@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
-from accounts.views import signup, activate, account_activation_sent, home, subscriberView, home1, user_login
+from accounts.views import signup, activate, account_activation_sent, home, subscriberView, home1,user_login
 from django.conf.urls import url, include
 from django.contrib import admin  # THIS LINE
 

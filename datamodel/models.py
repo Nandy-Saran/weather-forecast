@@ -15,7 +15,8 @@ class Place(models.Model):
     Lat = models.CharField(max_length=30, blank=True)
     Long = models.CharField(max_length=30, blank=True)
     Pincode = models.CharField(max_length=30, blank=True)
-    state = models.ForeignKey(State)
+    state=models.ForeignKey(State)
+    cropList=models.CharField(max_length=400,null=True,blank=True)
 
     def __str__(self):
         return self.name
@@ -83,3 +84,14 @@ class Pest(models.Model):
 
     def __str__(self):
         return self.crop.name + ' ' + self.pest.pestname
+
+#class crop1(models.Model):
+#    name=models.CharField(max_length=30)
+#    disease=models.ManyToManyField(Disease)
+
+
+#class Disease(models.Model):
+#    Disease=models.CharField(max_length=264)
+#    Symptoms=models.CharField(max_length=528)
+
+

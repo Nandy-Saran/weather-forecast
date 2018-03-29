@@ -25,11 +25,16 @@ class Subscriber(models.Model):
     soil_ph = models.FloatField(max_length=10, blank=True, null=True)
     district = models.CharField(max_length=10, blank=True, null=True)
     location = models.ForeignKey(Place)
-    category = models.CharField(max_length=10, blank=True, null=True)
+    category = models.CharField(max_length=25, blank=True, null=True)
     yield_tons = models.FloatField(null=True)
     datOfSow = models.DateField()
     crop1 = models.ForeignKey(Crop, related_name='crop_2_name', blank=True, null=True)
     crop2 = models.ForeignKey(Crop, related_name='crop_1_Name', blank=True, null=True)
+    pHadv=models.CharField(max_length=150)
+    picMsg=models.CharField(max_length=150)
+    cropmes=models.CharField(max_length=180)
+    recCrop=models.CharField(max_length=260)
+    isCurFarm=models.BooleanField(default=False)
 
 
 @receiver(post_save, sender=User)
