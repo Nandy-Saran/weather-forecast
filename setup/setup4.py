@@ -7,6 +7,7 @@ obj = State.objects.filter(name='Tamil Nadu')
 objec = Place.objects.filter(state=obj)
 URL1 = 'http://api.worldweatheronline.com/premium/v1/weather.ashx?key=8d1e6be726e24779bc3203822181303&q='
 URL2 = ',in&num_of_days=15&tp=24&format=json'
+
 for j in objec:
     if j.name.find(' ') != -1:
         DistrNam = j.name

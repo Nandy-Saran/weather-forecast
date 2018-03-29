@@ -2,13 +2,25 @@ from datamodel.models import Place, State
 import pandas as pd
 import numpy as np
 
-for i in State.objects.all():
-    i.delete()
+# try:
+#     for i in State.objects.all():
+#         i.delete()
+#     for i in Place.objects.all():
+#         i.delete()
+# except Exception as e:
+#     print(e)
+
+
+
 df = pd.read_csv('csv/Indian-States-and-Districts-List.csv')
 df.columns = np.array(['state', 'district', 'statetype', 'as', 'asd', 'asdd', 'cd'])
 
 lis1 = df['state'].unique()
 for i in lis1:
+    i = str(i)
+    i = i.strip()
+
+    print(i)
     obj = State.objects.create(name=i)
     print(obj)
 
