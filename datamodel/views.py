@@ -62,15 +62,25 @@ def crop_advices(request):
                 daily['datenum'] = i.datenum
                 daily['WindDirdeg'] = i.WindDirdeg
                 daily['WinddirPt'] = i.Winddir16Point
-
+                msg1=''
                 for k in CropObj:
                     if k.MintempC and i.mintempC < k.MintempC:
+                        cldcount+=1
+                        cldlis.append(i.date) 
                         message += 'Your Crop ' + k.name + ' may get affected due to cold temperature(' + str(
                             i.mintempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
                     elif k.MaxtempC and i.maxtempC > k.MaxtempC:
+                        hotcount+=1
+                        hotlis.append(i.date) 
                         message += 'Your Crop ' + k.name + ' may get affected due to high temperature( ' + str(
                             i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-                daily['message'] = message
+                    if hotcount!=0 and cldcount!=0:
+                        msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\nAnd due to high temperature for '+str(hotcount)+' days'
+                    elif hotcount!=0:
+                        msg1+='Your Crop may get affected due to high temperature for '+str(hotcount)+' days\n'
+                    elif cldcount!=0:
+                        msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\n'
+                daily['message']=msg1
                 Forecast.append(daily)
             dic['datas'] = Forecast
             template = loader.get_template('crop_advices.html')
@@ -96,7 +106,7 @@ def initiatDaily(request):
     weathObj=Weather.objects.filter(date_num__gt=0)
     for i in weathObj:
         i.delete()
-    lis=['Tamil Nadu','Andhra Pradesh','Kerala','Karnataka','Pondicherry']
+    lis=['Tamil Nadu','Andhra Pradesh','Kerala','Karnataka','Puducherry']
     obj=State.objects.get(name__in=lis)
     for obj1 in obj:
         objec = Place.objects.filter(state=obj1)
@@ -143,7 +153,7 @@ def initDB(request):
     locQuer=Place.objects.all()
     for ins1 in locQuer:
         print(ins1)
-        totinst = Subscriber.objects.filter(location=instanc.location)
+        totinst = Subscriber.objects.filter(location=instanc.location).filter(isCurFarm=True)
         WeathObj = Weather.objects.filter(place=instanc.location).filter(datenum__gte=0)
         for instanc in Subscriber.objects.filter(location=ins1):
             instanc.cropmes=instanc.recCrop=''
@@ -231,5 +241,21 @@ def initDB(request):
             print(req)
 
 
-
+def CalCropAr(request):
+    for plInst in Place.objects.all():
+        dic1={}
+        for subSr in Subscriber.objects.filter(location=plInst).filter(isCurFam=True):
+            flag = 0
+            for j in dic1:
+                if j == subSr.crop1:
+                    dic1[j] += subSr.land_ha
+                    flag = 1
+                    break
+            if flag == 0:
+                dic1[instanc.crop1] = subSr.land_ha
+        lis = sorted(dic1, key=lambda k: dic1[k])
+        text=''
+        for i in dic1:
+            text+=i+':'+str(dic1[i])+','
+        plInst.cropList=text[:-1]
 

@@ -13,7 +13,7 @@ from accounts.forms import SubscriberForm
 from accounts.models import Subscriber
 from accounts.tokens import account_activation_token
 from datamodel.models import Crop, Weather
-from datamodel.models import Pest, Pesticide
+from datamodel.models import disPest, Pesticide
 
 
 # Create your views here.
@@ -92,7 +92,6 @@ def home1(request):
     message = ''
     comm = ''
     lis2 = []
-    dic2 = {}
     if instanc.crop1.pH_min and instanc.crop1.pH_min > instanc.soil_ph:
         comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
             instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
@@ -136,7 +135,7 @@ def home1(request):
         instanc.picMsg=Picmsg
         print(Picmsg)
 
-    PesInst = Pest.objects.get(crop=instanc.crop1)
+    PesInst = disPest.objects.get(crop=instanc.crop1)
 
     for Pstc in PesInst.pest.all():
         dic2={}
@@ -168,31 +167,41 @@ def home1(request):
         daily['WindDirdeg'] = i.WindDirdeg
         daily['WinddirPt'] = i.Winddir16Point
         if instanc.crop1.MintempC and instanc.crop1.MintempC < i.mintempC:
+            cldcount+=1
+            cldlis.append(i.date)   
             message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to cold temperature(' + str(
                 i.mintempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
         if instanc.crop1.MaxtempC and instanc.crop1.MaxtempC > i.maxtempC:
+            hotcount+=1
+            hotlis.append(i.date)   
             message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to high temperature( ' + str(
                 i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-        daily['message'] = message
+        if hotcount!=0 and cldcount!=0:
+            msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\nAnd due to high temperature for '+str(hotcount)+' days'
+        elif hotcount!=0:
+            msg1+='Your Crop may get affected due to high temperature for '+str(hotcount)+' days\n'
+        elif cldcount!=0:
+            msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\n'
+        daily['message'] = msg1
         message = ''
         Forecast.append(daily)
+    instanc.cropmes=dic['mesg']
     dic['data'] = Forecast
     dic['advice'] = comm
     print(dic['data'])
-
     dic1 = {}
     totinst = Subscriber.objects.filter(location=instanc.location)
     req = {}
     for i in totinst:
         flag = 0
         for j in dic1:
-            if j == instanc.crop1:
+            if j == i.crop1:
                 dic1[j] += 1
                 flag = 1
                 break
         if flag == 0:
-            dic1[instanc.crop1] = 1
-    lis = sorted(req, key=lambda k: dic1[k])
+            dic1[i.crop1] = 1
+    lis = sorted(dic1, key=lambda k: dic1[k])
     count = 0
     for a in lis:
         if a != instanc.crop1:
@@ -212,10 +221,10 @@ def home1(request):
                     req['season'] = seas
                 count += 1
                 dic['Recom']=True
-                dic['required'] = 'Recommended Crop is '+req['crop']+' during '+req['season']+':Season'
+                dic['required'] = 'Recommended Crop is '+req['crop']+' during '+req['season']+':Season'  
                 instanc.recCrop=dic['required']
                 break
-
+    
     dic['pestdet'] = lis2
     #print(lis2)
     print(req)
@@ -261,10 +270,12 @@ def reCommCrop(request):
                 count += 1
         else:
             break
-        RecAdv="Recommed Crop(s) are:\n"
-        for i,j in zip(CropL,SeasL):
-            RecAdv+=i+' during '+j+':Season\n'
-
+    RecAdv="Recommed Crop(s) are:\n"
+    for i,j in zip(CropL,SeasL):
+        RecAdv+=i+' during '+j+':Season\n'
+    instanc.recCrop=RecAdv
+    instanc.save()
+    #return render(request,'recommendation.html',context={'Crop':CropL,'Season':SeasL})
 
 
 
@@ -305,7 +316,7 @@ def crop(request):
     obj = Subscriber.objects.get(user=request.user)
     cropIns = Crop.objects.get(name=obj.crop1.name)
     dic = []
-    Pesobj = Pest.objects.fiter(crop=cropIns)
+    Pesobj = disPest.objects.fiter(crop=cropIns)
     for i in Pesobj:
         dic1 = {}
         PestcObj = Pesticide.objects.get(pest=i)
