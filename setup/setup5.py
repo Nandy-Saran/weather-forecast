@@ -2,7 +2,7 @@ import pandas as pd
 
 from datamodel.models import Crop
 
-df = pd.read_csv('csv/CropsNew-Sheet.csv', sep=',', encoding='utf-8')
+df = pd.read_csv('CropsNew-Sheet.csv', sep=',', encoding='utf-8')
 for row in df.itertuples():
     a = Crop.objects.create(name=row.Crop, seas_no=row.Season_num, MintempC=row.Min_TempC, MaxtempC=row.Max_TempC,
                             fertilizer=row.FertilizerKgpha, growthRegul=row.Growth_regulator,

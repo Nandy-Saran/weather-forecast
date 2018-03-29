@@ -16,9 +16,15 @@ class Place(models.Model):
     Long = models.CharField(max_length=30, blank=True)
     Pincode = models.CharField(max_length=30, blank=True)
     state=models.ForeignKey(State)
+    cropList=models.CharField(max_length=400,null=True,blank=True)
 
     def __str__(self):
         return self.name
+
+class FertilizerReq(models.Model):
+    place=models.ForeignKey(Place)
+    fertilizer=models.CharField(max_length=200)
+    NoOfTonsReq=models.FloatField()
 
 
 class Weather(models.Model):
@@ -83,14 +89,14 @@ class Pest(models.Model):
 
     def __str__(self):
         return self.crop.name + ' ' + self.pest.pestname
+'''
+class crop1(models.Model):
+    name=models.CharField(max_length=30)
+    disease=models.ManyToManyField(Disease)
 
-#class crop1(models.Model):
-#    name=models.CharField(max_length=30)
-#    disease=models.ManyToManyField(Disease)
 
-
-#class Disease(models.Model):
-#    Disease=models.CharField(max_length=264)
-#    Symptoms=models.CharField(max_length=528)
-
+class Disease(models.Model):
+    Disease=models.CharField(max_length=264)
+    Symptoms=models.CharField(max_length=528)
+'''
 

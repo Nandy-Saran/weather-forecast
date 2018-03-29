@@ -2,8 +2,8 @@ import pandas as pd
 
 from datamodel.models import Pest, Crop, Pesticide
 
-df1 = pd.read_csv('csv/Pests-Sheet1.csv', sep=',')
-df2 = pd.read_csv('csv/Pesticides-Sheet1.csv', sep=',')
+df1 = pd.read_csv('Pests-Sheet1.csv', sep=',')
+df2 = pd.read_csv('Pesticides-Sheet1.csv', sep=',')
 for inst in df2.itertuples():
     try:
         s = Pesticide.objects.create(pestname=inst.PESTS.strip(), pesticide=inst.PESTICIDES.strip())
