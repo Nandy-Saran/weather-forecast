@@ -20,10 +20,11 @@ for j in objec:
         ind=a['data']['request'][0]['query'].find(',')
         if strr[:ind]!=j.name:
             print('***************This is not correct forecast**************************')
-
-        for i in range(14):
-            print(a['data']['weather'][i]['date'])
-            c = Weather.objects.create(place=j, date=a['data']['weather'][i]['date'], datenum=i,
+            print(j.name,strr[:ind])
+        else:
+            for i in range(14):
+                print(a['data']['weather'][i]['date'])
+                c = Weather.objects.create(place=j, date=a['data']['weather'][i]['date'], datenum=i,
                                        moonrise=a['data']['weather'][i]['astronomy'][0]['moonrise'],
                                        moonset=a['data']['weather'][i]['astronomy'][0]['moonset'],
                                        sunrise=a['data']['weather'][i]['astronomy'][0]['sunrise'],
@@ -55,12 +56,15 @@ for j in objec:
     try:
         a = requests.get(URL).json()
         print(a['data']['request'][0]['query'])
-        if a['data']['request'][0]['query']!=j.name:
+        strr=a['data']['request'][0]['query']
+        ind=a['data']['request'][0]['query'].find(',')
+        if strr[:ind]!=j.name:
             print('***************This is not correct forecast**************************')
-
-        for i in range(14):
-            print(a['data']['weather'][i]['date'])
-            c = Weather.objects.create(place=j, date=a['data']['weather'][i]['date'], datenum=i,
+            print(j.name,strr[:ind])
+        else:
+            for i in range(14):
+                print(a['data']['weather'][i]['date'])
+                c = Weather.objects.create(place=j, date=a['data']['weather'][i]['date'], datenum=i,
                                        moonrise=a['data']['weather'][i]['astronomy'][0]['moonrise'],
                                        moonset=a['data']['weather'][i]['astronomy'][0]['moonset'],
                                        sunrise=a['data']['weather'][i]['astronomy'][0]['sunrise'],

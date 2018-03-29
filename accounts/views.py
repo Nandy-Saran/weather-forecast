@@ -13,7 +13,7 @@ from accounts.forms import SubscriberForm
 from accounts.models import Subscriber
 from accounts.tokens import account_activation_token
 from datamodel.models import Crop, Weather
-from datamodel.models import Pest, Pesticide
+from datamodel.models import disPest, Pesticide
 
 
 # Create your views here.
@@ -135,7 +135,7 @@ def home1(request):
         instanc.picMsg=Picmsg
         print(Picmsg)
 
-    PesInst = Pest.objects.get(crop=instanc.crop1)
+    PesInst = disPest.objects.get(crop=instanc.crop1)
 
     for Pstc in PesInst.pest.all():
         dic2={}
@@ -176,10 +176,15 @@ def home1(request):
             hotlis.append(i.date)   
             message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to high temperature( ' + str(
                 i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-        daily['message'] = message
+        if hotcount!=0 and cldcount!=0:
+            msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\nAnd due to high temperature for '+str(hotcount)+' days'
+        elif hotcount!=0:
+            msg1+='Your Crop may get affected due to high temperature for '+str(hotcount)+' days\n'
+        elif cldcount!=0:
+            msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\n'
+        daily['message'] = msg1
         message = ''
         Forecast.append(daily)
-        dic['mesg']='Your Crop may get affected due to cold temperature for '+str(cldcount)+'\nAnd due to high temperature for '+str(hotcount)+' days'
     instanc.cropmes=dic['mesg']
     dic['data'] = Forecast
     dic['advice'] = comm
@@ -190,13 +195,13 @@ def home1(request):
     for i in totinst:
         flag = 0
         for j in dic1:
-            if j == instanc.crop1:
+            if j == i.crop1:
                 dic1[j] += 1
                 flag = 1
                 break
         if flag == 0:
-            dic1[instanc.crop1] = 1
-    lis = sorted(req, key=lambda k: dic1[k])
+            dic1[i.crop1] = 1
+    lis = sorted(dic1, key=lambda k: dic1[k])
     count = 0
     for a in lis:
         if a != instanc.crop1:
@@ -265,10 +270,12 @@ def reCommCrop(request):
                 count += 1
         else:
             break
-        RecAdv="Recommed Crop(s) are:\n"
-        for i,j in zip(CropL,SeasL):
-            RecAdv+=i+' during '+j+':Season\n'
-
+    RecAdv="Recommed Crop(s) are:\n"
+    for i,j in zip(CropL,SeasL):
+        RecAdv+=i+' during '+j+':Season\n'
+    instanc.recCrop=RecAdv
+    instanc.save()
+    #return render(request,'recommendation.html',context={'Crop':CropL,'Season':SeasL})
 
 
 
@@ -309,7 +316,7 @@ def crop(request):
     obj = Subscriber.objects.get(user=request.user)
     cropIns = Crop.objects.get(name=obj.crop1.name)
     dic = []
-    Pesobj = Pest.objects.fiter(crop=cropIns)
+    Pesobj = disPest.objects.fiter(crop=cropIns)
     for i in Pesobj:
         dic1 = {}
         PestcObj = Pesticide.objects.get(pest=i)
