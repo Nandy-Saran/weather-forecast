@@ -9,7 +9,7 @@ def prediction(city='Coimbatore'):
     import numpy as np
     import pandas as pd
     from sklearn.tree import DecisionTreeRegressor
-    df = pd.read_csv('districtwise1901_to_2002.csv')
+    df = pd.read_csv('csv/districtwise1901_to_2002.csv')
 
     df.info()
     df.dropna(how='any', inplace=True)
@@ -46,7 +46,7 @@ def prediction(city='Coimbatore'):
 
     reg = DecisionTreeRegressor(max_depth=20)
 
-    dft = pd.read_csv('test.csv')
+    dft = pd.read_csv('csv/test.csv')
     dft.info()
 
     dft_test = dft[['Year', 'mon']]
@@ -63,7 +63,7 @@ def prediction_mape(city='Coimbatore'):
     import pandas as pd
     from sklearn.tree import DecisionTreeRegressor
 
-    df = pd.read_csv('districtwise1901_to_2002.csv')
+    df = pd.read_csv('csv/districtwise1901_to_2002.csv')
     df.info()
     df.dropna(how='any', inplace=True)
     subdivs = df['District'].unique()
@@ -143,7 +143,7 @@ def prophet_prediction(city='Coimbatore'):
     import pandas as pd
 
     # from subprocess import check_output
-    df = pd.read_csv('districtwise1901_to_2002.csv')
+    df = pd.read_csv('csv/districtwise1901_to_2002.csv')
     print(df.info())
     context = {}
     context['city'] = city
@@ -169,7 +169,7 @@ def prophet_prediction(city='Coimbatore'):
     df2.index = range(df2.shape[0])
     df2 = pd.concat(z)
 
-    dft = pd.read_csv('test.csv')
+    dft = pd.read_csv('csv/test.csv')
     newdf = dft.merge(df2, left_on=['Year', 'mon'], right_on=['Year', 'mon'])
 
     df_train1 = newdf[(newdf['Year'] != 2002)]
