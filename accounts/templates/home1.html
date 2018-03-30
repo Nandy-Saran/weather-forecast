@@ -124,15 +124,18 @@
                             <strong>Pesticide</strong></td>
                     </tr>
                 {% for i in forecast.pestdet %}
+                    {% if i.Pest != None %}
                     <tr>
                             <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
                                 {{ i.Pest }}</td>
                             <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
                                 {{ i.Pesticide }}</td></tr>
+                    {% endif %}
                 {% endfor %}
                 </table>
 
                  <table class="table table-bordered" style="table-layout: fixed">
+
                     <tr>
                     <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
                             <strong>Disease</strong></td>
@@ -142,6 +145,7 @@
                             <strong>Remedy</strong></td>
                     </tr>
                 {% for i in forecast.disDet %}
+                    {% if i.disease != None %}
                     <tr>
                             <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
                                 {{ i.disease }}</td>
@@ -150,6 +154,7 @@
                             <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
                                 {{ i.remedy }}</td>
                     </tr>
+                    {% endif %}
                 {% endfor %}
                 </table>
 
