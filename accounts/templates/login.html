@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
     <body id="intro2">
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
@@ -34,7 +35,7 @@
                     <div class="col-lg-8 col-lg-offset-2">
                         <div class="wow bounceInDown" data-wow-delay="0.4s">
                             <div class="section-heading">
-                                <h2>Farmer Login</h2>
+                                <h2 style="color:white;">Farmer Login</h2>
                                 <i class="fa fa-2x fa-angle-down"></i>
 
                             </div>
@@ -46,7 +47,7 @@
 
         <div class="container">
             <div class="slogan text_color">
-                <h3 class="font1">
+                <h3 class="font1" style="color:white">
                     Fill in the required details.
                 </h3>
 
@@ -54,18 +55,40 @@
             </div>
 
             <div align="center">
-                <form class="form-textbox" method="post">
+                <form class="form-textbox" method="post" style="color:white; ">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="uname">Farmer Username:</label>
+
+                    <div class="form-group" style="font-size: larger">
+
+                        <label class="control-label requiredField" for="uname">Farmer Username:
+                        <span class="asteriskField">
+                            *
+                            </span>
+                        </label>
+                         <div class="input-group">
+                        <div class="input-group-addon">
+                        <i class="fa fa-male">
+                            </i>
+                        </div>
                         <input type="text" class="form-control " id="uname" placeholder="Enter Farmer Username"
                                name="uname">
                     </div>
+                    </div>
 
-                    <div class="form-group ">
-                        <label for="pin">Enter 4-digit PIN:</label>
+                    <div class="form-group" style="font-size: larger">
+                        <label class="control-label requiredField" for="pin">Enter 4-digit PIN:
+                        <span class="asteriskField">
+                            *
+                            </span></label>
+                        <div class="input-group">
+                        <div class="input-group-addon">
+                        <i class="fa fa-key">
+                            </i>
+                        </div>
                         <input type="password" class="form-control" id="pin" maxlength="4" width="30" height="30"
                                placeholder="Enter PIN" name="pin">
+
+                    </div>
                     </div>
 
                     <button class="btn btn-default">Submit</button>
