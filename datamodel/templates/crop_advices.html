@@ -55,24 +55,20 @@
                             <h2>Weather Prediction</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <form id="demo-form2" class="form-horizontal form-label-left" method="POST">
+                                <form id="demo-form2" class="form-horizontal form-label-left" action='crop_advices' method="POST">
                                     {% csrf_token %}
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    State
+                                    Location
                                 </label>
-                                    <select class="form-control" name="stat" id="stat" data-width="auto" required>
+                                    <select class="form-control" name="stat1" id="stat1" data-width="auto" required>
                                         <option disabled selected>-----------</option>
-                                        {% for state in Statelist %}
+                                        {% for state in Placelist %}
                                             <option value="{{ state }}" data-subtext="{{ state }}">{{ state }}</option>
 
                                         {% endfor %}
                                     </select>
-                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                    Location
-                                </label>
-                                    <select class="form-control" name="dist" id="dist" data-width="auto" required>
-                                        <option disabled selected>-----------</option>
-                                    </select>
+
+
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <button id="add" type="submit" class="btn1 btn-dark-green">Get Forecast</button>
                                     </div>
@@ -267,7 +263,7 @@ alert('Hiiii');
                     var i;
                     var temp;
                     for (i = 0; (temp = data.districtList[i]); i++) {
-                        $('#dist').append('<option value="' + temp + '"'</option>');
+                        $('#dist').append('<option value="' + temp + ' ">' +temp+'</option>');
                     }
                 }
             });
@@ -277,12 +273,12 @@ alert('Hiiii');
 
 
     $(document).on("submit", '#demo-form2', function (e) {
-        var state = $('#stat').val();
-        var place = $('#dist').val();
-        if(state==null){
+        //var state = $('#stat').val();
+        var place = $('#stat1').val();
+        /*if(state==null){
             alert('Select State');
             return;
-        }
+        }*/
         if(place==null){
             alert('Select District');
             return;

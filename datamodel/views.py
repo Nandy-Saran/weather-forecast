@@ -36,73 +36,72 @@ def crop_advices(request):
                 dictionary['districtList'] = DistrictList
 
                 return JsonResponse(dictionary)
-       
-        if 'place' in request.POST:
+
   
-            plac=request.POST.get('place')
-        
-            WeathObj = Weather.objects.filter(place__name=plac)  # .filter(datenum__gte=0)
-            CropObj = Crop.objects.all()
-            dic = {}
-            dic['avail'] = True
-            Forecast = []
-            for i in WeathObj:
-                daily = {}
-                message = ''
-                print(i.WindDesc)
-                daily['desc'] = i.WindDesc
-                daily['max_temp'] = i.mintempC
-                daily['min_temp'] = i.maxtempC
-                daily['humid'] = i.humidity
-                daily['rainMM'] = i.rainMM
-                daily['sunrise'] = i.sunrise
-                daily['sunset'] = i.sunset
-                daily['moonrise'] = i.moonrise
-                daily['moonset'] = i.moonset
-                daily['pressure'] = i.pressure
-                daily['windspMil'] = i.WindSpeedMil
-                daily['windGstMil'] = i.WindGustMil
-                daily['date'] = i.date
-                daily['datenum'] = i.datenum
-                daily['WindDirdeg'] = i.WindDirdeg
-                daily['WinddirPt'] = i.Winddir16Point
-                msg1=''
-                for k in CropObj:
-                    hotcount=0
-                    cldcount=0
-                    cldlis=hotlis=[]
-                    if k.MintempC and i.mintempC < k.MintempC:
-                        cldcount+=1
-                        cldlis.append(i.date) 
-                        message += 'Your Crop ' + k.name + ' may get affected due to cold temperature(' + str(
-                            i.mintempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-                    elif k.MaxtempC and i.maxtempC > k.MaxtempC:
-                        hotcount+=1
-                        hotlis.append(i.date) 
-                        message += 'Your Crop ' + k.name + ' may get affected due to high temperature( ' + str(
+        plac=request.POST.get('place')
+        print(plac)
+        WeathObj = Weather.objects.filter(place__name=plac)  # .filter(datenum__gte=0)
+        CropObj = Crop.objects.all()
+        dic = {}
+        dic['avail'] = True
+        Forecast = []
+        for i in WeathObj:
+            daily = {}
+            message = ''
+            print(i.WindDesc)
+            daily['desc'] = i.WindDesc
+            daily['max_temp'] = i.mintempC
+            daily['min_temp'] = i.maxtempC
+            daily['humid'] = i.humidity
+            daily['rainMM'] = i.rainMM
+            daily['sunrise'] = i.sunrise
+            daily['sunset'] = i.sunset
+            daily['moonrise'] = i.moonrise
+            daily['moonset'] = i.moonset
+            daily['pressure'] = i.pressure
+            daily['windspMil'] = i.WindSpeedMil
+            daily['windGstMil'] = i.WindGustMil
+            daily['date'] = i.date
+            daily['datenum'] = i.datenum
+            daily['WindDirdeg'] = i.WindDirdeg
+            daily['WinddirPt'] = i.Winddir16Point
+            msg1=''
+            for k in CropObj:
+                hotcount=0
+                cldcount=0
+                cldlis=hotlis=[]
+                if k.MintempC and i.mintempC < k.MintempC:
+                    cldcount+=1
+                    cldlis.append(i.date)
+                    message += 'Your Crop ' + k.name + ' may get affected due to cold temperature(' + str(
+                        i.mintempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
+                elif k.MaxtempC and i.maxtempC > k.MaxtempC:
+                    hotcount+=1
+                    hotlis.append(i.date)
+                    message += 'Your Crop ' + k.name + ' may get affected due to high temperature( ' + str(
                             i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-                    if hotcount!=0 and cldcount!=0:
-                        msg1+='Your Crop ' + k.name + ' may get affected due to cold temperature for '+str(cldcount)+' days\nAnd due to high temperature for '+str(hotcount)+' days'
-                    elif hotcount!=0:
-                        msg1+='Your Crop ' + k.name + ' may get affected due to high temperature for '+str(hotcount)+' days\n'
-                    elif cldcount!=0:
-                        msg1+='Your Crop ' + k.name + ' may get affected due to cold temperature for '+str(cldcount)+' days\n'
-                daily['message']=msg1
-                Forecast.append(daily)
-            dic['datas'] = Forecast
-            template = loader.get_template('crop_advices.html')
-            context = {'forecast': dic}
-            print(context)
+                if hotcount!=0 and cldcount!=0:
+                    msg1+='Your Crop ' + k.name + ' may get affected due to cold temperature for '+str(cldcount)+' days\nAnd due to high temperature for '+str(hotcount)+' days'
+                elif hotcount!=0:
+                    msg1+='Your Crop ' + k.name + ' may get affected due to high temperature for '+str(hotcount)+' days\n'
+                elif cldcount!=0:
+                    msg1+='Your Crop ' + k.name + ' may get affected due to cold temperature for '+str(cldcount)+' days\n'
+            daily['message']=msg1
+            Forecast.append(daily)
+        dic['datas'] = Forecast
+        template = loader.get_template('crop_advices.html')
+        context = {'forecast': dic}
+        print(context)
 
-            return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(context, request))
 
-    statObj = State.objects.all()
+    placObj = Place.objects.all()
     lis = []
-    for i in statObj:
+    for i in placObj:
         print(i.name)
         lis.append(i)
     template = loader.get_template('crop_advices.html')
-    context = {'Statelist': lis}
+    context = {'Placelist': lis}
     print(context)
     return HttpResponse(template.render(context, request))
 
@@ -266,3 +265,33 @@ def CalCropAr(request):
             text += i+':'+str(dic1[i])+','
         plInst.cropList=text[:-1]
 
+
+def fert_advices(request):
+    if request.method == 'POST':
+        plac = request.POST.get('place')
+        print(plac)
+        PlacObj = Place.objects.get(place__name=plac)  # .filter(datenum__gte=0)
+        Croplist=PlacObj.cropList
+        dic = {}
+        ar=Croplist.split(',')
+        for i in ar:
+            ar1=i.split(':')
+            dic['crop'] = ar1
+            dic['hectare'] =ar1
+        Forecast = []
+        dic['datas'] = Forecast
+        template = loader.get_template('fertAdvice.html')
+        context = {'advice': dic}
+        print(context)
+
+        return HttpResponse(template.render(context, request))
+
+    placObj = Place.objects.all()
+    lis = []
+    for i in placObj:
+        print(i.name)
+        lis.append(i)
+    template = loader.get_template('fertAdvice.html')
+    context = {'Placelist': lis}
+    print(context)
+    return HttpResponse(template.render(context, request))
