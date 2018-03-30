@@ -112,14 +112,11 @@
                                 {{ i.WindDirdeg }}</td>
                             <td class="warning" colspan="2" style="width: 10%; font-weight: bolder" align="center">
                                 {{ i.WinddirPt }}</td>
-
-
                         </tr>
-
 
                     {% endfor %}
                 </table>
-                    <table class="table table-bordered" style="table-layout: fixed">
+                <table class="table table-bordered" style="table-layout: fixed">
                     <tr>
                     <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
                             <strong>Pest</strong></td>
@@ -131,14 +128,35 @@
                             <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
                                 {{ i.Pest }}</td>
                             <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
-                                {{ i.Pesticide }}</td>
+                                {{ i.Pesticide }}</td></tr>
                 {% endfor %}
                 </table>
 
-                {% for i in forecast.data %}
-                    <p style="color: darkred; font-size:medium"> {{ i.message }}</p>
-
+                 <table class="table table-bordered" style="table-layout: fixed">
+                    <tr>
+                    <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
+                            <strong>Disease</strong></td>
+                        <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
+                            <strong>Symptoms</strong></td>
+                        <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
+                            <strong>Remedy</strong></td>
+                    </tr>
+                {% for i in forecast.disDet %}
+                    <tr>
+                            <td class="warning" colspan="2" style="width: 25%; font-weight: bolder" align="center">
+                                {{ i.disease }}</td>
+                            <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
+                                {{ i.symptoms }}</td>
+                            <td class="warning" colspan="2" style="width: 75%; font-weight: bolder" align="center">
+                                {{ i.remedy }}</td>
+                    </tr>
                 {% endfor %}
+                </table>
+
+
+                <p style="color: darkred; font-size:medium"> {{ forecast.mesg }}</p>
+
+
                 <br>
                 <p style="color:blue">{{ forecast.advice }}</p>
                 <br>

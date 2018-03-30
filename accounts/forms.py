@@ -20,9 +20,20 @@ class SubscriberForm(forms.ModelForm):
     class Meta:
         model = Subscriber
         fields = (
-            'name', 'Mobile_no', 'land_ha', 'soil_ph', 'soil_type', 'district', 'location', 'category', 'crop1',
-            'crop2', 'user','datOfSow',
+            'name', 'Mobile_no', 'land_ha', 'soil_ph', 'soil_type', 'district', 'location', 'category', 'currentCrop',
+            'prevCrop', 'user','datOfSow',
             'yield_tons'
         )
         widgets = {'datOfSow':DateInput(),
 'user': forms.HiddenInput()}
+
+
+class NoCurForm(forms.ModelForm):
+    class Meta:
+        model=Subscriber
+        fields =(
+            'name', 'Mobile_no', 'land_ha', 'soil_ph', 'soil_type', 'district', 'location', 'category',
+            'prevCrop', 'user',
+            'yield_tons'
+        )
+        widgets = {'user': forms.HiddenInput()}

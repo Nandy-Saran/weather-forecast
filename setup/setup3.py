@@ -1,7 +1,7 @@
 from datamodel.models import Place,State
 import pandas as pd
 
-df=pd.read_csv('Indian-States-and-Districts-List.csv',sep=',',encoding='utf-8')
+df=pd.read_csv('csv/Indian-States-and-Districts-List.csv',sep=',',encoding='utf-8')
 
 lis1=df['State'].unique()
 for i in lis1:
