@@ -55,7 +55,7 @@
                             <h2>Weather Prediction</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <form id="demo-form2" class="form-horizontal form-label-left" action='crop_advices' method="POST">
+                                <form id="demo-form2" class="form-horizontal form-label-left" action={% url 'crop_advices' %} method="POST">
                                     {% csrf_token %}
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
                                     Location

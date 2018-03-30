@@ -38,7 +38,7 @@ def crop_advices(request):
                 return JsonResponse(dictionary)
 
   
-        plac=request.POST.get('place')
+        plac=request.POST.get('stat1')
         print(plac)
         WeathObj = Weather.objects.filter(place__name=plac)  # .filter(datenum__gte=0)
         CropObj = Crop.objects.all()
@@ -250,7 +250,7 @@ def initDB(request):
 def CalCropAr(request):
     for plInst in Place.objects.all():
         dic1={}
-        for subSr in Subscriber.objects.filter(location=plInst).filter(isCurFam=True):
+        for subSr in Subscriber.objects.filter(location=plInst).filter(isCurFarm=True):
             flag = 0
             for j in dic1:
                 if j == subSr.currentCrop:
@@ -258,7 +258,7 @@ def CalCropAr(request):
                     flag = 1
                     break
             if flag == 0:
-                dic1[subSr.currentCrop] = subSr.land_ha
+                dic1[subSr.currentCrop.name] = subSr.land_ha
         lis = sorted(dic1, key=lambda k: dic1[k])
         text=''
         for i in dic1:
