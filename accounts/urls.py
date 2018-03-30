@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
-from accounts.views import signup, activate, account_activation_sent, home, subscriberView, home1, user_login
+from accounts.views import *
+#signup, activate, account_activation_sent, home, subscriberView, home1,user_login
 from django.conf.urls import url, include
 from django.contrib import admin  # THIS LINE
 
@@ -30,7 +31,10 @@ urlpatterns = [
     url(r'^home1/$', home1, name='home1'),
     url(r'^account_activation_sent/$', account_activation_sent, name='account_activation_sent'),
     url(r'^subscriberView/$', subscriberView, name='subscriberView'),
+    url(r'^newsubscView',newsubscView,name='newsubscView'),
+    url(r'^reCommCrop',reCommCrop,name='reCommCrop'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate,
         name='activate'),
+
 
 ]

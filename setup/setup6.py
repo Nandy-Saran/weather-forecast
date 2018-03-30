@@ -1,6 +1,6 @@
 import pandas as pd
 
-from datamodel.models import Pest, Crop, Pesticide
+from datamodel.models import disPest, Crop, Pesticide
 
 df1 = pd.read_csv('csv/Pests-Sheet1.csv', sep=',')
 df2 = pd.read_csv('csv/Pesticides-Sheet1.csv', sep=',')
@@ -15,12 +15,12 @@ for inst in df1.itertuples():
     print(inst.CROPS)
     ar = inst.PEST.split(',')
     tot = []
-    a = Pest.objects.create(crop=ins)
+    a = disPest.objects.create(crop=ins)
     print(ins.pk)
     for i in ar:
         tem = Pesticide.objects.get(pestname=i.strip())
         print(tem.pestname)
         a.pest.add(tem)
-        print(a.pest.all())
+    print(a.pest.all())
     print('ok')
     a.save()

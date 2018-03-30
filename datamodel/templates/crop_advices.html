@@ -55,24 +55,20 @@
                             <h2>Weather Prediction</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <form id="demo-form2" class="form-horizontal form-label-left" method="POST">
+                                <form id="demo-form2" class="form-horizontal form-label-left" action='crop_advices' method="POST">
                                     {% csrf_token %}
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                        State
-                                    </label>
-                                    <select class="form-control" name="stat" id="stat" data-width="auto" required>
+                                    Location
+                                </label>
+                                    <select class="form-control" name="stat1" id="stat1" data-width="auto" required>
                                         <option disabled selected>-----------</option>
-                                        {% for state in Statelist %}
+                                        {% for state in Placelist %}
                                             <option value="{{ state }}" data-subtext="{{ state }}">{{ state }}</option>
 
                                         {% endfor %}
                                     </select>
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                        Location
-                                    </label>
-                                    <select class="form-control" name="dist" id="dist" data-width="auto" required>
-                                        <option disabled selected>-----------</option>
-                                    </select>
+
+
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <button id="add" type="submit" class="btn1 btn-dark-green">Get Forecast</button>
                                     </div>
@@ -209,8 +205,8 @@
 </section>
 
 <form id="dummyForm" method="POST">
-    {% csrf_token %}
-</form>
+        {% csrf_token %}
+    </form>
 <!-- Core JavaScript Files -->
 <script src="/staticfiles/js/jquery.min.js"></script>
 <script src="/staticfiles/js/bootstrap.min.js"></script>
@@ -222,90 +218,97 @@
 <script src="/staticfiles/contactform/contactform.js"></script>
 <script type="text/javascript">
 
-    function funn() {
-        alert('Hiiii');
+function funn()
+{
+alert('Hiiii');
 
-    }
+}
 
 
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+
+     function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
             }
+            return cookieValue;
         }
-        return cookieValue;
-    }
 
     $(document).on("change", '#stat', function (e) {
-        var State = $('#stat').val();
+            var State = $('#stat').val();
+          
+            $.ajax({
+                type: "POST",
+                data: {
+                    state: State,
+                    action: 'getDistricts',
+                    csrfmiddlewaretoken: getCookie('csrftoken')
+                },
+                url: '{% url 'crop_advices' %}',
+                success: function (data) {
+                    if (data.districtList.length == 0) {
+                        alert('No Districts');
+                    }
 
-        $.ajax({
-            type: "POST",
-            data: {
-                state: State,
-                action: 'getDistricts',
-                csrfmiddlewaretoken: getCookie('csrftoken')
-            },
-            url: '{% url 'crop_advices' %}',
-            success: function (data) {
-                if (data.districtList.length == 0) {
-                    alert('No Districts');
+                    $('#dist').empty();
+                    $('#dist').append('<option disabled selected>' + '-----------' + '</option>');
+                    var i;
+                    var temp;
+                    for (i = 0; (temp = data.districtList[i]); i++) {
+                        $('#dist').append('<option value="' + temp + ' ">' +temp+'</option>');
+                    }
                 }
-
-                $('#dist').empty();
-                $('#dist').append('<option disabled selected>' + '-----------' + '</option>');
-                var i;
-                var temp;
-                for (i = 0; (temp = data.districtList[i]); i++) {
-                    $('#dist').append('<option value="' + temp + '"' < /option>');
-                }
-            }
+            });
         });
-    });
+
+
 
 
     $(document).on("submit", '#demo-form2', function (e) {
-        var state = $('#stat').val();
-        var place = $('#dist').val();
-        if (state == null) {
+        //var state = $('#stat').val();
+        var place = $('#stat1').val();
+        /*if(state==null){
             alert('Select State');
             return;
-        }
-        if (place == null) {
+        }*/
+        if(place==null){
             alert('Select District');
             return;
         }
-
+        
         $('#demo-form2').submit();
     });
 </script>
 <script type="text/javascript">
-    $('document').ready(function () {
-        $('#print').click(function () {
-            {#                $('#selectionTabs').hide();#}
-            {#                $('#printShowable').show();#}
-            var printContent = document.getElementById('printArea');
-            var headContent = document.getElementById('headcontent');
-            var WinPrint = window.open('', '', '_self');
-            WinPrint.document.write(headContent.innerHTML);
-            WinPrint.document.write(printContent.innerHTML);
-            WinPrint.document.close();
-            WinPrint.focus();
-            WinPrint.print();
-            WinPrint.close();
-            {#                $('#printShowable').hide();#}
-            {#                $('#selectionTabs').show();#}
+        $('document').ready(function () {
+            $('#print').click(function () {
+                {#                $('#selectionTabs').hide();#}
+                {#                $('#printShowable').show();#}
+                var printContent = document.getElementById('printArea');
+                var headContent = document.getElementById('headcontent');
+                var WinPrint = window.open('', '', '_self');
+                WinPrint.document.write(headContent.innerHTML);
+                WinPrint.document.write(printContent.innerHTML);
+                WinPrint.document.close();
+                WinPrint.focus();
+                WinPrint.print();
+                WinPrint.close();
+                {#                $('#printShowable').hide();#}
+                {#                $('#selectionTabs').show();#}
+            });
         });
-    });
-</script>
+    </script>
+
+
+
 
 
 </body>

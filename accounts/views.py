@@ -8,12 +8,12 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
-
-from accounts.forms import SubscriberForm
+import datetime
+from accounts.forms import SubscriberForm,NoCurForm
 from accounts.models import Subscriber
 from accounts.tokens import account_activation_token
 from datamodel.models import Crop, Weather
-from datamodel.models import Pest, Pesticide
+from datamodel.models import disPest, Pesticide
 
 
 # Create your views here.
@@ -26,9 +26,9 @@ def subscriberView(request, **kwargs):
         if form.is_valid():
             obj = form.save(commit=False)
             print(obj)
-            print(request.user)
-
-            print(obj)
+            print(obj.currentCrop)
+            if obj.currentCrop:
+                obj.isCurFarm=True
             obj.save()
             return redirect('home1')
     else:
@@ -36,34 +36,41 @@ def subscriberView(request, **kwargs):
     form.fields['user'].initial = request.user
     return render(request, 'subscriber.html', {'form': form})
 
+@login_required
+def newsubscView(request):
+    if request.method == "POST":
+        form = NoCurForm(request.POST)
+        if form.is_valid():
+            obj=form.save(commit=True)
+            return redirect('reCommCrop')
+    else:
+        form=NoCurForm()
+    form.fields['user'].initial=request.user
+    return render(request,'subscriber.html',{'form':form})
 
 def signup(request):
     if request.method == 'POST':
-        # aadhar_number = request.POST['aadhar']
+        aadhar_number = request.POST['aadhar']
         farmer_name = request.POST['fname']
-        username = request.POST['uname']
-        email_id = request.POST['fmail']
         password = request.POST['pin']
 
-        user_instance = User.objects.create_user(username=username, password=password)
+        user_instance = User.objects.create_user(username=aadhar_number, password=password)
         user_instance.first_name = farmer_name
-        user_instance.email = email_id
         user_instance.save()
 
         return HttpResponseRedirect('/login/')
 
     return render(request, 'signup.html')
 
-
 def user_login(request):
     if request.method == "POST":
-        username = request.POST['uname']
+        aadhar_number = request.POST['aadhar']
         password = request.POST['pin']
 
-        user = authenticate(username=username, password=password)
+        user = authenticate(username=aadhar_number, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect('/home')
+            return HttpResponseRedirect('/')
     return render(request, 'login.html')
 
 
@@ -77,25 +84,75 @@ def home1(request):
     print(instanc.location)
     WeathObj = Weather.objects.filter(place=instanc.location).filter(datenum__gte=0)
     dic = {}
+    dic['Recom']=False
+    dic['Picmes']=False
     dic['avail'] = True
+    instanc.pHadv=instanc.picMsg=instanc.cropmes=instanc.recCrop=''
     Forecast = []
-    message = ''
     comm = ''
-    lis2 = []
-    dic2 = {}
-    if instanc.crop1.pH_min and instanc.crop1.pH_min > instanc.soil_ph:
-        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
-            instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
-    if instanc.crop1.pH_min and instanc.crop1.pH_max < instanc.soil_ph:
-        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(
-            instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
-    PesInst = Pest.objects.get(crop=instanc.crop1)
+    lis2 = lis3 =[]
+    if instanc.currentCrop.pH_min and instanc.currentCrop.pH_min > instanc.soil_ph:
+        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.currentCrop.name + 'requires soil with pH range from' + str(
+            instanc.currentCrop.pH_min) + ' to ' + str(instanc.currentCrop.pH_max)
+    if instanc.currentCrop.pH_min and instanc.currentCrop.pH_max < instanc.soil_ph:
+        comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.currentCrop.name + 'requires soil with pH range from' + str(
+            instanc.currentCrop.pH_min) + ' to ' + str(instanc.currentCrop.pH_max)
+    instanc.pHadv=comm
+    FerAd=instanc.currentCrop.ferAdv
+    IrrAd=instanc.currentCrop.irrAdv
+    dic['ferAdv']=FerAd
+    dic['IrrAdv']=IrrAd
+
+    Picmsg = ''
+    if instanc.currentCrop.pick_start and instanc.datOfSow:
+        print(str(instanc.datOfSow)+'this is date of sow')
+        dic3={1:'Yesterday',0:'Today',2:'Day before yesterday'}
+        datdiff=datetime.date.today()-instanc.datOfSow
+        det=datdiff.days-instanc.currentCrop.pick_start
+        print(datdiff,det)
+        if instanc.currentCrop.interv:
+            if det>0:
+                if (det//instanc.currentCrop.interv)<instanc.currentCrop.count:
+                    count=det//instanc.currentCrop.interv
+                    Picmsg='You should have completed '+str(count-1)+'th pick and have to do '+str(count)+'th pick'
+                else:
+                    Picmsg='Please enter the total yield if processes are completed'
+            elif det>-3:
+                Picmsg='You have to start first pick in'+dic3[det]
+            else:
+                Picmsg='You have to start first pick in '+str(det*-1)+' days'
+        else:
+            if det>0 and det<4:
+                Picmsg='You should have started the picking before '+str(det)+' days'
+            elif det>-3:
+                Picmsg='You have to start first pick in'+dic3[det]
+            else:
+                Picmsg='You have to start first pick in '+str(det*-1)+' days'
+        dic['Picmes']=True
+    dic['Picmsg']=Picmsg
+    instanc.picMsg=Picmsg
+    print(Picmsg)
+
+    PesInst = disPest.objects.get(crop=instanc.currentCrop)
 
     for Pstc in PesInst.pest.all():
+        dic2={}
+        print(Pstc.pestname)
         dic2['Pest'] = Pstc.pestname
+        print(Pstc.pesticide)
         dic2['Pesticide'] = Pstc.pesticide
         lis2.append(dic2)
-
+    for Dis in PesInst.disease.all():
+        dic2 = {}
+        print(Dis.diseaseName,Dis.Symptoms,Dis.Remedy)
+        dic2['disease'] = Dis.diseaseName
+        dic2['symptoms'] = Dis.Symptoms
+        dic2['remedy'] = Dis.Remedy
+        lis3.append(dic2)
+    hotcount=0
+    cldcount=0
+    hotlis=[]
+    cldlis=[]
     for i in WeathObj:
         daily = {}
         daily['desc'] = i.WindDesc
@@ -114,35 +171,55 @@ def home1(request):
         daily['datenum'] = i.datenum
         daily['WindDirdeg'] = i.WindDirdeg
         daily['WinddirPt'] = i.Winddir16Point
-        if instanc.crop1.MintempC and instanc.crop1.MintempC < i.mintempC:
-            message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to cold temperature(' + str(
+        msg1=message=''
+        if instanc.currentCrop.MintempC and instanc.currentCrop.MintempC < i.mintempC:
+            cldcount+=1
+            cldlis.append(i.date)   
+            message += 'Your Crop ' + instanc.currentCrop.name + ' may get affected due to cold temperature(' + str(
                 i.mintempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-        if instanc.crop1.MaxtempC and instanc.crop1.MaxtempC > i.maxtempC:
-            message += 'Your Crop ' + instanc.crop1.name + ' may get affected due to high temperature( ' + str(
+        if instanc.currentCrop.MaxtempC and instanc.currentCrop.MaxtempC > i.maxtempC:
+            hotcount+=1
+            hotlis.append(i.date)   
+            message += 'Your Crop ' + instanc.currentCrop.name + ' may get affected due to high temperature( ' + str(
                 i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
-        daily['message'] = message
-        message = ''
         Forecast.append(daily)
+    if hotcount!=0 and cldcount!=0:
+        msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\n'
+        for inss in cldlis:
+            msg1+=str(inss)+','
+        msg1+='\nAnd due to high temperature for '+str(hotcount)+' days'
+        for inss in hotlis:
+            msg1+=str(inss)+','
+    elif hotcount!=0:
+        msg1+='Your Crop may get affected due to high temperature for '+str(hotcount)+' days\n'
+        for inss in hotlis:
+            msg1+=str(inss)+','
+    elif cldcount!=0:
+        msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\n'
+        for inss in cldlis:
+            msg1+=str(inss)+','
+    Forecast.append(daily)
+    dic['mesg']=msg1
+    instanc.cropmes=dic['mesg']
     dic['data'] = Forecast
     dic['advice'] = comm
     print(dic['data'])
-
     dic1 = {}
     totinst = Subscriber.objects.filter(location=instanc.location)
     req = {}
     for i in totinst:
         flag = 0
         for j in dic1:
-            if j == instanc.crop1:
+            if j == i.currentCrop:
                 dic1[j] += 1
                 flag = 1
                 break
         if flag == 0:
-            dic1[instanc.crop1] = 1
-    lis = sorted(req, key=lambda k: dic1[k])
+            dic1[i.currentCrop] = 1
+    lis = sorted(dic1, key=lambda k: dic1[k])
     count = 0
     for a in lis:
-        if a != instanc.crop1:
+        if a != instanc.currentCrop:
             ins = Crop.objects.get(name=a)
             if ins.pH_min and ins.pH_min > instanc.soil_ph and ins.pH_max and ins.pH_max < instanc.soil_ph:
                 req['crop'] = a
@@ -158,14 +235,72 @@ def home1(request):
                         seas += dicsp[x] + ','
                     req['season'] = seas
                 count += 1
+                dic['Recom']=True
+                dic['required'] = 'Recommended Crop is '+req['crop']+' during '+req['season']+':Season'  
+                instanc.recCrop=dic['required']
                 break
-    dic['required'] = req
+    
     dic['pestdet'] = lis2
-    print(lis2)
+    dic['disDet'] = lis3
+
+    #print(lis2)
     print(req)
     template = loader.get_template('home1.html')
     context = {'forecast': dic}
     return render(request, 'home1.html', context)
+
+@login_required()
+def reCommCrop(request):
+    instanc=Subscriber.objects.get(user=request.user)
+    totinst = Subscriber.objects.filter(location=instanc.location)
+    dic1 = {}
+    CropL=[]
+    SeasL=[]
+    for i in totinst:
+        flag = 0
+        for j in dic1:
+            if j == i.currentCrop:
+                dic1[j] += 1
+                flag = 1
+                break
+        if flag == 0:
+            dic1[i.currentCrop] = 1
+    lis = sorted(dic1, key=lambda k: dic1[k])
+    count = 0
+    print(lis)
+    for a in lis:
+        if count<5:
+            try:
+                ins = Crop.objects.get(name=a)
+                if ins.pH_min and ins.pH_min > instanc.soil_ph and ins.pH_max and ins.pH_max < instanc.soil_ph:
+                    count+=1
+                    CropL.append(a)
+                    st = ins.seas_no
+                    seas = ''
+                    if st.find('-') != -1:
+                        seas = 'Any month from January to December'
+                    else:
+                        dicsp = {1: 'January', 2: 'Febraury', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July',
+                                 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December'}
+                        ar = st.split(',')
+                        for x in ar:
+                            seas += dicsp[x] + ','
+                    SeasL.append(seas)
+                    count += 1
+            except:
+                print('Wrong')
+        else:
+            break
+    RecAdv="Recommed Crop(s) are:\n"
+    dic2={}
+    for i,j in zip(CropL,SeasL):
+        RecAdv+=i+' during '+j+':Season\n'
+        dic2['crop']=i
+        dic2['Seas']=j
+    instanc.recCrop=RecAdv
+    instanc.save()
+    return render(request,'recommendation.html',context={'Rec':dic2})
+
 
 
 @login_required()
@@ -203,9 +338,9 @@ def fill_profile(request):
 
 def crop(request):
     obj = Subscriber.objects.get(user=request.user)
-    cropIns = Crop.objects.get(name=obj.crop1.name)
+    cropIns = Crop.objects.get(name=obj.currentCrop.name)
     dic = []
-    Pesobj = Pest.objects.fiter(crop=cropIns)
+    Pesobj = disPest.objects.fiter(crop=cropIns)
     for i in Pesobj:
         dic1 = {}
         PestcObj = Pesticide.objects.get(pest=i)

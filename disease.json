@@ -1,0 +1,281 @@
+[
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Blight",
+      "Symptoms": "sudden browning,yellowing,spotting,withering or death of fruits,flowers,branches or the entire plant.",
+      "Crops_Affected": "apples,potatoes,rice,tomatoes"
+    },
+    "pk": 2557
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Canker",
+      "Symptoms": "Brown spots on leaves,often with an oily or water soaked appearance.The spots are usually surrounded by yellow hallo  and they can be seen on both the upper and lower sides of the leaf",
+      "Crops_Affected": "oranges, grapefruit, lemons, limes,tomato"
+    },
+    "pk": 2558
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Gall",
+      "Symptoms": "Symptoms include roundish rough-surfaced galls, several centimetres or more in diameter, usually at or near the soil line, on a graft site or bud union, or on roots and lower stems. The galls are at first cream-coloured or greenish and later turn brown or black",
+      "Crops_Affected": "raspberries and blackberries and grapes. It can also cause severe problems on apple, pear, blueberry, all stone fruits, and on ornamentals."
+    },
+    "pk": 2559
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Leaf Curl",
+      "Symptoms": "severe stunting of the plants with downward rolling and crinkling of the leaves.Older leaves become leathery and brittle.The infected plants look pale and produce more lateral branches giving a bushy appearance.",
+      "Crops_Affected": "Tomato, pepper, brinjal, ladys finger, tobacco, beans, cotton, cucurbits, citrus"
+    },
+    "pk": 2560
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Powdery Mildew",
+      "Symptoms": "Infected plants display white powdery spots on the leaves and stems. The lower leaves are the most affected, but the mildew can appear on any above-ground part of the plant.As the disease progresses, the spots get larger and denser",
+      "Crops_Affected": "Beans, beets, carrot, cucumber, brinjal, lettuce, melons, parsnips, peas, peppers, pumpkins, radicchio, radishes, squash, tomatillo, tomatoes,turnips"
+    },
+    "pk": 2561
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Root Rot",
+      "Symptoms": "Older leaves yellow and fall. Margins of leaves die.Roots are limp and not brittle and crisp as is found in healthy plants of all types.",
+      "Crops_Affected": "Outdoor plants ,shrubs"
+    },
+    "pk": 2562
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Leaf Spot",
+      "Symptoms": "Large numbers of very small white spots (spore masses) are visible on green leaf tissue. These quickly develop into discrete lesions with pinkish centres and many more of the spore-forming spots surrounding them.When disease pressure is intense, light leaf spot affects the developing leaves and buds causing plant stunting and leaf distortion.",
+      "Crops_Affected": "Roses,sugar beets"
+    },
+    "pk": 2563
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Wilt",
+      "Symptoms": "Plants first show a wilted appearance. Individual branches or even single leaves may be affected at first. Leaves develop a yellow color, often in V-shaped sectors between the major veins. Leaves eventually die and fall.Discoloration or brown streaking is often found in vascular tissues.",
+      "Crops_Affected": "Potato, tomato, brinjal, capsicum,custard apple"
+    },
+    "pk": 2564
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Stunting",
+      "Symptoms": "a slowdown in apex development, newly formed leaves are smaller in size and have shorter internodes in the affected stem parts than healthy stems. An almost complete cessation of growth, the leaves are smaller, grey/bronze green and tend to curl.",
+      "Crops_Affected": "Rice,tobacco"
+    },
+    "pk": 2565
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Chlorosis",
+      "Symptoms": "chlorotic leaves are pale, yellow, or yellow-white",
+      "Crops_Affected": "sugarcane, sorghum, groundnut,legumes"
+    },
+    "pk": 2566
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "BANANA BUNCHY TOP VIRUS",
+      "Symptoms": "dark green, dot-dash flecks along leaf veins adjacent to the midrib, these are most visible when viewed from the underside of leaves; flecks in veins can form characteristic 'hooks' into the midrib from the leaf blade",
+      "Crops_Affected": "Banana"
+    },
+    "pk": 2567
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Anthracnose",
+      "Symptoms": "small dead spots that often have a raised border and a sunken center, and that may have concentric rings of pink and brown.",
+      "Crops_Affected": "Beans,legumes"
+    },
+    "pk": 2568
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Smuts",
+      "Symptoms": "Smut galls ripen and rupture, releasing spores that travel through the air to infect new plants and overwinter in the soil, awaiting future crops",
+      "Crops_Affected": "grasses, grains, corn."
+    },
+    "pk": 2569
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Molds",
+      "Symptoms": "It appears as a thick, gray mold or as water-soaked, blighted regions of petals, leaves, or stems.",
+      "Crops_Affected": "Peonies, tulips,lilies"
+    },
+    "pk": 2570
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "CUCUMBER MOSAIC VIRUS",
+      "Symptoms": "The leaves become mottled and wrinkled and the edges curl downward. Growth becomes stunted with few runners and little in the way of flowers or fruit. Cucumbers produced after infection with cucumber mosaic disease often turn grey-white and are called \u201cwhite pickle.\u201d",
+      "Crops_Affected": "Cucumber"
+    },
+    "pk": 2571
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "SPIDER MITES",
+      "Symptoms": "Fine webbing along the underside of leaves",
+      "Crops_Affected": "All Crops"
+    },
+    "pk": 2572
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "MEALYBUG",
+      "Symptoms": "at higher numbers they can cause leaf yellowing and curling as the plant weakens",
+      "Crops_Affected": "ornamentals, houseplants, avocados, fruits"
+    },
+    "pk": 2573
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "ROSE RUST",
+      "Symptoms": "Affected rose stems (i.e., canes) can become curled and distorted. As the disease progresses, powdery orange or black, circular spots (called pustules) containing spores of the fungus that causes the disease form on the undersides of leaves, with corresponding yellow spots visible on upperleaf surfaces.",
+      "Crops_Affected": "Ornamental plants"
+    },
+    "pk": 2574
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "VARNISH SPOT",
+      "Symptoms": "Varnish spot affects only the inner leaves of head lettuce varieties. To see the symptoms, remove the outer leaves of the head. Varnish spot appears as dark brown, shiny, firm, necrotic lesions on these inner leaves",
+      "Crops_Affected": "lettuce"
+    },
+    "pk": 2575
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "CORKY ROOT",
+      "Symptoms": "Infected plants may be stunted and generally lack vigor. As the disease progresses the plants may show diurnal wilting and premature defoliation. The first symptoms on the roots are small elliptical light brown areas on the thin roots. This stage of the disease is frequently called brown root rot. As the disease progresses the larger roots are infected and develop extensive brown lesions that are somewhat swollen and cracked along their length, giving them a corky appearance.",
+      "Crops_Affected": "Tomato"
+    },
+    "pk": 2576
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "BACTERIAL PITH NECROSIS",
+      "Symptoms": "Initially leaves will turn yellow and may wilt. If the infection is serious, black or brown sports may appear on the stems, which also often swell. They may later shrink and crack. The most telling symptom can be seen if you cut open a stem - the centre (also called the pith) may be brown and may have holes in it or in advanced cases, the stem may be hollow",
+      "Crops_Affected": "Tomato"
+    },
+    "pk": 2577
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Black Leg",
+      "Symptoms": "They are characterized by stunted, yellowish foliage that has a stiff, upright habit. The lower part of the below ground stem of such plants is dark brown to black in color and extensively decayed. When infected, the pith region of the stem is particularly susceptible to decay and may extend upward in the stem far beyond the tissue with externally visible symptoms",
+      "Crops_Affected": "potato"
+    },
+    "pk": 2578
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Halo Blight",
+      "Symptoms": "small water-soaked spots on leaves. These spot progressively turn dark brown and are surrounded by a wide greenish yellow halo.",
+      "Crops_Affected": "beans"
+    },
+    "pk": 2579
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Apple Scab",
+      "Symptoms": "Scabby spots are sunken and tan and may have velvety spores in the center. As these spots mature, they become larger and turn brown and corky. Infected fruit becomes distorted and may crack allowing entry of secondary organisms. Severely affected fruit may drop, especially when young.",
+      "Crops_Affected": "apples"
+    },
+    "pk": 2580
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Club Root",
+      "Symptoms": "Plants often grow poorly and wilt during the heat of the day; plants often revive during cool nights. Outer leaves may turn yellow, purple or brown.",
+      "Crops_Affected": "cabbage,cauliflower,brocoli"
+    },
+    "pk": 2581
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Cedar Apple Rust",
+      "Symptoms": "look for pale yellow pinhead sized spots on the upper surface of the leaves shortly after bloom. These gradually enlarge to bright orange-yellow spots which make the disease easy to identify. Orange spots may develop on the fruit as well. Heavily infected leaves may drop prematurely.",
+      "Crops_Affected": "apple,crabapple"
+    },
+    "pk": 2582
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Cedar Apple Rust",
+      "Symptoms": "look for pale yellow pinhead sized spots on the upper surface of the leaves shortly after bloom. These gradually enlarge to bright orange-yellow spots which make the disease easy to identify. Orange spots may develop on the fruit as well. Heavily infected leaves may drop prematurely.",
+      "Crops_Affected": "apple,crabapple"
+    },
+    "pk": 2583
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Black Knot",
+      "Symptoms": "The spores germinate on stems beneath a thin film of moisture, often at the juncture of a new leaf start. They form small, olive-colored swellings over the first season, darkening in color as the season progresses, hidden by the leaves they\u2019ll eventually kill,",
+      "Crops_Affected": "plum, cherry, apricot and chokecherry trees"
+    },
+    "pk": 2584
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Fire Blight",
+      "Symptoms": "Most infected leaves and branch tips wilt rapidly turn brown or black; the leaves die but do not drop off. Trees will also develop reddish water soaked lesions on the bark. On warm days, these lesions ooze an orange-brown liquid. Fire blight kills blossoms, shoots, limbs and sometimes, the entire tree.",
+      "Crops_Affected": "apples,pears,members of rose family"
+    },
+    "pk": 2585
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Late Blight",
+      "Symptoms": "Late blight first appears on the lower, older leaves as water-soaked, gray-green spots. As the disease matures, these spots darken and a white fungal growth forms on the undersides. Eventually the entire plant will become infected. Crops can be severely damaged.",
+      "Crops_Affected": "tomato,potato"
+    },
+    "pk": 2586
+  },
+  {
+    "model": "crops.crop_disease",
+    "fields": {
+      "Disease": "Rust",
+      "Symptoms": "Black spores are visible on leaves and stems in fall and overwinter inside infected stems which are distinguished by dark, corky blotches at points of infection.",
+      "Crops_Affected": "roses,beans,tomatoes"
+    },
+    "pk": 2587
+  }
+]
