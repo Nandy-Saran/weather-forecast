@@ -1,8 +1,12 @@
 from django.shortcuts import render
-from datamodel.models import Crop, Weather, Place, State
+from datamodel.models import Crop, Weather, Place,State
 from django.template import loader
 # Create your views here.
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
+from accounts.models import Subscriber
+import requests
+import datetime
+from django.http import JsonResponse
 
 
 def start(request):
@@ -10,13 +14,13 @@ def start(request):
 
 
 # placOb1=placOb['dept']
-# print(request.POST)
-#        WeatObj=Weather.objects.filter(name=placObj.name).filter(datenum=0)
-#        for i in WeatObj:
-#            if i.date!=str(Date.now()):
-#                return
-# for placOb in placObj:
-#    print(placOb)
+        # print(request.POST)
+        #        WeatObj=Weather.objects.filter(name=placObj.name).filter(datenum=0)
+        #        for i in WeatObj:
+        #            if i.date!=str(Date.now()):
+        #                return
+        #for placOb in placObj:
+        #    print(placOb)
 def crop_advices(request):
     if request.method == 'POST':
         if request.is_ajax():
@@ -26,17 +30,17 @@ def crop_advices(request):
                 State1 = request.POST.get('state')
                 DistrictList = []
                 for district in Place.objects.filter(state__name=State1):
-                    DistrictList.append(temp)
+                    DistrictList.append(district)
 
                 dictionary = {}
                 dictionary['districtList'] = DistrictList
 
                 return JsonResponse(dictionary)
-
+       
         if 'place' in request.POST:
-
-            plac = request.POST.get('place')
-
+  
+            plac=request.POST.get('place')
+        
             WeathObj = Weather.objects.filter(place__name=plac)  # .filter(datenum__gte=0)
             CropObj = Crop.objects.all()
             dic = {}
@@ -64,6 +68,9 @@ def crop_advices(request):
                 daily['WinddirPt'] = i.Winddir16Point
                 msg1=''
                 for k in CropObj:
+                    hotcount=0
+                    cldcount=0
+                    cldlis=hotlis=[]
                     if k.MintempC and i.mintempC < k.MintempC:
                         cldcount+=1
                         cldlis.append(i.date) 
@@ -75,11 +82,11 @@ def crop_advices(request):
                         message += 'Your Crop ' + k.name + ' may get affected due to high temperature( ' + str(
                             i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
                     if hotcount!=0 and cldcount!=0:
-                        msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\nAnd due to high temperature for '+str(hotcount)+' days'
+                        msg1+='Your Crop ' + k.name + ' may get affected due to cold temperature for '+str(cldcount)+' days\nAnd due to high temperature for '+str(hotcount)+' days'
                     elif hotcount!=0:
-                        msg1+='Your Crop may get affected due to high temperature for '+str(hotcount)+' days\n'
+                        msg1+='Your Crop ' + k.name + ' may get affected due to high temperature for '+str(hotcount)+' days\n'
                     elif cldcount!=0:
-                        msg1+='Your Crop may get affected due to cold temperature for '+str(cldcount)+' days\n'
+                        msg1+='Your Crop ' + k.name + ' may get affected due to cold temperature for '+str(cldcount)+' days\n'
                 daily['message']=msg1
                 Forecast.append(daily)
             dic['datas'] = Forecast
@@ -106,7 +113,7 @@ def initiatDaily(request):
     weathObj=Weather.objects.filter(date_num__gt=0)
     for i in weathObj:
         i.delete()
-    lis=['Tamil Nadu','Andhra Pradesh','Kerala','Karnataka','Puducherry']
+    lis=['Tamil Nadu','Kerala','Karnataka','Puducherry']
     obj=State.objects.get(name__in=lis)
     for obj1 in obj:
         objec = Place.objects.filter(state=obj1)
@@ -158,21 +165,21 @@ def initDB(request):
         for instanc in Subscriber.objects.filter(location=ins1):
             instanc.cropmes=instanc.recCrop=''
             Picmsg=comm = ''
-            if instanc.crop1.pH_min and instanc.crop1.pH_min > instanc.soil_ph:
-                comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from'+str(instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
-            if instanc.crop1.pH_min and instanc.crop1.pH_max < instanc.soil_ph:
-                comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.crop1.name + 'requires soil with pH range from' + str(instanc.crop1.pH_min) + ' to ' + str(instanc.crop1.pH_max)
+            if instanc.currentCrop.pH_min and instanc.currentCrop.pH_min > instanc.soil_ph:
+                comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.currentCrop.name + 'requires soil with pH range from'+str(instanc.currentCrop.pH_min) + ' to ' + str(instanc.currentCrop.pH_max)
+            if instanc.currentCrop.pH_min and instanc.currentCrop.pH_max < instanc.soil_ph:
+                comm += 'Cultivate your crop according to your soil pH\nYour crop' + instanc.currentCrop.name + 'requires soil with pH range from' + str(instanc.currentCrop.pH_min) + ' to ' + str(instanc.currentCrop.pH_max)
             instanc.pHadv=comm
-            if instanc.crop1.pick_start and instanc.datOfSow:
+            if instanc.currentCrop.pick_start and instanc.datOfSow:
                 print(str(instanc.datOfSow)+'this is date of sow')
                 dic3={1:'Yesterday',0:'Today',2:'Day before yesterday'}
                 datdiff=datetime.date.today()-instanc.datOfSow
-                det=datdiff.days-instanc.crop1.pick_start
+                det=datdiff.days-instanc.currentCrop.pick_start
                 print(datdiff,det)
-                if instanc.crop1.interv:
+                if instanc.currentCrop.interv:
                     if det>0:
-                        if (det//instanc.crop1.interv)<instanc.crop1.count:
-                            count=det//instanc.crop1.interv
+                        if (det//instanc.currentCrop.interv)<instanc.currentCrop.count:
+                            count=det//instanc.currentCrop.interv
                             Picmsg='You should have completed '+str(count-1)+'th pick and have to do '+str(count)+'th pick'
                         else:
                             Picmsg='Please enter the total yield if processes are completed'
@@ -194,10 +201,10 @@ def initDB(request):
             hotlis=[]
             cldlis=[]
             for i in WeathObj:
-                if instanc.crop1.MintempC and instanc.crop1.MintempC < i.mintempC:
+                if instanc.currentCrop.MintempC and instanc.currentCrop.MintempC < i.mintempC:
                     cldcount+=1
                     cldlis.append(i.date)
-                if instanc.crop1.MaxtempC and instanc.crop1.MaxtempC > i.maxtempC:
+                if instanc.currentCrop.MaxtempC and instanc.currentCrop.MaxtempC > i.maxtempC:
                     hotcount+=1
                     hotlis.append(i.date)
             if hotcount!=0 and cldcount!=0:
@@ -211,16 +218,16 @@ def initDB(request):
             for i in totinst:
                 flag = 0
                 for j in dic1:
-                    if j == instanc.crop1:
+                    if j == instanc.currentCrop:
                         dic1[j] += 1
                         flag = 1
                         break
                 if flag == 0:
-                    dic1[instanc.crop1] = 1
+                    dic1[instanc.currentCrop] = 1
             lis = sorted(req, key=lambda k: dic1[k])
             count = 0
             for a in lis:
-                if a != instanc.crop1:
+                if a != instanc.currentCrop:
                     ins = Crop.objects.get(name=a)
                     if ins.pH_min and ins.pH_min > instanc.soil_ph and ins.pH_max and ins.pH_max < instanc.soil_ph:
                         req['crop'] = a
@@ -247,15 +254,15 @@ def CalCropAr(request):
         for subSr in Subscriber.objects.filter(location=plInst).filter(isCurFam=True):
             flag = 0
             for j in dic1:
-                if j == subSr.crop1:
+                if j == subSr.currentCrop:
                     dic1[j] += subSr.land_ha
                     flag = 1
                     break
             if flag == 0:
-                dic1[instanc.crop1] = subSr.land_ha
+                dic1[subSr.currentCrop] = subSr.land_ha
         lis = sorted(dic1, key=lambda k: dic1[k])
         text=''
         for i in dic1:
-            text+=i+':'+str(dic1[i])+','
+            text += i+':'+str(dic1[i])+','
         plInst.cropList=text[:-1]
 

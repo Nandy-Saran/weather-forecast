@@ -86,11 +86,11 @@ def prediction_mape(city='Coimbatore'):
     df2.index = range(df2.shape[0])
     df2 = pd.concat(z)
 
-    dft = pd.read_csv('test.csv')
+    dft = pd.read_csv('csv/test.csv')
     newdf = dft.merge(df2, left_on=['Year', 'mon'], right_on=['Year', 'mon'])
     newdf.head()
 
-    dft = pd.read_csv('test.csv')
+    dft = pd.read_csv('csv/test.csv')
     newdf = dft.merge(df2, left_on=['Year', 'mon'], right_on=['Year', 'mon'])
     newdf.head()
 

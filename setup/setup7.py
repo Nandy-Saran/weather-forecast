@@ -2,8 +2,8 @@ import pandas as pd
 
 from datamodel.models import disPest, Crop, Pesticide,Disease
 
-df1 = pd.read_csv('Book11.csv',sep=',',encoding='utf-8')
-df2 = pd.read_csv('Book18.csv',sep=',',encoding='utf-8')
+df1 = pd.read_csv('csv/Book11.csv',sep=',',encoding='utf-8')
+df2 = pd.read_csv('csv/Book18.csv',sep=',',encoding='utf-8')
 for inst in df2.itertuples():
     try:
         s = Disease.objects.create(diseaseName=inst.Disease.strip(),Symptoms=inst.Symptoms.strip(),Remedy=inst.Remedy.strip())
@@ -20,6 +20,7 @@ for inst in df1.itertuples():
         a = disPest.objects.get(crop=ins)
         print(ins.pk)
         for i in ar:
+            tem = Disease.objects.get(diseaseName=i.strip())
             tem = Disease.objects.get(diseaseName=i.strip())
             #print(tem.diseaseName)
             a.disease.add(tem)
