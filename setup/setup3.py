@@ -1,4 +1,4 @@
-from datamodel.models import Place, State
+from datamodel.models import Place,State
 import pandas as pd
 import numpy as np
 

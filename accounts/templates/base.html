@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load staticfiles %}
 <head>
 
 
@@ -88,7 +89,7 @@
         }
 
         #intro2 {
-            background: url("/staticfiles/img/pex2.jpeg") top center;
+            background: url( {%static  "/img/green.jpg" %}) top center;
             background-size: cover;
             width: 100%;
             position: relative;
