@@ -281,6 +281,7 @@ def fert_advices(request):
         Croplist=PlacObj.cropList
         dic = {}
         dic['avail']=False
+        z = []
         ar=Croplist.split(',')
         for i in ar:
             dic['avail']=True
@@ -293,11 +294,12 @@ def fert_advices(request):
                 dic['hectare'] =ar1[1]
             except:
                 dic['hectare']=0
+            z.append(dic)
         template = loader.get_template('fertAdvice.html')
-        context = {'advice': dic}
+        context = {'advice': z}
         print(context)
 
-        return render(request,'fertAdvice.html',context={'advice' : dic})
+        return HttpResponse(template.render(context, request))
 
     placObj = Place.objects.all()
     lis = []
