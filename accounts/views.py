@@ -12,7 +12,7 @@ import datetime
 from accounts.forms import SubscriberForm,NoCurForm
 from accounts.models import Subscriber
 from accounts.tokens import account_activation_token
-from datamodel.models import Crop, Weather
+from datamodel.models import Crop, Weather,Place
 from datamodel.models import disPest, Pesticide
 
 
@@ -273,13 +273,20 @@ def home2(request):
     recCrlis1=[]
     count=0
     for i in difference:
-        if count>6:
+        if count==6:
             break
         recCrlis1.append(i)
         count+=1
+    print(recCrlis1)
     return render(request,'recommendation.html',context={'CropList':recCrlis1})
 
-
+def created(request):
+    inst=request.POST.get('stat1')
+    instanc=Subscriber.objects.get(user=request.user)
+    plIns=Place.objets.get(name=inst)
+    instanc.location=plIns
+    st='Successful'
+    return render(request,'welcome.html',context={'message':st})
 
 @login_required()
 def reCommCrop(request):

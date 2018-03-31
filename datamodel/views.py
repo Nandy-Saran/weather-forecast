@@ -23,21 +23,6 @@ def start(request):
         #    print(placOb)
 def crop_advices(request):
     if request.method == 'POST':
-        if request.is_ajax():
-            print('***********************Success*********************')
-            if request.POST.get('action') == 'getDistricts':
-                print('***********************Success*********************')
-                State1 = request.POST.get('state')
-                DistrictList = []
-                for district in Place.objects.filter(state__name=State1):
-                    DistrictList.append(district)
-
-                dictionary = {}
-                dictionary['districtList'] = DistrictList
-
-                return JsonResponse(dictionary)
-
-  
         plac=request.POST.get('stat1')
         print(plac)
         WeathObj = Weather.objects.filter(place__name=plac)  # .filter(datenum__gte=0)
@@ -83,6 +68,8 @@ def crop_advices(request):
                     message += 'Your Crop ' + k.name + ' may get affected due to high temperature( ' + str(
                             i.maxtempC) + ' deg C) in' + str(i.datenum) + 'day(s)\n'
             Forecast.append(daily)
+        dicc = {}
+        msg1=''
         for k in CropObj:
             if hotcount[k]!=0 and cldcount[k]!=0:
                 msg1+='Your Crop ' + k.name + ' may get affected due to cold temperature for '+str(cldcount[k])+' days\nAnd due to high temperature for '+str(hotcount[k])+' days'
@@ -93,9 +80,13 @@ def crop_advices(request):
         dic['message']=msg1
         dic['datas'] = Forecast
         template = loader.get_template('crop_advices.html')
-        context = {'forecast': dic}
-        print(context)
-
+        placObj = Place.objects.all()
+        lis = []
+        for i in placObj:
+            print(i.name)
+            lis.append(i)
+        dic['place']=lis
+        context={'Placelist': lis,'forecast':dic}
         return HttpResponse(template.render(context, request))
 
     placObj = Place.objects.all()

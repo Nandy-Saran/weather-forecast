@@ -181,7 +181,15 @@
                                                 {% endfor %}
 
                                             </table>
-                                            <p>{{ forecast.message }}</p>
+                                            <select class="form-control" name="stat1" id="stat1" data-width="auto" required>
+                                        <option disabled selected>-----------</option>
+                                        {% for i in Placelist %}
+                                            <option value="{{ state }}" data-subtext="{{ state }}">{{ state }}</option>
+
+                                        {% endfor %}
+                                    </select>
+
+                                            <p>{{forecast.message}}</p>
                                         {% endif %}
 
 
