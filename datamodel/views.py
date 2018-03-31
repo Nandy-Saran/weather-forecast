@@ -283,7 +283,9 @@ def fert_advices(request):
         dic['avail']=False
         z = []
         ar=Croplist.split(',')
+        print(ar)
         for i in ar:
+            dic={}
             dic['avail']=True
             ar1=i.split(':')
             try:

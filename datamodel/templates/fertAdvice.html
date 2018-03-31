@@ -73,13 +73,11 @@
                                         <button id="add" type="submit" class="btn1 btn-dark-green">Get Forecast</button>
                                     </div>
                                 </form>
-                            {% for i in advice %}
-                            <p>Some First text {{ i.crop }} Second {{ i.hectare }}</p>
-                            {% endfor %}
+
                                 <div class="">
                                     <div class=""></div>
                                     <div class="">
-                                        {% if advice.avail %}
+
                                             <table class="table table-bordered" style="table-layout: fixed">
                                                 <tr>
                                                     <td class="warning"
@@ -91,19 +89,20 @@
 
                                                 </tr>
                                                 {% for i in advice %}
-                                                    {% if i.crop != None and i.hectare != None %}
+
                                                     <tr>
                                                         <td class="warning"
                                                             align="center">
-                                                            Hiii</td>
+                                                            {{ i.crop }}</td>
                                                         <td class="warning"
                                                             align="center">
                                                             {{ i.hectare }}</td>
                                                     </tr>
-                                                    {% endif %}
+
                                                 {% endfor %}
                                             </table>
-                                        {% endif %}
+
+
 
 
                                     </div>
