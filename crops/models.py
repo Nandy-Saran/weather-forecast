@@ -13,7 +13,7 @@ class crop(models.Model):
     max_temp = models.FloatField()
     fertilizer = models.CharField(max_length=50)
     flower_init = models.CharField(max_length=50)
-    first_picking = models.Field(max_length=100)
+    first_picking = models.CharField(max_length=100)
     growth_regulatore = models.TimeField()
     yield_crops = models.CharField(max_length=60)
     no_of_pickings = models.CharField(max_length=60)

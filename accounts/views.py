@@ -205,7 +205,7 @@ def home1(request):
     dic['advice'] = comm
     print(dic['data'])
     dic1 = {}
-    totinst = Subscriber.objects.filter(location=instanc.location)
+    totinst = Subscriber.objects.filter(location=instanc.location).filter(isCurFarm=True)
     req = {}
     for i in totinst:
         flag = 0
@@ -249,6 +249,38 @@ def home1(request):
     context = {'forecast': dic}
     return render(request, 'home1.html', context)
 
+
+def home2(request):
+    instanc = Subscriber.objects.get(user=request.user)
+    difference={}
+    for i in Crop.objects.all():
+        difference[i]=0
+    for CropIns in Crop.objects.all():
+        print(instanc.ElecConduc,CropIns.ElecConduc)
+        difference[CropIns] += abs(instanc.ElecConduc - CropIns.ElecConduc)
+        difference[CropIns] += abs(instanc.OrgCarbonP - CropIns.OrgCarbonP)
+        difference[CropIns] += abs(instanc.Nitrogenkgha - CropIns.Nitrogenkgha)
+        difference[CropIns] += abs(instanc.Phosphoruskgha - CropIns.Phosphoruskgha)
+        difference[CropIns] += abs(instanc.Potassium_kgha - CropIns.Potassium_kgha)
+        difference[CropIns] += abs(instanc.Sulphur_ppm - CropIns.Sulphur_ppm)
+        difference[CropIns] += abs(instanc.Zinc_ppm - CropIns.Zinc_ppm)
+        difference[CropIns] += abs(instanc.Boron_ppm - CropIns.Boron_ppm)
+        difference[CropIns] += abs(instanc.Ironppm - CropIns.Ironppm)
+        difference[CropIns] += abs(instanc.Manganese_ppm - CropIns.Manganese_ppm)
+        difference[CropIns] += abs(instanc.Copper_ppm - CropIns.Copper_ppm)
+        difference[CropIns] += abs(instanc.Waterph - CropIns.Waterph)
+    sorted(difference, key=lambda k:difference[k],reverse=True)
+    recCrlis1=[]
+    count=0
+    for i in difference:
+        if count>6:
+            break
+        recCrlis1.append(i)
+        count+=1
+    return render(request,'recommendation.html',context={'CropList':recCrlis1})
+
+
+
 @login_required()
 def reCommCrop(request):
     instanc=Subscriber.objects.get(user=request.user)
@@ -268,13 +300,13 @@ def reCommCrop(request):
     lis = sorted(dic1, key=lambda k: dic1[k])
     count = 0
     print(lis)
-    for a in lis:
+    for a in dic1:
         if count<5:
             try:
-                ins = Crop.objects.get(name=a)
+                ins = Crop.objects.get(name=dic1[a])
                 if ins.pH_min and ins.pH_min > instanc.soil_ph and ins.pH_max and ins.pH_max < instanc.soil_ph:
                     count+=1
-                    CropL.append(a)
+                    CropL.append(dic1[a])
                     st = ins.seas_no
                     seas = ''
                     if st.find('-') != -1:

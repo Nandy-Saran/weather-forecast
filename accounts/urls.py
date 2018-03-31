@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^login/$', user_login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
     url(r'^home1/$', home1, name='home1'),
+    url(r'^home2/$', home2, name='home2'),
     url(r'^account_activation_sent/$', account_activation_sent, name='account_activation_sent'),
     url(r'^subscriberView/$', subscriberView, name='subscriberView'),
     url(r'^newsubscView',newsubscView,name='newsubscView'),

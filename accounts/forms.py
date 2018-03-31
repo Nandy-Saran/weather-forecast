@@ -22,7 +22,7 @@ class SubscriberForm(forms.ModelForm):
         fields = (
             'name', 'Mobile_no', 'land_ha', 'soil_ph', 'soil_type', 'district', 'location', 'category', 'currentCrop',
             'prevCrop', 'user','datOfSow',
-            'yield_tons'
+            'yield_tons','ElecConduc','OrgCarbonP','Nitrogenkgha','Phosphoruskgha','Potassium_kgha','Sulphur_ppm','Zinc_ppm','Boron_ppm','Ironppm','Manganese_ppm','Copper_ppm','Waterph'
         )
         widgets = {'datOfSow':DateInput(),
 'user': forms.HiddenInput()}
@@ -34,6 +34,7 @@ class NoCurForm(forms.ModelForm):
         fields =(
             'name', 'Mobile_no', 'land_ha', 'soil_ph', 'soil_type', 'district', 'location', 'category',
             'prevCrop', 'user',
-            'yield_tons'
+            'yield_tons',
+            'ElecConduc', 'OrgCarbonP', 'Nitrogenkgha', 'Phosphoruskgha', 'Potassium_kgha', 'Sulphur_ppm', 'Zinc_ppm', 'Boron_ppm', 'Ironppm', 'Manganese_ppm', 'Copper_ppm', 'Waterph'
         )
         widgets = {'user': forms.HiddenInput()}
