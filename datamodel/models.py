@@ -66,6 +66,20 @@ class Crop(models.Model):
     #pests = models.CharField(max_length=150, blank=True, null=True)
     ferAdv=models.CharField(max_length=300,null=True,blank=True)
     irrAdv=models.CharField(max_length=300,null=True,blank=True)
+    ElecConduc=models.FloatField(blank=True,null=True)
+    OrgCarbonP=models.FloatField(blank=True,null=True)
+    Nitrogenkgha=models.FloatField(blank=True,null=True)
+    Phosphoruskgha=models.FloatField(blank=True,null=True)
+    Potassium_kgha=models.FloatField(blank=True,null=True)
+    Sulphur_ppm=models.FloatField(blank=True,null=True)
+    Zinc_ppm=models.FloatField(blank=True,null=True)
+    Boron_ppm=models.FloatField(blank=True,null=True)
+    Ironppm=models.FloatField(blank=True,null=True)
+    Manganese_ppm=models.FloatField(blank=True,null=True)
+    Copper_ppm=models.FloatField(blank=True,null=True)
+    Waterph=models.FloatField(blank=True,null=True)
+    min2months=models.FloatField(blank=True,null=True)
+    max2months=models.FloatField(blank=True,null=True)
 
     def __str__(self):
         return self.name

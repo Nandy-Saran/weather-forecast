@@ -84,33 +84,34 @@
                                         <button id="add" type="submit" class="btn1 btn-dark-green">Get Forecast</button>
                                     </div>
                                 </form>
+                            {% for i in advice %}
+                            <p>Some First text {{ i.crop }} Second {{ i.hectare }}</p>
+                            {% endfor %}
                                 <div class="">
                                     <div class=""></div>
                                     <div class="">
-                                        {% if advice %}
+                                        {% if advice.avail %}
                                             <table class="table table-bordered" style="table-layout: fixed">
                                                 <tr>
-                                                    <td class="warning" colspan="2"
-                                                        style=" ; font-weight: bolder"
+                                                    <td class="warning"
                                                         align="center">
                                                         <strong>Crop</strong></td>
-                                                    <td class="warning" colspan="2"
-                                                        style=" ; font-weight: bolder"
+                                                    <td class="warning"
                                                         align="center">
                                                         <strong>Hectare</strong></td>
 
                                                 </tr>
                                                 {% for i in advice %}
+                                                    {% if i.crop != None and i.hectare != None %}
                                                     <tr>
-                                                        <td class="warning" colspan="2"
-                                                            style=" ; font-weight: bolder"
+                                                        <td class="warning"
                                                             align="center">
-                                                            {{ i.crop }}</td>
-                                                        <td class="warning" colspan="2"
-                                                            style=" ; font-weight: bolder"
+                                                            Hiii</td>
+                                                        <td class="warning"
                                                             align="center">
                                                             {{ i.hectare }}</td>
                                                     </tr>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </table>
                                         {% endif %}
