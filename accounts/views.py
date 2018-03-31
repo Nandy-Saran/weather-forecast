@@ -15,6 +15,7 @@ from accounts.tokens import account_activation_token
 from datamodel.models import Crop, Weather,Place
 from datamodel.models import disPest, Pesticide
 from accounts.models import sms_farmer
+from utilities.send_sms import *
 
 
 # Create your views here.
@@ -249,13 +250,16 @@ def home1(request):
                     req['season'] = seas
                 count += 1
                 dic['Recom']=True
-                dic['required'] = 'Recommended Crop is '+req['crop']+' during '+req['season']+':Season'  
+                dic['required'] = 'Recommended Crop is ' + req['crop'] + ' during ' + req['season'] + ':Season'
+
                 instanc.recCrop=dic['required']
                 break
     
     dic['pestdet'] = lis2
     dic['disDet'] = lis3
-
+    send_sms(dic['required'], 'hi', instanc.Mobile_no)
+    send_sms(dic['required'], 'ta', instanc.Mobile_no)
+    send_sms(dic['required'], 'ta', instanc.Mobile_no)
     #print(lis2)
     print(req)
     template = loader.get_template('home1.html')

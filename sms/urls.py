@@ -14,11 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.views.generic import TemplateView
 
 urlpatterns = [
     # url(r'^hello_world/$', 'django_twilio.views.say', {
     #     'text': 'Hello, world!'
     # }),
+    url(r'^OneSignalSDKUpdaterWorker(.*.js)(?:/(?P<params>[a-zA-Z]+)/)?',
+        TemplateView.as_view(template_name='OneSignalSDKUpdaterWorker.js', content_type='application/x-javascript')),
+    url(r'^OneSignalSDKWorker(.*.js)(?:/(?P<params>[a-zA-Z]+)/)?',
+        TemplateView.as_view(template_name='OneSignalSDKWorker.js', content_type='application/x-javascript')),
+    url(r'^manifest.json',
+        TemplateView.as_view(template_name='manifest.json')),
     url(r'^', include("apidata.urls")),
     url(r'^', include("Mlmodels.urls")),
 
