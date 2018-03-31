@@ -5,21 +5,31 @@ from django.core import management
 from django_cron import CronJobBase, Schedule
 
 
-
-
-def send_sms_group(msgbody='Welcome'):
-    url = 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=5eA2hHbuk06KW6ieBIE4kA&senderid=TESTIN&channel=2&DCS=8&flashsms=0&number=917598054350&text=' + str(
-        msgbody) + '&groupid=18114&route=clickhere'
+def send_sms_group(msgbody='Welcome', lang='hi'):
+    x = trans(msgbody, lang)
+    z = x.text
+    url = 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=5eA2hHbuk06KW6ieBIE4kA&senderid=TESTIN&channel=2&DCS=8&flashsms=0&number=917598054350&text=' + "\'" + str(
+        z) + "\'" + '&groupid=18114&route=clickhere'
     res = requests.get(url)
-    return res
+    context = {}
+    context['res'] = res
+    context['url'] = url
+    return context
 
 
-def send_sms(msgbody='Welcome'):
-
-    url = 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=5eA2hHbuk06KW6ieBIE4kA&senderid=TESTIN&channel=2&DCS=8&flashsms=0&number=917598054350&text=' + str(
-        msgbody) + '&route=clickhere'
+def send_sms(msgbody='Welcome', lang='hi', number='7598054350'):
+    x = trans(msgbody, lang)
+    print(x.text)
+    z = x.text
+    url = 'https://www.smsgatewayhub.com/api/mt/SendSMS?APIKey=5eA2hHbuk06KW6ieBIE4kA&senderid=TESTIN&channel=2&DCS=8&flashsms=0&number=91' + str(
+        number) + '&text=' + "\'" + str(
+        z) + "\'" + '&route=clickhere'
+    print(url)
     res = requests.get(url)
-    return res
+    context = {}
+    context['res'] = res
+    context['url'] = url
+    return context
 
 
 def trans(text='hello', lang='ta'):
