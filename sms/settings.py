@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_twilio',
+    'django_cron',
     'dataset',
     'crops',
     'datamodel',
