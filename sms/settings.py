@@ -126,6 +126,9 @@ USE_TZ = True
 
 STATIC_URL = '/staticfiles/'
 
+STATIC_ROOT = '/staticfiles/'
+
+
 TWILIO_ACCOUNT_SID = 'AC5b2974923534e7c0a1425e68cb0fface'
 
 TWILIO_AUTH_TOKEN = 'e7d7eb3b1beafa02c3ca2aefa2fd8a8f'
