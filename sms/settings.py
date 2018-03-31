@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'crops',
     'datamodel',
     'Mlmodels'
+    'datamodel'
 ]
 
 MIDDLEWARE = [
@@ -125,9 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/staticfiles/'
-
-STATIC_ROOT = '/staticfiles/'
-
 
 TWILIO_ACCOUNT_SID = 'AC5b2974923534e7c0a1425e68cb0fface'
 

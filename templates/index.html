@@ -61,17 +61,18 @@
         <div class="font1 collapse navbar-collapse navbar-right navbar-main-collapse">
             <ul class="nav navbar-nav">
 
-                <li class="active"><a href="#intro">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="{% url 'signup' %}">Signup/Login</a></li>
+                <li><a href="{% url 'signup' %}">Signup</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Agromet Advisory<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Weather Prediction<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Crop Growth and Diseases</a></li>
-                        <li><a href="{% url 'prediction' %}">Rainfall Prediction</a></li>
-                        <li><a href="{% url 'crop_advices' %}">Weather Forecast</a></li>
-                        <li><a href="https://amrrs.shinyapps.io/weather_forecasting/">Monthly Rainfall Prediction</a></li>
+                        <li><a href="{% url 'crop_advices' %}">14 Days Weather Prediction</a></li>
+                        <li><a href=https://amrrs.shinyapps.io/weather_forecasting/">12 Month Rainfall Forecast</a></li>
+
                     </ul>
                 </li>
             </ul>

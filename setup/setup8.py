@@ -6,7 +6,6 @@ for row in df.itertuples():
     print(row.Crop)
     a=Crop.objects.get(name=row.Crop)
     a.ElecConduc=row.ECdsm
-
     a.OrgCarbonP=row.OrganicCarbonP
     a.Nitrogenkgha=row.Nitrogenkgha
     a.Phosphoruskgha=row.Phosphoruskgha
