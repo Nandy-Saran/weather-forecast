@@ -72,7 +72,7 @@ def crop_advices(request):
         msg1=''
         for k in CropObj:
             if hotcount[k]!=0 and cldcount[k]!=0:
-                msg1+='Your Crop' + k.name + '</strong> may get affected due to cold temperature for '+str(cldcount[k])+' days\nAnd due to high temperature for '+str(hotcount[k])+' days'
+                msg1+='Your Crop' + k.name + ' may get affected due to cold temperature for '+str(cldcount[k])+' days\nAnd due to high temperature for '+str(hotcount[k])+' days'
             elif hotcount[k]!=0:
                 msg1+='Your Crop ' + k.name + ' may get affected due to high temperature for '+str(hotcount[k])+' days\n'
             elif cldcount[k]!=0:

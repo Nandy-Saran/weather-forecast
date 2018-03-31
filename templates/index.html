@@ -27,6 +27,11 @@
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/staticfiles/style.css" type="text/css" media="screen"/>
+<div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </head>
 
@@ -55,16 +60,17 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="{% url 'signup' %}">Signup</a></li>
                 <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="fert_advices">Crop Consolidated Report</a></li>
 
-                <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Weather Prediction<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="{% url 'crop_advices' %}">14 Days Weather Prediction</a></li>
-                        <li><a href=https://amrrs.shinyapps.io/weather_forecasting/">12 Month Rainfall Forecast</a></li>
+                        <li><a href="https://amrrs.shinyapps.io/weather_forecasting/">12 Month Rainfall Forecast</a></li>
 
                     </ul>
                 </li>
+                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -198,55 +204,27 @@
             </div>
         </div>
     </div>
-</section>
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-lg-12">
-                <div class="wow shake" data-wow-delay="0.4s">
-                    <div class="page-scroll marginbot-30">
-                        <a href="#intro" id="totop" class="btn btn-circle">
-                            <i class="fa fa-angle-double-up animated"></i>
-                        </a>
-                    </div>
-                </div>
-                <p>&copy;GCT Technocrats. All rights reserved.</p>
-                <div class="credits">
 
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
 
-<!--
 <div class="container">
 
 <div class="row">
-  <div class="col-lg-2 col-lg-offset-5">
-    <hr class="marginbot-50">
-  </div>
-</div>
-<div class="row">
   <div class="col-lg-8">
     <div class="boxed-grey">
-
-      <div id="sendmessage">Your message has been sent. Thank you!</div>
-      <div id="errormessage"></div>
-      <form id="contact-form" action="" method="post" role="form" class="contactForm">
+    <form id="contact-form" action="" method="post" role="form" class="contactForm">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="name">
-                          Name</label>
+                           Farmer Name</label>
               <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
               <div class="validation"></div>
             </div>
             <div class="form-group">
-              <label for="email">
-                          Email Address</label>
+              <label for="phno">
+                          Phone No:</label>
               <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                <input type="text" class="form-control" name="phno" id="phno" placeholder="Your Number" data-rule="minlen:10" data-msg="Please enter a valid phone number" />
                 <div class="validation"></div>
               </div>
             </div>
@@ -272,7 +250,32 @@
         </div>
       </form>
     </div>
+
   </div>
+</div>
+</div>
+    </section>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="wow shake" data-wow-delay="0.4s">
+                    <div class="page-scroll marginbot-30">
+                        <a href="#intro" id="totop" class="btn btn-circle">
+                            <i class="fa fa-angle-double-up animated"></i>
+                        </a>
+                    </div>
+                </div>
+                <p>&copy;GCT Technocrats. All rights reserved.</p>
+                <div class="credits">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
 -->
 <!--     <div class="col-lg-4">
        <div class="widget-contact">
@@ -306,24 +309,6 @@
  </div>-->
 <!-- /Section: contact -->
 
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-lg-12">
-                <div class="wow shake" data-wow-delay="0.4s">
-                    <div class="page-scroll marginbot-30">
-                        <a href="#intro" id="totop" class="btn btn-circle">
-                            <i class="fa fa-angle-double-up animated"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="credits">
-
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
 
 <!-- Core JavaScript Files -->
 
