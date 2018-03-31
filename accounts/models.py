@@ -27,14 +27,23 @@ class Subscriber(models.Model):
     location = models.ForeignKey(Place)
     category = models.CharField(max_length=25, blank=True, null=True)
     yield_tons = models.FloatField(null=True)
-    datOfSow=models.DateField(null=True,blank=True)
+    datOfSow = models.DateField(null=True, blank=True)
     currentCrop = models.ForeignKey(Crop, related_name='crop_2_name', blank=True, null=True)
     prevCrop = models.ForeignKey(Crop, related_name='crop_1_Name', blank=True, null=True)
-    pHadv=models.CharField(max_length=150)
-    picMsg=models.CharField(max_length=150)
-    cropmes=models.CharField(max_length=180)
-    recCrop=models.CharField(max_length=260)
-    isCurFarm=models.BooleanField(default=False)
+    pHadv = models.CharField(max_length=150)
+    picMsg = models.CharField(max_length=150)
+    cropmes = models.CharField(max_length=180)
+    recCrop = models.CharField(max_length=260)
+    isCurFarm = models.BooleanField(default=False)
+
+
+class sms_farmer(models.Model):
+    farmer = models.ForeignKey(Subscriber)
+    crop = models.ForeignKey(Crop)
+
+
+
+
 
 
 @receiver(post_save, sender=User)

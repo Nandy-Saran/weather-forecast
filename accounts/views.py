@@ -9,11 +9,12 @@ from django.template import loader
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 import datetime
-from accounts.forms import SubscriberForm,NoCurForm
+from accounts.forms import SubscriberForm, NoCurForm, sms_crop_form
 from accounts.models import Subscriber
 from accounts.tokens import account_activation_token
 from datamodel.models import Crop, Weather
 from datamodel.models import disPest, Pesticide
+from accounts.models import sms_farmer
 
 
 # Create your views here.
@@ -36,6 +37,7 @@ def subscriberView(request, **kwargs):
     form.fields['user'].initial = request.user
     return render(request, 'subscriber.html', {'form': form})
 
+
 @login_required
 def newsubscView(request):
     if request.method == "POST":
@@ -47,6 +49,7 @@ def newsubscView(request):
         form=NoCurForm()
     form.fields['user'].initial=request.user
     return render(request,'subscriber.html',{'form':form})
+
 
 def signup(request):
     if request.method == 'POST':
@@ -61,6 +64,7 @@ def signup(request):
         return HttpResponseRedirect('/login/')
 
     return render(request, 'signup.html')
+
 
 def user_login(request):
     if request.method == "POST":
@@ -249,6 +253,7 @@ def home1(request):
     context = {'forecast': dic}
     return render(request, 'home1.html', context)
 
+
 @login_required()
 def reCommCrop(request):
     instanc=Subscriber.objects.get(user=request.user)
@@ -334,6 +339,38 @@ def fill_profile(request):
     else:
         form = ''
         pass
+
+
+@login_required
+def sms_view(request, **kwargs):
+    current = request.user
+    try:
+        if Subscriber.objects.get(user=current):
+            print('success')
+            pass
+
+    except Exception as e:
+        print(e)
+
+        return redirect('subscriberView')
+
+    subscribed = sms_farmer.objects.filter(farmer=current)
+    context = {'sub': subscribed}
+    form = sms_crop_form()
+    form.fields['user'].initial = request.user
+    context['form'] = form
+    if request.method == 'POST':
+        form = sms_crop_form(request.POST)
+        if form.is_valid():
+            print('checked')
+            obj = form.commit(False)
+            print(obj)
+            return render(request, 'sub_crops.html', context)
+    else:
+        form = sms_crop_form()
+        context['form'] = form
+
+    return render(request, 'sub_crops.html', context)
 
 
 def crop(request):

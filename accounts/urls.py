@@ -29,10 +29,11 @@ urlpatterns = [
     url(r'^login/$', user_login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
     url(r'^home1/$', home1, name='home1'),
+    url(r'^sms_view/$', sms_view, name='sms_view'),
     url(r'^account_activation_sent/$', account_activation_sent, name='account_activation_sent'),
     url(r'^subscriberView/$', subscriberView, name='subscriberView'),
-    url(r'^newsubscView',newsubscView,name='newsubscView'),
-    url(r'^reCommCrop',reCommCrop,name='reCommCrop'),
+    url(r'^newsubscView/$', newsubscView, name='newsubscView'),
+    url(r'^reCommCrop/$', reCommCrop, name='reCommCrop'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate,
         name='activate'),
 

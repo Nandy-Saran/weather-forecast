@@ -28,6 +28,12 @@ class SubscriberForm(forms.ModelForm):
 'user': forms.HiddenInput()}
 
 
+class sms_crop_form(forms.ModelForm):
+    class Meta:
+        fields = ('user', 'crop')
+        widgets = {'user': forms.HiddenInput()}
+
+
 class NoCurForm(forms.ModelForm):
     class Meta:
         model=Subscriber

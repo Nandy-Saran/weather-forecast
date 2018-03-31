@@ -2,13 +2,13 @@ from datamodel.models import Place,State
 import pandas as pd
 import numpy as np
 
-# try:
-#     for i in State.objects.all():
-#         i.delete()
-#     for i in Place.objects.all():
-#         i.delete()
-# except Exception as e:
-#     print(e)
+try:
+    for i in State.objects.all():
+        i.delete()
+    for i in Place.objects.all():
+        i.delete()
+except Exception as e:
+    print(e)
 
 
 
@@ -25,6 +25,7 @@ for i in lis1:
     print(obj)
 
 for i in df.itertuples():
+    print(i)
     print(i.state, i.district)
     StatInst = State.objects.get(name=i.state)
     place_obj = Place.objects.create(name=i.district, state=StatInst)
