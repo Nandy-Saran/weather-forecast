@@ -62,8 +62,10 @@ class crop_advices_sms(CronJobBase):
 
 
 """
+
 # usage
 from utilities.send_sms import send_sms
 x  = send_sms('<msg body>')
 x.json()
+
 """

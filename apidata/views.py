@@ -89,4 +89,4 @@ class Graph(TemplateView):
 
 
 def simple(request):
-    return render(request, 'search.html')
+    return render(request, 'example.html')

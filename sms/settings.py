@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'dataset',
     'crops',
     'datamodel',
-    'Mlmodels'
-    'datamodel'
+    'Mlmodels',
 ]
 
 MIDDLEWARE = [

@@ -20,6 +20,7 @@ from apidata.views import *
 
 urlpatterns = [
 
+    url(r'^trans/$', simple, name="simple"),
     url(r'^forecast/$', forecastview, name="apiforecast"),
     url(r'^simple/$', simple, name="apiforecast"),
     url(r'^graph/$', Graph.as_view(), name="Graph"),
