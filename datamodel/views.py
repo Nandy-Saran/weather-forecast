@@ -303,8 +303,8 @@ def fert_advices(request):
             except:
                 dic['hectare']=0
         template = loader.get_template('fertAdvice.html')
-        #context = {'advice': dic}
-        #print(context)
+        context = {'advice': dic}
+        print(context)
 
         return render(request,'fertAdvice.html',context={'advice' : dic})
 
