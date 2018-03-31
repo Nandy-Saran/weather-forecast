@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect,HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.utils.encoding import force_text
@@ -12,7 +12,7 @@ import datetime
 from accounts.forms import SubscriberForm, NoCurForm, sms_crop_form
 from accounts.models import Subscriber
 from accounts.tokens import account_activation_token
-from datamodel.models import Crop, Weather
+from datamodel.models import Crop, Weather,Place
 from datamodel.models import disPest, Pesticide
 from accounts.models import sms_farmer
 
@@ -73,7 +73,17 @@ def user_login(request):
         user = authenticate(username=aadhar_number, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect('/')
+            try:
+                subIns=Subscriber.objects.get(user=user)
+                if subIns.currentCrop:
+                    return HttpResponseRedirect('home1')
+                elif not subIns.location:
+                    return HttpResponseRedirect('subscriberView')
+                elif subIns.prevCrop:
+                    return HttpResponseRedirect('home2')
+            except:
+                print('Noo')
+        return HttpResponseRedirect('subscriberView')
     return render(request, 'login.html')
 
 
@@ -277,13 +287,22 @@ def home2(request):
     recCrlis1=[]
     count=0
     for i in difference:
-        if count>6:
+        if count==6:
             break
         recCrlis1.append(i)
         count+=1
-    return render(request,'recommendation.html',context={'CropList':recCrlis1})
+    print(recCrlis1)
+    context = {'CropList': recCrlis1}
+    print(context)
+    return render(request, 'recommendation.html', context)
 
-
+def created(request):
+    inst=request.POST.get('stat1')
+    instanc=Subscriber.objects.get(user=request.user)
+    plIns=Place.objects.get(name=inst)
+    instanc.location=plIns
+    st='Successful'
+    return render(request,'welcome.html',context={'message':st})
 
 @login_required()
 def reCommCrop(request):

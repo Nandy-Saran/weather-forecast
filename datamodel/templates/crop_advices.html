@@ -38,25 +38,35 @@
 <div id="preloader">
     <div id="load"></div>
 </div>
-<!-- Section: intro -->
-{#<section id="intro" class="intro">#}
-{##}
-{#    <div class="slogan text_color">#}
-{##}
-{#        <h2> Weather Prediction and Agromet Advisory </h2>#}
-{##}
-{##}
-{#    </div>#}
-{#    <p class="font11" style="color:white; text-align: center;font-size:35px;">Rainfall Prediction and Crop Growth Advice#}
-{#        for Farmers.</p>#}
-{#    <div class="page-scroll">#}
-{#        <a href="#about" class="btn btn-circle">#}
-{#            <i class="fa fa-angle-double-down animated"></i>#}
-{#        </a>#}
-{#    </div>#}
-{#</section>#}
-<!-- /Section: contact -->
-<!--WeatheR Prediction section-->
+ <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="">
+                    <h1 class="font2" style="text-shadow: 2px 2px grey; color:darkmagenta">Crop Advisory</h1>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="font1 collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="">Home</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Signup</a></li>
+
+                {% endif %}
+                </ul>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
 <section id="weather" class="home-section text-center">
     <div class="heading-about">
         <div class="container">
@@ -193,7 +203,15 @@
                                                 {% endfor %}
 
                                             </table>
-                                            <p>{{ forecast.message }}</p>
+                                            <select class="form-control" name="stat1" id="stat1" data-width="auto" required>
+                                        <option disabled selected>-----------</option>
+                                        {% for i in Placelist %}
+                                            <option value="{{ state }}" data-subtext="{{ state }}">{{ state }}</option>
+
+                                        {% endfor %}
+                                    </select>
+
+                                            <p>{{forecast.message}}</p>
                                         {% endif %}
 
 
