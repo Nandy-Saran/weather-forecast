@@ -12,24 +12,24 @@
     <title>Weather Prediction and Crop Advisory</title>
 
     <!-- Core JavaScript Files -->
-    <script src="/staticfiles/js/jquery.min.js"></script>
-    <script src="/staticfiles/js/bootstrap.min.js"></script>
-    <script src="/staticfiles/js/jquery.easing.min.js"></script>
-    <script src="/staticfiles/js/jquery.scrollTo.js"></script>
-    <script src="/staticfiles/js/wow.min.js"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src={% static 'js/bootstrap.min.js' %}></script>
+    <script src={% static 'js/jquery.easing.min.js' %}></script>
+    <script src={% static 'js/jquery.scrollTo.js' %}></script>
+    <script src={% static 'js/wow.min.js' %}></script>
     <!-- Custom Theme JavaScript -->
-    <script src="/staticfiles/js/custom.js"></script>
-    <script src="/staticfiles/contactform/contactform.js"></script>
+    <script src={% static 'js/custom.js' %}></script>
+    <script src={% static 'contactform/contactform.js' %}></script>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/staticfiles/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
 
     <!-- Fonts -->
-    <link href="/staticfiles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/staticfiles/css/animate.css" rel="stylesheet"/>
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet"/>
     <!-- Squad theme CSS -->
-    <link href="/staticfiles/css/style.css" rel="stylesheet">
-    <link href="/staticfiles/color/default.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'color/default.css' %}" rel="stylesheet">
 
 
     <!--Start of Zendesk Chat Script-->
@@ -89,7 +89,7 @@
         }
 
         #intro2 {
-            background: url("/staticfiles/img/pex2.jpeg") top center;
+            background: url({% static 'img/pex2.jpeg' %}) top center;
             background-size: cover;
             width: 100%;
             position: relative;
@@ -97,7 +97,7 @@
         }
 
         #graphbg {
-            background: url("/staticfiles/img/pex3.jpeg") top center;
+            background: url({% static 'img/pex3.jpeg' %}) top center;
             background-size: cover;
             width: 100%;
             position: relative;
@@ -105,7 +105,7 @@
         }
 
         .intro3 {
-            background: url("/staticfiles/img/wheat.jpeg") top center;
+            background: url({% static 'img/wheat.jpeg' %}) top center;
             background-size: cover;
             width: 100%;
             position: relative;
