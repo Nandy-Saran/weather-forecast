@@ -8,14 +8,14 @@
     <title>Weather Prediction and Crop Advisory</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/staticfiles/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
-    <!-- Fonts -->
-    <link href="/staticfiles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/staticfiles/css/animate.css" rel="stylesheet"/>
-    <!-- Squad theme CSS -->
-    <link href="/staticfiles/css/style.css" rel="stylesheet">
-    <link href="/staticfiles/color/default.css" rel="stylesheet">
+    {#    <link href="/staticfiles/css/bootstrap.min.css" rel="stylesheet" type="text/css">#}
+    {##}
+    {#    <!-- Fonts -->#}
+    {#    <link href="/staticfiles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">#}
+    {#    <link href="/staticfiles/css/animate.css" rel="stylesheet"/>#}
+    {#    <!-- Squad theme CSS -->#}
+    {#    <link href="/staticfiles/css/style.css" rel="stylesheet">#}
+    {#    <link href="/staticfiles/color/default.css" rel="stylesheet">#}
 
 </head>
 
@@ -44,7 +44,8 @@
                         </div>
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <form id="demo-form2" class="form-horizontal form-label-left" action={% url 'created' %}>
+                                <form id="demo-form2" class="form-horizontal form-label-left"
+                                      action="{% url 'created' %}">
                                     {% csrf_token %}
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
                                     CropList

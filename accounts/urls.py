@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^login/subscriberView/$', subscriberView, name='subscriberView'),
     url(r'^newsubscView/$', newsubscView, name='newsubscView'),
     url(r'^reCommCrop/$', reCommCrop, name='reCommCrop'),
+    url(r'^created/$', created, name='created'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate,
         name='activate'),
 

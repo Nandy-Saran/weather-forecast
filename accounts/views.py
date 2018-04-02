@@ -128,13 +128,14 @@ def home1(request):
             if det>0:
                 if (det//instanc.currentCrop.interv)<instanc.currentCrop.count:
                     count=det//instanc.currentCrop.interv
-                    Picmsg='You should have completed '+str(count-1)+'th pick and have to do '+str(count)+'th pick'
+                    Picmsg = 'You should have completed ' + str(count - 1) + 'th harvest and have to do ' + str(
+                        count) + 'th pick'
                 else:
                     Picmsg='Please enter the total yield if processes are completed'
             elif det>-3:
-                Picmsg='You have to start first pick in'+dic3[det]
+                Picmsg = 'You have to start first harvest in' + dic3[det]
             else:
-                Picmsg='You have to start first pick in '+str(det*-1)+' days'
+                Picmsg = 'You have to start first harvest in ' + str(det * -1) + ' days'
         else:
             if det>0 and det<4:
                 Picmsg='You should have started the picking before '+str(det)+' days'
@@ -257,10 +258,11 @@ def home1(request):
     
     dic['pestdet'] = lis2
     dic['disDet'] = lis3
-    send_sms(dic['required'], 'hi', instanc.Mobile_no)
-    send_sms(dic['required'], 'ta', instanc.Mobile_no)
-    send_sms(dic['required'], 'ta', instanc.Mobile_no)
-    #print(lis2)
+    print(instanc.Mobile_no, dic['Picmsg'])
+    send_sms(dic['Picmsg'], 'hi', instanc.Mobile_no)
+    send_sms(dic['Picmsg'], 'ta', instanc.Mobile_no)
+    # send_sms(dic['Picmsg'], 'ma', instanc.Mobile_no)
+    print(lis2)
     print(req)
     template = loader.get_template('home1.html')
     context = {'forecast': dic}
