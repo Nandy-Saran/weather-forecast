@@ -6,11 +6,14 @@ cycler==0.10.0
 Cython==0.28.1
 decorator==4.2.1
 Django==1.10.5
+django-common-helpers==0.9.1
+django-cron==0.5.0
 django-geojson==2.10.0
 django-leaflet==0.22.0
 django-phonenumber-field==2.0.0
 django-twilio==0.9.0
 fbprophet==0.2.1
+googletrans==2.2.0
 idna==2.6
 ipython-genutils==0.2.0
 jsonfield==2.0.2
