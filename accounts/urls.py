@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^signup/$', signup, name='signup'),
     url(r'^home/$', home, name='home'),
+    url(r'^homezz/$', homezz, name='homezz'),
     url(r'^login/$', user_login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
     url(r'^login/home1/$', home1, name='home1'),

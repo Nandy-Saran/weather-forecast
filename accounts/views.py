@@ -441,3 +441,7 @@ def crop(request):
         dic1['Pesticide'] = PestcObj.pesticide
         dic.append(dic1)
     return render(request, 'cropPests.html', context={'dic': dic})
+
+
+def homezz(request):
+    return  render(request, 'homezz.html')
