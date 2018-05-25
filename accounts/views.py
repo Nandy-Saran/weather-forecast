@@ -14,12 +14,10 @@ from accounts.models import Subscriber
 from accounts.tokens import account_activation_token
 from datamodel.models import Crop, Weather,Place
 from datamodel.models import disPest, Pesticide
-from accounts.models import sms_farmer
+#from accounts.models import sms_farmer
 from utilities.send_sms import *
 
-
 # Create your views here.
-
 
 @login_required
 def subscriberView(request, **kwargs):
@@ -30,9 +28,17 @@ def subscriberView(request, **kwargs):
             print(obj)
             print(obj.currentCrop)
             if obj.currentCrop:
+                print('no recomm')
                 obj.isCurFarm=True
-            obj.save()
-            return redirect('home1')
+                obj.save()
+                return redirect('home1')
+            elif not obj.prevCrop:
+                print('Not having previous crop')
+                obj.save()
+                return redirect('home2')
+            elif obj.prevCrop:
+                print('Having previous crop')
+                return redirect('reCommCrop')
     else:
         form = SubscriberForm()
     form.fields['user'].initial = request.user
@@ -45,7 +51,7 @@ def newsubscView(request):
         form = NoCurForm(request.POST)
         if form.is_valid():
             obj=form.save(commit=True)
-            return redirect('reCommCrop')
+            return redirect('home2')
     else:
         form=NoCurForm()
     form.fields['user'].initial=request.user
@@ -78,18 +84,20 @@ def user_login(request):
                 subIns=Subscriber.objects.get(user=user)
                 if subIns.currentCrop:
                     return HttpResponseRedirect('home1')
-                elif not subIns.location:
-                    return HttpResponseRedirect('subscriberView')
                 elif subIns.prevCrop:
                     return HttpResponseRedirect('home2')
             except:
-                print('Noo')
+                print('Excepted')
+                return HttpResponseRedirect('wayToForm')
         return HttpResponseRedirect('subscriberView')
     return render(request, 'login.html')
 
 
 def account_activation_sent(request):
     return render(request, 'account_activation_sent.html')
+
+def wayToForm(request):
+    return render(request,'WayToForm.html') 
 
 
 @login_required
@@ -98,9 +106,23 @@ def home1(request):
     print(instanc.location)
     WeathObj = Weather.objects.filter(place=instanc.location).filter(datenum__gte=0)
     dic = {}
+    dic['yield_com']=False
     dic['Recom']=False
     dic['Picmes']=False
     dic['avail'] = True
+    dic['ElecConduc']=instanc.ElecConduc-instanc.currentCrop.ElecConduc
+    dic['OrgCarbonP']=instanc.OrgCarbonP-instanc.currentCrop.OrgCarbonP
+    dic['Nitrogenkgha']=instanc.Nitrogenkgha-instanc.currentCrop.Nitrogenkgha
+    dic['Phosphoruskgha']=instanc.Phosphoruskgha-instanc.currentCrop.Phosphoruskgha
+    dic['Potassium_kgha']=instanc.Potassium_kgha-instanc.currentCrop.Potassium_kgha
+    dic['Sulphur_ppm']=instanc.Sulphur_ppm-instanc.currentCrop.Sulphur_ppm
+    dic['Zinc_ppm']=instanc.Zinc_ppm-instanc.currentCrop.Zinc_ppm
+    dic['Boron_ppm']=instanc.Boron_ppm-instanc.currentCrop.Boron_ppm
+    dic['Ironppm']=instanc.Ironppm-instanc.currentCrop.Ironppm
+    dic['Manganese_ppm']=instanc.Manganese_ppm-instanc.currentCrop.Manganese_ppm
+    dic['Copper_ppm']=instanc.Copper_ppm-instanc.currentCrop.Copper_ppm
+    dic['Waterph']=instanc.Waterph-instanc.currentCrop.Waterph
+
     instanc.pHadv=instanc.picMsg=instanc.cropmes=instanc.recCrop=''
     Forecast = []
     comm = ''
@@ -132,6 +154,7 @@ def home1(request):
                         count) + 'th pick'
                 else:
                     Picmsg='Please enter the total yield if processes are completed'
+                    dic['yield_com']=True
             elif det>-3:
                 Picmsg = 'You have to start first harvest in' + dic3[det]
             else:
@@ -144,10 +167,10 @@ def home1(request):
             else:
                 Picmsg='You have to start first pick in '+str(det*-1)+' days'
         dic['Picmes']=True
+    else:
+        dic['yield_com']=True
     dic['Picmsg']=Picmsg
     instanc.picMsg=Picmsg
-    print(Picmsg)
-
     PesInst = disPest.objects.get(crop=instanc.currentCrop)
 
     for Pstc in PesInst.pest.all():
@@ -259,16 +282,15 @@ def home1(request):
     dic['pestdet'] = lis2
     dic['disDet'] = lis3
     print(instanc.Mobile_no, dic['Picmsg'])
-    send_sms(dic['Picmsg'], 'hi', instanc.Mobile_no)
-    send_sms(dic['Picmsg'], 'ta', instanc.Mobile_no)
+    #send_sms(dic['Picmsg'], 'hi', instanc.Mobile_no)
+    #send_sms(dic['Picmsg'], 'ta', instanc.Mobile_no)
     # send_sms(dic['Picmsg'], 'ma', instanc.Mobile_no)
-    print(lis2)
+    #print(lis2)
+    print(dic)
     print(req)
     template = loader.get_template('home1.html')
     context = {'forecast': dic}
     return render(request, 'home1.html', context)
-
-
 
 def home2(request):
     instanc = Subscriber.objects.get(user=request.user)
@@ -277,6 +299,11 @@ def home2(request):
         difference[i]=0
     for CropIns in Crop.objects.all():
         print(instanc.ElecConduc,CropIns.ElecConduc)
+        if not instanc.soil_ph>=CropIns.pH_min and instanc.soil_ph<=CropIns.pH_max:
+            if instanc.soil_ph<CropIns.pH_min:
+                difference[CropIns]+=2*(CropIns.pH_min-instanc.soil_ph)
+            else:
+                difference[CropIns]+=2*(instanc.soil_ph-CropIns.pH_max)
         difference[CropIns] += abs(instanc.ElecConduc - CropIns.ElecConduc)
         difference[CropIns] += abs(instanc.OrgCarbonP - CropIns.OrgCarbonP)
         difference[CropIns] += abs(instanc.Nitrogenkgha - CropIns.Nitrogenkgha)
@@ -292,28 +319,80 @@ def home2(request):
     sorted(difference, key=lambda k:difference[k],reverse=True)
     recCrlis1=[]
     count=0
+    Reclis=[]
+    dicsp = {1: 'January', 2: 'Febraury', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July',
+             8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December'}
     for i in difference:
+        j={}
         if count==6:
             break
-        recCrlis1.append(i)
+        print(i)
+        print(i.ElecConduc-instanc.ElecConduc)
+        try:
+            Instances=Subscriber.objects.filter(location=instanc.location).filter(isCurFarm=True).filter(currentCrop=i)
+        except:
+            print('What')
+        cnt=0
+        for k in Instances:
+            cnt+=1
+        j['pH']=0
+        if not instanc.soil_ph>=i.pH_min and instanc.soil_ph<=i.pH_max:
+            if instanc.soil_ph<i.pH_min:
+                j['pH']=instanc.soil_ph-i.pH_min
+            else:
+                j['pH']=instanc.soil_ph-i.pH_max
+        j['count']=cnt
+        j['crop']=i
+        j['Elec']=i.ElecConduc-instanc.ElecConduc
+        j['OrgCar']=i.OrgCarbonP-instanc.OrgCarbonP
+        j['Nitrogen']=i.Nitrogenkgha-instanc.Nitrogenkgha
+        j['Phosphorus']=i.Phosphoruskgha-instanc.Phosphoruskgha
+        j['Potassium']=i.Potassium_kgha-instanc.Potassium_kgha
+        j['Sulphur']=i.Sulphur_ppm-instanc.Sulphur_ppm
+        j['Zinc']=i.Zinc_ppm-instanc.Zinc_ppm
+        j['Boron']=i.Boron_ppm-instanc.Boron_ppm
+        j['Iron']=i.Ironppm-instanc.Ironppm
+        j['Manganese']=i.Manganese_ppm-instanc.Manganese_ppm
+        j['Copper']=i.Copper_ppm-instanc.Copper_ppm
+        j['Water_pH']=i.Waterph-instanc.Waterph
+        st = i.seas_no
+        seas = ''
+        if st.find('-') != -1:
+            seas = 'Any month from January to December'
+        else:
+            ar = st.split(',')
+            for x in ar:
+                seas += dicsp[int(x)] + ','
+        j['Seasons']=seas
+        Reclis.append(j)    
         count+=1
+    recCrlis1=sorted(Reclis ,key=lambda crop:crop['count'])
     print(recCrlis1)
     context = {'CropList': recCrlis1}
     print(context)
     return render(request, 'recommendation.html', context)
 
 def created(request):
-    inst=request.POST.get('stat1')
-    instanc=Subscriber.objects.get(user=request.user)
-    plIns=Place.objects.get(name=inst)
-    instanc.location=plIns
-    st='Successful'
+    if request.method =='POST':
+        inst=request.POST.get('stat1')
+        instanc=Subscriber.objects.get(user=request.user)
+        crIns=Crop.objects.get(name=inst)
+        print(crIns.name+'This is the updated crop')
+        instanc.currentCrop=crIns
+        instanc.datOfSow=datetime.date.today()
+        instanc.isCurFarm=True
+        instanc.save()
+        st='Successful'
+        return render(request,'welcome.html',context={'message':st})
+    st='Failure'
     return render(request,'welcome.html',context={'message':st})
 
 @login_required()
 def reCommCrop(request):
     instanc=Subscriber.objects.get(user=request.user)
-    totinst = Subscriber.objects.filter(location=instanc.location)
+    totinst = Subscriber.objects.filter(location=instanc.location).filter(isCurFarm=True)
+    for i in totinst:
+        print(i.name)
     dic1 = {}
     CropL=[]
     SeasL=[]
@@ -328,14 +407,23 @@ def reCommCrop(request):
             dic1[i.currentCrop] = 1
     lis = sorted(dic1, key=lambda k: dic1[k])
     count = 0
-    print(lis)
+    for i in lis:
+        print(i.Nitrogenkgha)
+    print('entered loop')
+    print(dic1)
+    dicd={}
+    dicd['exist']=False
     for a in dic1:
+        print(a.Nitrogenkgha)
         if count<5:
             try:
-                ins = Crop.objects.get(name=dic1[a])
+                ins = Crop.objects.get(name=a.name)
+                print('1')
                 if ins.pH_min and ins.pH_min > instanc.soil_ph and ins.pH_max and ins.pH_max < instanc.soil_ph:
+                    dicd['exist']=True
+                    print('satisfied')
                     count+=1
-                    CropL.append(dic1[a])
+                    CropL.append(a)
                     st = ins.seas_no
                     seas = ''
                     if st.find('-') != -1:
@@ -348,19 +436,29 @@ def reCommCrop(request):
                             seas += dicsp[x] + ','
                     SeasL.append(seas)
                     count += 1
+                print('2')
             except:
                 print('Wrong')
         else:
             break
+        print('4')
     RecAdv="Recommed Crop(s) are:\n"
-    dic2={}
+    print('5',CropL,SeasL)
+    SeasL.append('Any Month fron Aud jk')
+    CropL.append(Crop.objects.get(name='Brinjal'))
+    dic3={}
+    dicd['CropSeaslist']=[]
+    dicd['exist']=True
     for i,j in zip(CropL,SeasL):
-        RecAdv+=i+' during '+j+':Season\n'
-        dic2['crop']=i
-        dic2['Seas']=j
+        print(i,j)
+        RecAdv+=str(i)+' during '+j+':Season\n'
+        dic3['crop']=i
+        dic3['Seas']=j
+        dicd['CropSeaslist'].append(dic3)
     instanc.recCrop=RecAdv
+    print('6')
     instanc.save()
-    return render(request,'recommendation.html',context={'Rec':dic2})
+    return render(request,'recommendation.html',context={'Rec':dicd})
 
 
 
@@ -428,7 +526,7 @@ def sms_view(request, **kwargs):
 
     return render(request, 'sub_crops.html', context)
 
-
+'''
 def crop(request):
     obj = Subscriber.objects.get(user=request.user)
     cropIns = Crop.objects.get(name=obj.currentCrop.name)
@@ -444,4 +542,4 @@ def crop(request):
 
 
 def homezz(request):
-    return  render(request, 'homezz.html')
+    return  render(request, 'homezz.html')'''

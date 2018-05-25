@@ -19,7 +19,7 @@ class Profile(models.Model):
 class Subscriber(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=True)
-    Mobile_no = models.CharField(max_length=15)
+    Mobile_no = models.CharField(max_length=15,unique=True)
     land_ha = models.FloatField(max_length=15, blank=True, null=True)
     soil_type = models.CharField(max_length=15, blank=True, null=True)
     soil_ph = models.FloatField(max_length=10, blank=True, null=True)
@@ -49,15 +49,6 @@ class Subscriber(models.Model):
     min2months = models.FloatField(blank=True, null=True)
     max2months = models.FloatField(blank=True, null=True)
     isCurFarm=models.BooleanField(default=False)
-
-
-class sms_farmer(models.Model):
-    farmer = models.ForeignKey(Subscriber)
-    crop = models.ForeignKey(Crop)
-
-
-
-
 
 
 @receiver(post_save, sender=User)

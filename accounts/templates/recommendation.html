@@ -2,20 +2,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Weather Prediction and Crop Advisory</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/staticfiles/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
-    <!-- Fonts -->
-    <link href="/staticfiles/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/staticfiles/css/animate.css" rel="stylesheet"/>
-    <!-- Squad theme CSS -->
-    <link href="/staticfiles/css/style.css" rel="stylesheet">
-    <link href="/staticfiles/color/default.css" rel="stylesheet">
+    
 
 </head>
 
@@ -45,15 +35,18 @@
 
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <form id="demo-form2" class="form-horizontal form-label-left"
-                                      action="{% url 'created' %}">
+                                      action="{% url 'created' %}" method="post">
                                     {% csrf_token %}
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">
                                     CropList
                                 </label>
-                                    <select class="form-control" name="stat1" id="stat1" data-width="auto" required>
+                                    {% for i in CropList %}
+                                 <p>{{ i.Elec }}</p>
+                                {% endfor %}
+                                    <select class="form-control" name="stat1" id="stat1"  data-width="auto" required>
                                         <option disabled selected>-----------</option>
-                                        {% for crop in CropList %}
-                                            <option value="{{ crop }}">{{ crop }}</option>
+                                        {% for crop1 in CropList %}
+                                            <option value="{{ crop1.crop.name }}" >{{ crop1.crop.name }}</option>
 
                                         {% endfor %}
                                     </select>

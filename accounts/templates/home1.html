@@ -157,7 +157,42 @@
                     {% endif %}
                 {% endfor %}
                 </table>
-
+                {% if forecast.Waterph < 0 %}
+                    <p>Your Crop requires {{forecast.Waterph}} amount of Waterph</p>
+                {% endif %}
+                {% if forecast.ElecConduc < 0 %}
+                    <p>Your Crop requires {{forecast.ElecConduc}} amount of ElecConduc</p>
+                {% endif %}
+                {% if forecast.OrgCarbon < 0 %}
+                    <p>Your Crop requires {{forecast.OrgCarbonP}} amount of OrgCarbonP</p>
+                {% endif %}
+                {% if forecast.Nitrogenkgha < 0 %}
+                    <p>Your Crop requires {{forecast.Nitrogenkgha}} amount of Nitrogenkgha</p>
+                {% endif %}
+                {% if forecast.Phosphoruskgha < 0 %}
+                    <p>Your Crop requires {{forecast.Phosphoruskgha}} amount of Phosphoruskgha</p>
+                {% endif %}
+                {% if forecast.Potassium_kgha < 0 %}
+                    <p>Your Crop requires {{forecast.Potassium_kgha}} amount of Potassium_kgha</p>
+                {% endif %}
+                {% if forecast.Sulphur_ppm < 0 %}
+                    <p>Your Crop requires {{forecast.Sulphur_ppm}} amount of Sulphur_ppm</p>
+                {% endif %}
+                {% if forecast.Zinc_ppm < 0 %}
+                    <p>Your Crop requires {{forecast.Zinc_ppm}} amount of Zinc_ppm</p>
+                {% endif %}
+                {% if forecast.Boron_ppm < 0 %}
+                    <p>Your Crop requires {{forecast.Boron_ppm}} amount of Boron_ppm</p>
+                {% endif %}
+                {% if forecast.Ironppm < 0 %}
+                    <p>Your Crop requires {{forecast.Ironppm}} amount of Ironppm</p>
+                {% endif %}
+                {% if forecast.Manganese_ppm < 0 %}
+                    <p>Your Crop requires {{forecast.Manganese_ppm}} amount of Manganese_ppm</p>
+                {% endif %}
+                {% if forecast.Copper_ppm < 0 %}
+                    <p>Your Crop requires {{forecast.Copper_ppm} amount of Copper_ppm</p>
+                {% endif %}
 
                 <p style="color: darkred; font-size:medium"> {{ forecast.mesg }}</p>
 

@@ -105,7 +105,7 @@ class disPest(models.Model):
     disease=models.ManyToManyField(Disease)
 
     def __str__(self):
-        return self.crop.name + ' ' + self.pest.pestname
+        return self.crop.name
 '''
 class crop1(models.Model):
     name=models.CharField(max_length=30)

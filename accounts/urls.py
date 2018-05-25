@@ -26,19 +26,19 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^signup/$', signup, name='signup'),
     url(r'^home/$', home, name='home'),
-    url(r'^homezz/$', homezz, name='homezz'),
+    #url(r'^homezz/$', homezz, name='homezz'),
     url(r'^login/$', user_login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'login'}, name='logout'),
     url(r'^login/home1/$', home1, name='home1'),
     url(r'^login/home2/$', home2, name='home2'),
     url(r'^sms_view/$', sms_view, name='sms_view'),
+    url(r'^login/wayToForm/$', wayToForm, name='wayToForm'),
     url(r'^account_activation_sent/$', account_activation_sent, name='account_activation_sent'),
     url(r'^login/subscriberView/$', subscriberView, name='subscriberView'),
     url(r'^newsubscView/$', newsubscView, name='newsubscView'),
-    url(r'^reCommCrop/$', reCommCrop, name='reCommCrop'),
+    url(r'^login/reCommCrop/$', reCommCrop, name='reCommCrop'),
     url(r'^created/$', created, name='created'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate,
         name='activate'),
-
 
 ]

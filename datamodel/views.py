@@ -244,9 +244,11 @@ def initDB(request):
 def CalCropAr(request):
     for plInst in Place.objects.all():
         dic1 = {}
+        exist=False
         for subSr in Subscriber.objects.filter(location=plInst).filter(isCurFarm=True):
             flag = 0
             print('hi')
+            exist=True
             print(dic1)
             for j in dic1:
                 print('hiiii')
@@ -259,17 +261,24 @@ def CalCropAr(request):
                 print('hii')
                 print(subSr.currentCrop.name)
                 dic1[subSr.currentCrop.name] = subSr.land_ha
-
-        lis = sorted(dic1, key=lambda k: dic1[k])
-        text=''
-        for i in dic1:
-            text += i+':'+str(dic1[i])+','
-        try:
-            pl = Place.objects.get(name=plInst.name)
-        except:
-            pl=Place.objects.get(name=plInst.name,state__name=plInst.state)
-        pl.cropList=text[:-1]
-        pl.save()
+        if exist==True:
+            lis = sorted(dic1, key=lambda k: dic1[k])
+            text=''
+            for i in dic1:
+                text += i+':'+str(dic1[i])+','
+            try:
+                pl = Place.objects.get(name=plInst.name)
+            except:
+                pl=Place.objects.get(name=plInst.name,state__name=plInst.state)
+            pl.cropList=text[:-1]
+            pl.save()
+        else:
+            try:
+                pl = Place.objects.get(name=plInst.name)
+            except:
+                pl=Place.objects.get(name=plInst.name,state__name=plInst.state)
+            pl.cropList=''
+            pl.save()
     return redirect('fert_advices')
 
 
